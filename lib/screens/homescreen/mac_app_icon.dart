@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:portfolio/models/models.dart';
+import 'package:portfolio/config/app_design.dart';
 
 class MacAppIcon extends StatefulWidget {
   final PortfolioApp app;
@@ -53,10 +54,7 @@ class _MacAppIconState extends State<MacAppIcon> {
               const SizedBox(height: 6),
               Text(
                 widget.app.title,
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 11,
-                  fontWeight: FontWeight.w500,
+                style: AppDesign.appTitle().copyWith(
                   shadows: [
                     Shadow(
                       color: Colors.black.withOpacity(0.5),

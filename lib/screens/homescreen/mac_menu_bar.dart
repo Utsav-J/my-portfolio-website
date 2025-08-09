@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:intl/intl.dart';
 import 'package:portfolio/models/models.dart';
+import 'package:portfolio/config/app_design.dart';
 
 class MacMenuBar extends StatefulWidget {
   const MacMenuBar({Key? key}) : super(key: key);
@@ -13,8 +14,10 @@ class MacMenuBar extends StatefulWidget {
 class _MacMenuBarState extends State<MacMenuBar> {
   bool _isFileMenuOpen = false;
   bool _isWifiPopupOpen = false;
+  bool _isPortfolioMenuOpen = false;
   OverlayEntry? _overlayEntry;
   OverlayEntry? _wifiOverlayEntry;
+  OverlayEntry? _portfolioOverlayEntry;
 
   void _toggleFileMenu() {
     if (_isFileMenuOpen) {
@@ -99,7 +102,7 @@ class _MacMenuBarState extends State<MacMenuBar> {
       builder: (context) => GestureDetector(
         onTap: _closeWifiPopup,
         child: Container(
-          color: Colors.black.withOpacity(0.3),
+          color: Colors.black.withOpacity(0.4),
           child: Center(
             child: WifiConnectionPopup(
               onClose: _closeWifiPopup,
@@ -127,10 +130,76 @@ class _MacMenuBarState extends State<MacMenuBar> {
     print('Opening LinkedIn profile...');
   }
 
+  void _togglePortfolioMenu() {
+    if (_isPortfolioMenuOpen) {
+      _closePortfolioMenu();
+    } else {
+      _openPortfolioMenu();
+    }
+  }
+
+  void _openPortfolioMenu() {
+    setState(() => _isPortfolioMenuOpen = true);
+
+    _portfolioOverlayEntry = OverlayEntry(
+      builder: (context) => GestureDetector(
+        onTap: _closePortfolioMenu,
+        child: Container(
+          color: Colors.transparent,
+          child: Stack(
+            children: [
+              Positioned(
+                top: 30,
+                left: 16, // Align with the portfolio title
+                child: MacDropdownMenu(
+                  onItemSelected: (action) {
+                    _closePortfolioMenu();
+                    _handlePortfolioAction(action);
+                  },
+                  menuItems: [
+                    MenuItemData('View Source Code', CupertinoIcons.doc_text),
+                    MenuItemData('Drop a Feedback', CupertinoIcons.chat_bubble),
+                    MenuItemData('Lock Device', CupertinoIcons.lock),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+
+    Overlay.of(context).insert(_portfolioOverlayEntry!);
+  }
+
+  void _closePortfolioMenu() {
+    setState(() => _isPortfolioMenuOpen = false);
+    _portfolioOverlayEntry?.remove();
+    _portfolioOverlayEntry = null;
+  }
+
+  void _handlePortfolioAction(String action) {
+    switch (action) {
+      case 'View Source Code':
+        // TODO: Implement source code navigation
+        print('Opening source code...');
+        break;
+      case 'Drop a Feedback':
+        // TODO: Implement feedback form
+        print('Opening feedback form...');
+        break;
+      case 'Lock Device':
+        // TODO: Implement device lock
+        print('Locking device...');
+        break;
+    }
+  }
+
   @override
   void dispose() {
     _overlayEntry?.remove();
     _wifiOverlayEntry?.remove();
+    _portfolioOverlayEntry?.remove();
     super.dispose();
   }
 
@@ -143,7 +212,7 @@ class _MacMenuBarState extends State<MacMenuBar> {
       height: 30,
       width: double.infinity,
       decoration: BoxDecoration(
-        color: Colors.black.withOpacity(0.8),
+        color: Colors.black.withOpacity(0.4),
         boxShadow: [
           BoxShadow(
             color: Colors.black.withOpacity(0.2),
@@ -156,18 +225,41 @@ class _MacMenuBarState extends State<MacMenuBar> {
         padding: const EdgeInsets.symmetric(horizontal: 16),
         child: Row(
           children: [
-            // Apple logo
-            Icon(CupertinoIcons.command, color: Colors.white, size: 16),
-            const SizedBox(width: 20),
-            Text(
-              'Utsav\'s Portfolio',
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 13,
-                fontWeight: FontWeight.w600,
+            // Apple logo and Portfolio title
+            MouseRegion(
+              cursor: SystemMouseCursors.click,
+              child: GestureDetector(
+                onTap: _togglePortfolioMenu,
+                child: Container(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 8,
+                    vertical: 4,
+                  ),
+                  decoration: BoxDecoration(
+                    color: _isPortfolioMenuOpen
+                        ? Colors.white.withOpacity(0.2)
+                        : Colors.transparent,
+                    borderRadius: BorderRadius.circular(4),
+                  ),
+                  child: Row(
+                    children: [
+                      Icon(
+                        CupertinoIcons.command,
+                        color: Colors.white,
+                        size: 16,
+                      ),
+                      const SizedBox(width: 12),
+                      Text(
+                        'Utsav\'s Portfolio',
+                        style: AppDesign.menuBarText(),
+                      ),
+                      const SizedBox(width: 12),
+                    ],
+                  ),
+                ),
               ),
             ),
-            const SizedBox(width: 20),
+
             // File menu dropdown
             MouseRegion(
               cursor: SystemMouseCursors.click,
@@ -184,14 +276,7 @@ class _MacMenuBarState extends State<MacMenuBar> {
                         : Colors.transparent,
                     borderRadius: BorderRadius.circular(4),
                   ),
-                  child: Text(
-                    'File',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 13,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
+                  child: Text('File', style: AppDesign.menuBarText()),
                 ),
               ),
             ),
@@ -220,14 +305,7 @@ class _MacMenuBarState extends State<MacMenuBar> {
                   size: 14,
                 ),
                 const SizedBox(width: 8),
-                Text(
-                  formattedTime,
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 11,
-                    fontWeight: FontWeight.w500,
-                  ),
-                ),
+                Text(formattedTime, style: AppDesign.menuBarTime()),
               ],
             ),
           ],
@@ -239,39 +317,41 @@ class _MacMenuBarState extends State<MacMenuBar> {
 
 class MacDropdownMenu extends StatelessWidget {
   final Function(String) onItemSelected;
+  final List<MenuItemData>? menuItems;
 
-  const MacDropdownMenu({Key? key, required this.onItemSelected})
-    : super(key: key);
+  const MacDropdownMenu({
+    Key? key,
+    required this.onItemSelected,
+    this.menuItems,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final menuItems = [
-      MenuItemData('Download Resume', CupertinoIcons.cloud_download),
-      MenuItemData('Print Portfolio', CupertinoIcons.printer),
-      MenuItemData('Share Portfolio', CupertinoIcons.share),
-      MenuItemData('Export as PDF', CupertinoIcons.doc),
-      MenuItemData('Settings', CupertinoIcons.gear),
-    ];
+    final items =
+        menuItems ??
+        [
+          MenuItemData('Download Resume', CupertinoIcons.cloud_download),
+          MenuItemData('Print Portfolio', CupertinoIcons.printer),
+          MenuItemData('Share Portfolio', CupertinoIcons.share),
+          MenuItemData('Export as PDF', CupertinoIcons.doc),
+          MenuItemData('Settings', CupertinoIcons.gear),
+        ];
 
     return Material(
-      elevation: 8,
-      borderRadius: BorderRadius.circular(8),
-      child: Container(
+      color: Colors.transparent,
+      child: AppDesign.glassmorphicContainer(
         width: 180,
-        decoration: BoxDecoration(
-          color: const Color(0xFF2C2C2C),
-          borderRadius: BorderRadius.circular(8),
-          border: Border.all(color: Colors.white.withOpacity(0.1), width: 0.5),
-        ),
+        borderRadius: 8.0,
+        blurStrength: 15.0,
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            for (int i = 0; i < menuItems.length; i++) ...[
+            for (int i = 0; i < items.length; i++) ...[
               MacMenuItem(
-                item: menuItems[i],
-                onTap: () => onItemSelected(menuItems[i].title),
+                item: items[i],
+                onTap: () => onItemSelected(items[i].title),
               ),
-              if (i < menuItems.length - 1)
+              if (i < items.length - 1)
                 Divider(
                   height: 1,
                   thickness: 0.5,
@@ -311,21 +391,15 @@ class _MacMenuItemState extends State<MacMenuItem> {
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
           decoration: BoxDecoration(
             color: _isHovered
-                ? const Color(0xFF007AFF).withOpacity(0.8)
+                ? const Color(0xFF007AFF).withOpacity(0.3)
                 : Colors.transparent,
+            borderRadius: BorderRadius.circular(6),
           ),
           child: Row(
             children: [
               Icon(widget.item.icon, color: Colors.white, size: 16),
               const SizedBox(width: 12),
-              Text(
-                widget.item.title,
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 13,
-                  fontWeight: FontWeight.w500,
-                ),
-              ),
+              Text(widget.item.title, style: AppDesign.menuItem()),
             ],
           ),
         ),
@@ -403,19 +477,12 @@ class _WifiConnectionPopupState extends State<WifiConnectionPopup>
       child: ScaleTransition(
         scale: _scaleAnimation,
         child: Material(
-          elevation: 20,
-          borderRadius: BorderRadius.circular(16),
-          child: Container(
+          color: Colors.transparent,
+          child: AppDesign.glassmorphicContainer(
             width: 400,
             padding: const EdgeInsets.all(24),
-            decoration: BoxDecoration(
-              color: const Color(0xFF2C2C2C),
-              borderRadius: BorderRadius.circular(16),
-              border: Border.all(
-                color: Colors.white.withOpacity(0.1),
-                width: 1,
-              ),
-            ),
+            borderRadius: 16.0,
+            blurStrength: 20.0,
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
@@ -436,25 +503,14 @@ class _WifiConnectionPopupState extends State<WifiConnectionPopup>
                 const SizedBox(height: 20),
 
                 // Title
-                Text(
-                  'WiFi Connection',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
+                Text('WiFi Connection', style: AppDesign.popupTitle()),
                 const SizedBox(height: 12),
 
                 // Message
                 Text(
                   'You\'re already connected to a WiFi network.\nWanna connect with me instead?',
                   textAlign: TextAlign.center,
-                  style: TextStyle(
-                    color: Colors.white.withOpacity(0.8),
-                    fontSize: 14,
-                    height: 1.4,
-                  ),
+                  style: AppDesign.popupBody(),
                 ),
                 const SizedBox(height: 24),
 
@@ -473,10 +529,8 @@ class _WifiConnectionPopupState extends State<WifiConnectionPopup>
                         ),
                         child: Text(
                           'Maybe Later',
-                          style: TextStyle(
+                          style: AppDesign.buttonText(
                             color: Colors.white.withOpacity(0.8),
-                            fontSize: 14,
-                            fontWeight: FontWeight.w500,
                           ),
                         ),
                       ),
@@ -505,10 +559,8 @@ class _WifiConnectionPopupState extends State<WifiConnectionPopup>
                             const SizedBox(width: 6),
                             Text(
                               'Connect on LinkedIn',
-                              style: TextStyle(
-                                color: Colors.white,
+                              style: AppDesign.buttonText().copyWith(
                                 fontSize: 13,
-                                fontWeight: FontWeight.w600,
                               ),
                             ),
                           ],

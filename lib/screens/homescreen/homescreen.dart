@@ -14,15 +14,19 @@ class DummyScreen extends StatelessWidget {
         width: double.infinity,
         height: double.infinity,
         decoration: const BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-            colors: [
-              Color(0xFF4A90E2), // macOS-like blue
-              Color(0xFF357ABD),
-              Color(0xFF2C5F92),
-            ],
+          image: DecorationImage(
+            image: AssetImage("assets/images/wallpaper.png"),
+            fit: BoxFit.cover,
           ),
+          // gradient: LinearGradient(
+          //   begin: Alignment.topCenter,
+          //   end: Alignment.bottomCenter,
+          //   colors: [
+          //     Color(0xFF4A90E2), // macOS-like blue
+          //     Color(0xFF357ABD),
+          //     Color(0xFF2C5F92),
+          //   ],
+          // ),
         ),
         child: Stack(
           children: [

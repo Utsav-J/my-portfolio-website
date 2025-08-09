@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:portfolio/models/models.dart';
+import 'package:portfolio/config/app_design.dart';
 
 class DockIcon extends StatefulWidget {
   final DockApp app;
@@ -24,21 +25,14 @@ class _DockIconState extends State<DockIcon> {
         child: AnimatedScale(
           scale: isHovered ? 1.3 : 1.0,
           duration: const Duration(milliseconds: 200),
-          child: Container(
+          child: AppDesign.glassmorphicContainer(
             width: 44,
             height: 44,
-            decoration: BoxDecoration(
-              color: Colors.white.withOpacity(0.9),
-              borderRadius: BorderRadius.circular(8),
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.black.withOpacity(0.2),
-                  blurRadius: 4,
-                  offset: const Offset(0, 2),
-                ),
-              ],
-            ),
-            child: Icon(widget.app.icon, color: Colors.black87, size: 24),
+            borderRadius: 8.0,
+            backgroundColor: Colors.white.withOpacity(0.2),
+            borderColor: Colors.white.withOpacity(0.3),
+            blurStrength: 8.0,
+            child: Icon(widget.app.icon, color: Colors.white, size: 24),
           ),
         ),
       ),
