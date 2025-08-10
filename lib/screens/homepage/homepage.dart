@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+// import 'package:portfolio/screens/appscreen/about_me_demo.dart';
 import 'package:portfolio/screens/bootup/bootup_screen.dart';
 import 'package:portfolio/screens/homescreen/homescreen.dart';
 
@@ -25,6 +26,7 @@ class _HomePageState extends State<HomePage> {
         duration: const Duration(milliseconds: 800),
         switchInCurve: Curves.easeInOut,
         switchOutCurve: Curves.easeInOut,
+        // child: AboutMeDemo(),
         child: _showBootup
             ? BootupScreen(
                 key: const ValueKey('bootup'),

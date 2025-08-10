@@ -1,17 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 
+// Export About Me screen components
+export '../screens/appscreen/about_me_screen.dart';
+export '../screens/appscreen/about_me_demo.dart';
+
 class PortfolioApp {
   final String title;
   final IconData icon;
   final Color color;
   final VoidCallback onTap;
-
+  final double? height;
+  final double? width;
   PortfolioApp({
     required this.title,
     required this.icon,
     required this.color,
     required this.onTap,
+    this.height,
+    this.width,
   });
 }
 

@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:portfolio/screens/homescreen/mac_app_icon.dart';
 import 'package:portfolio/models/models.dart';
 import 'package:portfolio/screens/appscreen/app_screen.dart';
+import 'package:portfolio/screens/appscreen/about_me_screen.dart';
 
 class MacDesktopApps extends StatefulWidget {
   const MacDesktopApps({Key? key}) : super(key: key);
@@ -13,16 +14,31 @@ class MacDesktopApps extends StatefulWidget {
 
 class _MacDesktopAppsState extends State<MacDesktopApps> {
   List<PortfolioApp> openWindows = [];
+  Map<String, Offset> windowPositions = {};
 
   void _openApp(PortfolioApp app) {
     setState(() {
-      openWindows.add(app);
+      if (!openWindows.any((window) => window.title == app.title)) {
+        openWindows.add(app);
+        // Set initial position for new window
+        windowPositions[app.title] = Offset(
+          80 + (openWindows.length - 1) * 40,
+          60 + (openWindows.length - 1) * 30,
+        );
+      }
     });
   }
 
   void _closeApp(PortfolioApp app) {
     setState(() {
       openWindows.remove(app);
+      windowPositions.remove(app.title);
+    });
+  }
+
+  void _updateWindowPosition(String title, Offset newPosition) {
+    setState(() {
+      windowPositions[title] = newPosition;
     });
   }
 
@@ -39,6 +55,8 @@ class _MacDesktopAppsState extends State<MacDesktopApps> {
             icon: CupertinoIcons.person_circle,
             color: const Color(0xFF34C759),
             onTap: () {},
+            height: 560,
+            width: 768,
           ),
         ),
       ),
@@ -206,22 +224,19 @@ class _MacDesktopAppsState extends State<MacDesktopApps> {
           ),
         ),
 
-        // Open Windows
-        ...openWindows.asMap().entries.map((entry) {
-          final index = entry.key;
-          final app = entry.value;
-          return Positioned(
-            top: 80 + (index * 40),
-            left: 60 + (index * 30),
-            child: SizedBox(
-              width: 400,
-              height: 300,
-              child: AppScreen(
-                title: app.title,
-                onClose: () => _closeApp(app),
-                child: _buildDummyContent(app),
-              ),
-            ),
+        // Open Windows - Now using the draggable AppScreen
+        ...openWindows.map((app) {
+          final position = windowPositions[app.title] ?? const Offset(80, 60);
+          return AppScreen(
+            key: ValueKey(app.title), // Simple key for each window
+            title: app.title,
+            initialPosition: position, // Pass the actual position
+            windowHeight: app.height,
+            windowWidth: app.width,
+            onPositionChanged: (newPosition) =>
+                _updateWindowPosition(app.title, newPosition),
+            onClose: () => _closeApp(app),
+            child: _buildDummyContent(app),
           );
         }).toList(),
       ],
@@ -229,6 +244,11 @@ class _MacDesktopAppsState extends State<MacDesktopApps> {
   }
 
   Widget _buildDummyContent(PortfolioApp app) {
+    // Special case for About Me app
+    if (app.title == 'About Me') {
+      return const AboutMeScreen();
+    }
+
     return Padding(
       padding: const EdgeInsets.all(20),
       child: Column(
