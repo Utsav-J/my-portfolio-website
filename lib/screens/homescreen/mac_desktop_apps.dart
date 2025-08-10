@@ -4,6 +4,7 @@ import 'package:portfolio/screens/homescreen/mac_app_icon.dart';
 import 'package:portfolio/models/models.dart';
 import 'package:portfolio/screens/appscreen/app_screen.dart';
 import 'package:portfolio/screens/appscreen/about_me_screen.dart';
+import 'package:portfolio/screens/appscreen/experience_screen.dart';
 
 class MacDesktopApps extends StatefulWidget {
   const MacDesktopApps({Key? key}) : super(key: key);
@@ -21,10 +22,23 @@ class _MacDesktopAppsState extends State<MacDesktopApps> {
       if (!openWindows.any((window) => window.title == app.title)) {
         openWindows.add(app);
         // Set initial position for new window
-        windowPositions[app.title] = Offset(
-          80 + (openWindows.length - 1) * 40,
-          60 + (openWindows.length - 1) * 30,
-        );
+        Offset initialPosition;
+        switch (app.title) {
+          case 'About Me':
+            initialPosition = const Offset(50, 50);
+            break;
+          case 'Experience':
+            initialPosition = const Offset(850, 10);
+            break;
+          default:
+            // Default cascading position
+            initialPosition = Offset(
+              80 + (openWindows.length - 1) * 40,
+              60 + (openWindows.length - 1) * 30,
+            );
+        }
+
+        windowPositions[app.title] = initialPosition;
       }
     });
   }
@@ -70,6 +84,8 @@ class _MacDesktopAppsState extends State<MacDesktopApps> {
             icon: CupertinoIcons.briefcase,
             color: const Color(0xFF007AFF),
             onTap: () {},
+            height: 400,
+            width: 600,
           ),
         ),
       ),
@@ -226,7 +242,7 @@ class _MacDesktopAppsState extends State<MacDesktopApps> {
 
         // Open Windows - Now using the draggable AppScreen
         ...openWindows.map((app) {
-          final position = windowPositions[app.title] ?? const Offset(80, 60);
+          final position = windowPositions[app.title] ?? const Offset(50, 60);
           return AppScreen(
             key: ValueKey(app.title), // Simple key for each window
             title: app.title,
@@ -247,6 +263,11 @@ class _MacDesktopAppsState extends State<MacDesktopApps> {
     // Special case for About Me app
     if (app.title == 'About Me') {
       return const AboutMeScreen();
+    }
+
+    // Special case for Experience app
+    if (app.title == 'Experience') {
+      return const ExperienceScreen();
     }
 
     return Padding(

@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:portfolio/config/app_design.dart';
@@ -14,6 +15,8 @@ class _AboutMeScreenState extends State<AboutMeScreen>
   late AnimationController _animationController;
   late Animation<double> _fadeAnimation;
   int _currentTitleIndex = 0;
+  String? _profileImageUrl;
+  bool _isLoadingImage = true;
 
   final List<String> _titles = [
     'COMPUTER SCIENCE STUDENT',
@@ -21,6 +24,35 @@ class _AboutMeScreenState extends State<AboutMeScreen>
     'GENAI ENTHUSIAST',
     'MUSICIAN',
   ];
+
+  Future<String> _getProfileImageUrl() async {
+    try {
+      final DocumentSnapshot profileImage = await FirebaseFirestore.instance
+          .collection('images')
+          .doc('aboutme')
+          .get();
+      if (profileImage.exists && profileImage.data() != null) {
+        final Map<String, dynamic> data =
+            profileImage.data() as Map<String, dynamic>;
+        final String? imageUrl = data['url'] as String?;
+        return imageUrl ?? "";
+      }
+      return "";
+    } catch (e) {
+      print('Error fetching profile image: $e');
+      return "";
+    }
+  }
+
+  Future<void> _loadProfileImage() async {
+    final imageUrl = await _getProfileImageUrl();
+    if (mounted) {
+      setState(() {
+        _profileImageUrl = imageUrl;
+        _isLoadingImage = false;
+      });
+    }
+  }
 
   @override
   void initState() {
@@ -35,6 +67,7 @@ class _AboutMeScreenState extends State<AboutMeScreen>
     );
 
     _startTitleAnimation();
+    _loadProfileImage();
   }
 
   void _startTitleAnimation() {
@@ -82,19 +115,31 @@ class _AboutMeScreenState extends State<AboutMeScreen>
                 child: Column(
                   children: [
                     // Profile picture placeholder
-                    Container(
-                      width: 120,
-                      height: 120,
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        color: Colors.grey[300],
-                        border: Border.all(color: Colors.grey[400]!, width: 2),
-                      ),
-                      child: Icon(
-                        CupertinoIcons.person_fill,
-                        size: 60,
-                        color: Colors.grey[600],
-                      ),
+                    CircleAvatar(
+                      radius: 80,
+                      backgroundColor: Colors.grey[300],
+                      foregroundImage:
+                          _isLoadingImage ||
+                              _profileImageUrl == null ||
+                              _profileImageUrl!.isEmpty
+                          ? null
+                          : NetworkImage(_profileImageUrl!),
+                      child: _isLoadingImage
+                          ? const Center(
+                              child: CircularProgressIndicator(
+                                valueColor: AlwaysStoppedAnimation<Color>(
+                                  AppDesign.systemBlue,
+                                ),
+                              ),
+                            )
+                          : (_profileImageUrl == null ||
+                                _profileImageUrl!.isEmpty)
+                          ? Icon(
+                              CupertinoIcons.person_fill,
+                              size: 60,
+                              color: Colors.grey[600],
+                            )
+                          : null,
                     ),
                     const SizedBox(height: 24),
 

@@ -3,7 +3,7 @@ import 'package:flutter/cupertino.dart';
 
 // Export About Me screen components
 export '../screens/appscreen/about_me_screen.dart';
-export '../screens/appscreen/about_me_demo.dart';
+export '../screens/appscreen/experience_screen.dart';
 
 class PortfolioApp {
   final String title;
