@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:portfolio/config/app_design.dart';
 import 'package:portfolio/models/models.dart';
 
 class DockIcon extends StatefulWidget {
@@ -92,22 +93,41 @@ class _DockIconState extends State<DockIcon> {
                   ),
                 ),
               ),
+
             // Icon
             AnimatedScale(
               scale: isHovered ? 1.2 : 1.0,
               duration: const Duration(milliseconds: 200),
-              child: Container(
-                width: 44,
-                height: 44,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(8.0),
-                  color: Colors.transparent,
-                  border: Border.all(
-                    color: Colors.white.withOpacity(0.2),
-                    width: 0.5,
+              child: GestureDetector(
+                onTap: widget.app.onTap,
+                child: AnimatedContainer(
+                  duration: const Duration(milliseconds: 200),
+                  curve: Curves.easeInOut,
+                  margin: isHovered
+                      ? const EdgeInsets.symmetric(horizontal: 12)
+                      : EdgeInsets.zero,
+                  padding: const EdgeInsets.all(12),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(8.0),
+                    color: Colors.transparent,
+                    border: Border.all(
+                      color: Colors.white.withOpacity(0.2),
+                      width: 0.5,
+                    ),
+                  ),
+                  child: Row(
+                    children: [
+                      Icon(widget.app.icon, color: Colors.white, size: 24),
+                      if (widget.app.title == 'Download CV')
+                        const SizedBox(width: 8),
+                      if (widget.app.title == 'Download CV')
+                        const Text(
+                          "Download my Resume",
+                          style: AppDesign.caption1,
+                        ),
+                    ],
                   ),
                 ),
-                child: Icon(widget.app.icon, color: Colors.white, size: 24),
               ),
             ),
           ],

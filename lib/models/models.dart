@@ -20,6 +20,7 @@ class DockApp {
   final String title;
   final String description;
   final VoidCallback? onTap;
+
   DockApp({
     required this.icon,
     required this.title,
