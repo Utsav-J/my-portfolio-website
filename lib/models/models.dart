@@ -18,8 +18,14 @@ class PortfolioApp {
 class DockApp {
   final IconData icon;
   final String title;
-
-  DockApp({required this.icon, required this.title});
+  final String description;
+  final VoidCallback? onTap;
+  DockApp({
+    required this.icon,
+    required this.title,
+    required this.description,
+    this.onTap,
+  });
 }
 
 class MenuItemData {
