@@ -32,7 +32,74 @@ class _AppScreenState extends State<AppScreen> {
   @override
   void initState() {
     super.initState();
-    position = widget.initialPosition;
+    position = widget
+        .initialPosition; // Don't constrain position here, wait for context
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    // Ensure position is still within bounds when dependencies change (e.g., screen size)
+    // Only constrain if we have a valid context
+    if (mounted) {
+      final constrainedPosition = _getConstrainedPosition(position);
+      if (constrainedPosition != position) {
+        setState(() {
+          position = constrainedPosition;
+        });
+      }
+    }
+  }
+
+  // Helper method to get constrained position within screen boundaries
+  Offset _getConstrainedPosition(Offset position) {
+    // Get screen dimensions safely
+    final mediaQuery = MediaQuery.maybeOf(context);
+    if (mediaQuery == null) {
+      return position; // Return original position if MediaQuery is not available
+    }
+
+    final screenSize = mediaQuery.size;
+    final windowWidth = widget.windowWidth ?? 400;
+    final windowHeight = widget.windowHeight ?? 300;
+
+    // Define boundaries
+    const menuBarHeight = 30.0; // Menu bar height
+    const dockHeight = 60.0; // Dock height
+    const dockBottomPadding = 20.0; // Bottom padding for dock
+
+    // Apply constraints
+    double constrainedX = position.dx;
+    double constrainedY = position.dy;
+
+    // Left boundary: can't go beyond left edge
+    if (constrainedX < 0) {
+      constrainedX = 0;
+    }
+
+    // Right boundary: can't go beyond right edge
+    if (constrainedX + windowWidth > screenSize.width) {
+      constrainedX = screenSize.width - windowWidth;
+    }
+
+    // Top boundary: can't go above menu bar
+    if (constrainedY < menuBarHeight) {
+      constrainedY = menuBarHeight;
+    }
+
+    // Bottom boundary: can't go below dock area
+    final bottomBoundary =
+        screenSize.height - dockHeight - dockBottomPadding - windowHeight;
+    if (constrainedY > bottomBoundary) {
+      constrainedY = bottomBoundary;
+    }
+
+    return Offset(constrainedX, constrainedY);
   }
 
   void _onPanStart(DragStartDetails details) {
@@ -42,8 +109,49 @@ class _AppScreenState extends State<AppScreen> {
   }
 
   void _onPanUpdate(DragUpdateDetails details) {
+    // Get screen dimensions safely
+    final mediaQuery = MediaQuery.maybeOf(context);
+    if (mediaQuery == null) {
+      return; // Don't proceed if MediaQuery is not available
+    }
+
+    final screenSize = mediaQuery.size;
+    final windowWidth = widget.windowWidth ?? 400;
+    final windowHeight = widget.windowHeight ?? 300;
+
+    // Define boundaries
+    const menuBarHeight = 30.0; // Menu bar height
+    const dockHeight = 60.0; // Dock height
+    const dockBottomPadding = 20.0; // Bottom padding for dock
+
+    // Calculate new position
+    Offset newPosition = position + details.delta;
+
+    // Apply constraints
+    // Left boundary: can't go beyond left edge
+    if (newPosition.dx < 0) {
+      newPosition = Offset(0, newPosition.dy);
+    }
+
+    // Right boundary: can't go beyond right edge
+    if (newPosition.dx + windowWidth > screenSize.width) {
+      newPosition = Offset(screenSize.width - windowWidth, newPosition.dy);
+    }
+
+    // Top boundary: can't go above menu bar
+    if (newPosition.dy < menuBarHeight) {
+      newPosition = Offset(newPosition.dx, menuBarHeight);
+    }
+
+    // Bottom boundary: can't go below dock area
+    final bottomBoundary =
+        screenSize.height - dockHeight - dockBottomPadding - windowHeight;
+    if (newPosition.dy > bottomBoundary) {
+      newPosition = Offset(newPosition.dx, bottomBoundary);
+    }
+
     setState(() {
-      position += details.delta;
+      position = newPosition;
     });
     widget.onPositionChanged?.call(position);
   }
@@ -52,6 +160,19 @@ class _AppScreenState extends State<AppScreen> {
     setState(() {
       isDragging = false;
     });
+  }
+
+  // Method to handle window resize and ensure it stays within bounds
+  void _handleWindowResize(double newWidth, double newHeight) {
+    if (!mounted) return; // Don't proceed if widget is not mounted
+
+    final constrainedPosition = _getConstrainedPosition(position);
+    if (constrainedPosition != position) {
+      setState(() {
+        position = constrainedPosition;
+      });
+      widget.onPositionChanged?.call(position);
+    }
   }
 
   @override

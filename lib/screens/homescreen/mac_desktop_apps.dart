@@ -16,34 +16,111 @@ class MacDesktopApps extends StatefulWidget {
 class _MacDesktopAppsState extends State<MacDesktopApps> {
   List<PortfolioApp> openWindows = [];
   Map<String, Offset> windowPositions = {};
+  Size? _lastScreenSize;
+
+  @override
+  void initState() {
+    super.initState();
+    // Initialize with a default screen size
+    _lastScreenSize = const Size(1920, 1080);
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    // Check for screen size changes
+    final currentSize = MediaQuery.of(context).size;
+    if (_lastScreenSize != null &&
+        (_lastScreenSize!.width != currentSize.width ||
+            _lastScreenSize!.height != currentSize.height)) {
+      _lastScreenSize = currentSize;
+      // Handle screen size change if needed
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        if (mounted) {
+          _handleScreenSizeChange(currentSize);
+        }
+      });
+    }
+  }
+
+  // Calculate smart initial position that avoids overlapping with existing windows
+  Offset _calculateSmartInitialPosition(PortfolioApp app) {
+    // never change this offset position
+    if (app.title == 'About Me') {
+      return const Offset(50, 60);
+    }
+    // never change this offset position
+    if (app.title == "Experience") {
+      return const Offset(850, 50);
+    }
+    // const menuBarHeight = 30.0;
+    const baseX = 80.0;
+    const baseY = 80.0; // Below menu bar
+    const spacingX = 40.0;
+    const spacingY = 30.0;
+
+    // Start with base position
+    double x = baseX + (openWindows.length * spacingX);
+    double y = baseY + (openWindows.length * spacingY);
+
+    // Check for overlaps with existing windows
+    for (String title in windowPositions.keys) {
+      if (!openWindows.any((w) => w.title == title)) {
+        continue; // Skip if window no longer exists
+      }
+
+      final existingPos = windowPositions[title]!;
+      final existingApp = openWindows.firstWhere((w) => w.title == title);
+      final existingWidth = existingApp.width ?? 400;
+      final existingHeight = existingApp.height ?? 300;
+      final appWidth = app.width ?? 400;
+      final appHeight = app.height ?? 300;
+
+      // Check if windows overlap
+      if (x < existingPos.dx + existingWidth &&
+          x + appWidth > existingPos.dx &&
+          y < existingPos.dy + existingHeight &&
+          y + appHeight > existingPos.dy) {
+        // Move this window to avoid overlap
+        x += spacingX * 2;
+        y += spacingY * 2;
+      }
+    }
+
+    // Ensure position is within screen bounds (basic check)
+    final screenWidth = _lastScreenSize?.width ?? 1920.0;
+    final screenHeight = _lastScreenSize?.height ?? 1080.0;
+    final dockHeight = 60.0;
+    const dockBottomPadding = 20.0;
+
+    if (x + (app.width ?? 400) > screenWidth) {
+      x = baseX;
+    }
+
+    if (y + (app.height ?? 300) >
+        screenHeight - dockHeight - dockBottomPadding) {
+      y = baseY;
+    }
+
+    return Offset(x, y);
+  }
 
   void _openApp(PortfolioApp app) {
+    if (!mounted) return; // Don't proceed if widget is not mounted
+
     setState(() {
       if (!openWindows.any((window) => window.title == app.title)) {
         openWindows.add(app);
-        // Set initial position for new window
-        Offset initialPosition;
-        switch (app.title) {
-          case 'About Me':
-            initialPosition = const Offset(50, 50);
-            break;
-          case 'Experience':
-            initialPosition = const Offset(850, 10);
-            break;
-          default:
-            // Default cascading position
-            initialPosition = Offset(
-              80 + (openWindows.length - 1) * 40,
-              60 + (openWindows.length - 1) * 30,
-            );
-        }
-
+        // Use smart positioning to avoid overlaps and stay within bounds
+        final initialPosition = _calculateSmartInitialPosition(app);
         windowPositions[app.title] = initialPosition;
       }
     });
   }
 
   void _closeApp(PortfolioApp app) {
+    if (!mounted) return; // Don't proceed if widget is not mounted
+
     setState(() {
       openWindows.remove(app);
       windowPositions.remove(app.title);
@@ -51,8 +128,64 @@ class _MacDesktopAppsState extends State<MacDesktopApps> {
   }
 
   void _updateWindowPosition(String title, Offset newPosition) {
+    if (!mounted) return; // Don't proceed if widget is not mounted
+
     setState(() {
       windowPositions[title] = newPosition;
+    });
+  }
+
+  // Handle screen size changes and reposition windows if needed
+  void _handleScreenSizeChange(Size newSize) {
+    if (!mounted || openWindows.isEmpty || windowPositions.isEmpty) {
+      return; // Don't proceed if widget is not mounted or no windows
+    }
+
+    setState(() {
+      for (String title in windowPositions.keys) {
+        if (!openWindows.any((w) => w.title == title)) {
+          continue; // Skip if window no longer exists
+        }
+
+        final currentPos = windowPositions[title]!;
+        final app = openWindows.firstWhere((w) => w.title == title);
+        final appWidth = app.width ?? 400;
+        final appHeight = app.height ?? 300;
+
+        // Check if window is outside new screen bounds
+        bool needsReposition = false;
+        double newX = currentPos.dx;
+        double newY = currentPos.dy;
+
+        // Left boundary
+        if (newX < 0) {
+          newX = 0;
+          needsReposition = true;
+        }
+
+        // Right boundary
+        if (newX + appWidth > newSize.width) {
+          newX = newSize.width - appWidth;
+          needsReposition = true;
+        }
+
+        // Top boundary (menu bar)
+        if (newY < 30) {
+          newY = 30;
+          needsReposition = true;
+        }
+
+        // Bottom boundary (dock area)
+        final bottomBoundary = newSize.height - 60 - 20 - appHeight;
+        if (newY > bottomBoundary) {
+          newY = bottomBoundary;
+          needsReposition = true;
+        }
+
+        if (needsReposition) {
+          windowPositions[title] = Offset(newX, newY);
+        }
+      }
     });
   }
 
