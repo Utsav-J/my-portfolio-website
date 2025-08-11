@@ -5,7 +5,7 @@ import 'package:portfolio/config/app_design.dart';
 
 class Experience {
   final String companyName;
-  final String description;
+  final List<String> description;
   final String duration;
   final String endDate;
   final String role;
@@ -22,9 +22,19 @@ class Experience {
 
   factory Experience.fromFirestore(DocumentSnapshot doc) {
     Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
+    final dynamic rawDescription = data['description'];
+    List<String> parsedDescription = [];
+    if (rawDescription is List) {
+      parsedDescription = rawDescription.whereType<String>().toList();
+    } else if (rawDescription is String) {
+      final String trimmed = rawDescription.trim();
+      if (trimmed.isNotEmpty) {
+        parsedDescription = [trimmed];
+      }
+    }
     return Experience(
       companyName: data['companyName'] ?? '',
-      description: data['description'] ?? '',
+      description: parsedDescription,
       duration: data['duration'] ?? '',
       endDate: data['endDate'] ?? '',
       role: data['role'] ?? '',
@@ -467,18 +477,26 @@ class _ExperienceScreenState extends State<ExperienceScreen> {
               ],
             ),
 
-            // Description
+            // Description paragraphs
             if (experience.description.isNotEmpty) ...[
               const SizedBox(height: 8),
-              Text(
-                experience.description,
-                style: AppDesign.body.copyWith(
-                  color: Colors.black87,
-                  fontSize: 12,
-                  height: 1.4,
-                ),
-                maxLines: 3,
-                overflow: TextOverflow.ellipsis,
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: experience.description
+                    .map(
+                      (String item) => Padding(
+                        padding: const EdgeInsets.only(bottom: 6),
+                        child: Text(
+                          item,
+                          style: AppDesign.body.copyWith(
+                            color: Colors.black87,
+                            fontSize: 12,
+                            height: 1.4,
+                          ),
+                        ),
+                      ),
+                    )
+                    .toList(),
               ),
             ],
           ],
