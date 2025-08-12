@@ -5,6 +5,8 @@ import 'package:portfolio/models/models.dart';
 import 'package:portfolio/screens/appscreen/app_screen.dart';
 import 'package:portfolio/screens/appscreen/about_me_screen.dart';
 import 'package:portfolio/screens/appscreen/experience_screen.dart';
+import 'package:portfolio/screens/appscreen/certifications_screen.dart';
+import 'package:portfolio/screens/appscreen/education_screen.dart';
 
 class MacDesktopApps extends StatefulWidget {
   const MacDesktopApps({Key? key}) : super(key: key);
@@ -52,6 +54,10 @@ class _MacDesktopAppsState extends State<MacDesktopApps> {
     // never change this offset position
     if (app.title == "Experience") {
       return const Offset(850, 50);
+    }
+    // never change this offset position
+    if (app.title == "Education") {
+      return const Offset(500, 120);
     }
     // const menuBarHeight = 30.0;
     const baseX = 80.0;
@@ -223,6 +229,21 @@ class _MacDesktopAppsState extends State<MacDesktopApps> {
         ),
       ),
       PortfolioApp(
+        title: 'Certifications',
+        icon: CupertinoIcons.checkmark_seal,
+        color: const Color(0xFF0A84FF),
+        onTap: () => _openApp(
+          PortfolioApp(
+            title: 'Certifications',
+            icon: CupertinoIcons.checkmark_seal,
+            color: const Color(0xFF0A84FF),
+            onTap: () {},
+            height: 400,
+            width: 600,
+          ),
+        ),
+      ),
+      PortfolioApp(
         title: 'Projects',
         icon: CupertinoIcons.hammer,
         color: const Color(0xFFFF9500),
@@ -258,6 +279,8 @@ class _MacDesktopAppsState extends State<MacDesktopApps> {
             icon: CupertinoIcons.book,
             color: const Color(0xFFAF52DE),
             onTap: () {},
+            height: 350,
+            width: 500,
           ),
         ),
       ),
@@ -401,6 +424,16 @@ class _MacDesktopAppsState extends State<MacDesktopApps> {
     // Special case for Experience app
     if (app.title == 'Experience') {
       return const ExperienceScreen();
+    }
+
+    // Special case for Certifications app
+    if (app.title == 'Certifications') {
+      return const CertificationsScreen();
+    }
+
+    // Special case for Education app
+    if (app.title == 'Education') {
+      return const EducationScreen();
     }
 
     return Padding(

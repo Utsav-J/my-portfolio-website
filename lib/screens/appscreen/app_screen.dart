@@ -162,19 +162,6 @@ class _AppScreenState extends State<AppScreen> {
     });
   }
 
-  // Method to handle window resize and ensure it stays within bounds
-  void _handleWindowResize(double newWidth, double newHeight) {
-    if (!mounted) return; // Don't proceed if widget is not mounted
-
-    final constrainedPosition = _getConstrainedPosition(position);
-    if (constrainedPosition != position) {
-      setState(() {
-        position = constrainedPosition;
-      });
-      widget.onPositionChanged?.call(position);
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     return Positioned(
@@ -242,12 +229,15 @@ class _AppScreenState extends State<AppScreen> {
                             ),
                             const SizedBox(width: 8),
                             // Green Maximize Button
-                            Container(
-                              width: 12,
-                              height: 12,
-                              decoration: const BoxDecoration(
-                                color: Color(0xFF27C93F),
-                                shape: BoxShape.circle,
+                            GestureDetector(
+                              onTap: widget.onClose ?? () {},
+                              child: Container(
+                                width: 12,
+                                height: 12,
+                                decoration: const BoxDecoration(
+                                  color: Color(0xFF27C93F),
+                                  shape: BoxShape.circle,
+                                ),
                               ),
                             ),
                           ],

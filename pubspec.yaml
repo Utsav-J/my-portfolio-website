@@ -41,6 +41,9 @@ dependencies:
   cloud_firestore: ^5.6.12
   url_launcher: ^6.2.5
   permission_handler: ^11.3.1
+  cached_network_image: ^3.4.1
+  flutter_svg: ^2.2.0
+  icons_plus: ^5.0.0
 
 dev_dependencies:
   flutter_test:
