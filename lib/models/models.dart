@@ -7,6 +7,7 @@ export '../screens/appscreen/about_me_screen.dart';
 export '../screens/appscreen/experience_screen.dart';
 export '../screens/appscreen/certifications_screen.dart';
 export '../screens/appscreen/education_screen.dart';
+export '../screens/appscreen/projects_screen.dart';
 
 class PortfolioApp {
   final String title;

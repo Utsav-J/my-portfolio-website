@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:portfolio/screens/appscreen/app_screen.dart';
 import 'package:portfolio/screens/homescreen/mac_app_icon.dart';
 import 'package:portfolio/models/models.dart';
+import 'package:portfolio/screens/appscreen/projects_screen.dart';
 
 class MacDesktopApps extends StatefulWidget {
   const MacDesktopApps({super.key});
@@ -54,6 +55,10 @@ class _MacDesktopAppsState extends State<MacDesktopApps> {
     // never change this offset position
     if (app.title == "Education") {
       return const Offset(500, 120);
+    }
+    // never change this offset position
+    if (app.title == "Projects") {
+      return const Offset(200, 200);
     }
     // const menuBarHeight = 30.0;
     const baseX = 80.0;
@@ -249,6 +254,8 @@ class _MacDesktopAppsState extends State<MacDesktopApps> {
             icon: CupertinoIcons.hammer,
             color: const Color(0xFFFF9500),
             onTap: () {},
+            height: 500,
+            width: 800,
           ),
         ),
       ),
@@ -430,6 +437,11 @@ class _MacDesktopAppsState extends State<MacDesktopApps> {
     // Special case for Education app
     if (app.title == 'Education') {
       return const EducationScreen();
+    }
+
+    // Special case for Projects app
+    if (app.title == 'Projects') {
+      return const ProjectsScreen();
     }
 
     return Padding(
