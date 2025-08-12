@@ -1,28 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:icons_plus/icons_plus.dart';
 import 'package:portfolio/config/app_design.dart';
-
-class Certification {
-  final String name;
-  final String date;
-  final String company;
-
-  Certification({
-    required this.name,
-    required this.date,
-    required this.company,
-  });
-
-  factory Certification.fromFirestore(DocumentSnapshot doc) {
-    final Map<String, dynamic> data = doc.data() as Map<String, dynamic>? ?? {};
-    return Certification(
-      name: (data['name'] ?? '').toString(),
-      date: (data['date'] ?? '').toString(),
-      company: (data['company'] ?? '').toString(),
-    );
-  }
-}
+import 'package:portfolio/models/models.dart';
 
 class CertificationsScreen extends StatefulWidget {
   const CertificationsScreen({super.key});
@@ -227,6 +208,18 @@ class _CertificationsScreenState extends State<CertificationsScreen> {
   }
 
   Widget _buildCertificationCard(Certification cert) {
+    Brand certIcon;
+    switch (cert.company) {
+      case "MongoDB University":
+        certIcon = Brand(Brands.mongodb);
+        break;
+      case "Oracle":
+        certIcon = Brand(Brands.oracle_logo);
+        break;
+      default:
+        certIcon = Brand(Brands.instagram_verification_badge);
+        break;
+    }
     return Container(
       decoration: BoxDecoration(
         color: Colors.white,
@@ -254,11 +247,7 @@ class _CertificationsScreenState extends State<CertificationsScreen> {
                     color: AppDesign.systemBlue.withValues(alpha: 0.1),
                     borderRadius: BorderRadius.circular(8),
                   ),
-                  child: const Icon(
-                    CupertinoIcons.checkmark_seal,
-                    color: AppDesign.systemBlue,
-                    size: 18,
-                  ),
+                  child: certIcon,
                 ),
                 const SizedBox(width: 10),
                 Expanded(

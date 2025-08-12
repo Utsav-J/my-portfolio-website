@@ -115,11 +115,11 @@ class AppDesign {
 
   /// Menu bar text style
   static TextStyle menuBarText({Color color = Colors.white}) => headline
-      .copyWith(color: color, fontSize: 13, fontWeight: FontWeight.w600);
+      .copyWith(color: color, fontSize: 16, fontWeight: FontWeight.w600);
 
   /// Menu bar time text style
   static TextStyle menuBarTime({Color color = Colors.white}) => caption1
-      .copyWith(color: color, fontSize: 11, fontWeight: FontWeight.w500);
+      .copyWith(color: color, fontSize: 16, fontWeight: FontWeight.w500);
 
   /// App title text style
   static TextStyle appTitle({Color color = Colors.white}) => caption1.copyWith(

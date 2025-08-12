@@ -2,7 +2,9 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:icons_plus/icons_plus.dart';
 import 'package:portfolio/config/app_design.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class AboutMeScreen extends StatefulWidget {
   const AboutMeScreen({super.key});
@@ -90,6 +92,56 @@ class _AboutMeScreenState extends State<AboutMeScreen>
         }
       });
     });
+  }
+
+  Future<void> _handleOpenGithub() async {
+    try {
+      final Uri url = Uri.parse('https://github.com/Utsav-J');
+      if (await canLaunchUrl(url)) {
+        await launchUrl(url, mode: LaunchMode.externalApplication);
+      } else {
+        _showErrorSnackBar('Could not open resume link');
+      }
+    } catch (e) {
+      _showErrorSnackBar('Error downloading resume: $e');
+    }
+  }
+
+  Future<void> _handleDownloadCV() async {
+    try {
+      final DocumentSnapshot resumeDoc = await FirebaseFirestore.instance
+          .collection('data')
+          .doc('resume')
+          .get();
+
+      if (resumeDoc.exists && resumeDoc.data() != null) {
+        final Map<String, dynamic> data =
+            resumeDoc.data() as Map<String, dynamic>;
+        final String? resumeUrl = data['url'] as String?;
+
+        if (resumeUrl != null && resumeUrl.isNotEmpty) {
+          // Launch the URL to download the resume
+          final Uri url = Uri.parse(resumeUrl);
+          if (await canLaunchUrl(url)) {
+            await launchUrl(url, mode: LaunchMode.externalApplication);
+          } else {
+            // Show error if URL can't be launched
+            _showErrorSnackBar('Could not open resume link');
+          }
+        } else {
+          _showErrorSnackBar('Resume URL not found');
+        }
+      } else {
+        _showErrorSnackBar('Resume document not found');
+      }
+    } catch (e) {
+      _showErrorSnackBar('Error downloading resume: $e');
+    }
+  }
+
+  void _showErrorSnackBar(String message) {
+    // You can implement a proper error dialog or snackbar here
+    print('Error: $message');
   }
 
   @override
@@ -246,17 +298,21 @@ class _AboutMeScreenState extends State<AboutMeScreen>
                     Row(
                       children: [
                         _buildButton(
-                          'RESUME',
-                          AppDesign.systemBlue,
+                          'Resume',
+                          Brand(Brands.google_drive, size: 20),
+                          _handleDownloadCV,
+                          const Color.fromARGB(255, 93, 171, 255),
                           Colors.white,
-                          true,
+                          AppDesign.systemBlue,
                         ),
                         const SizedBox(width: 20),
                         _buildButton(
-                          'PROJECTS',
+                          'GitHub',
+                          Brand(Brands.github, size: 20),
+                          _handleOpenGithub,
                           Colors.white,
                           Colors.black,
-                          false,
+                          Colors.black,
                         ),
                       ],
                     ),
@@ -298,32 +354,40 @@ class _AboutMeScreenState extends State<AboutMeScreen>
 
   Widget _buildButton(
     String text,
+    Brand brandIcon,
+    VoidCallback onTap,
     Color backgroundColor,
     Color textColor,
-    bool isFilled,
+    Color borderColor,
   ) {
     return Container(
       decoration: BoxDecoration(
-        color: isFilled ? backgroundColor : Colors.transparent,
+        color: backgroundColor,
         borderRadius: BorderRadius.circular(8),
-        border: isFilled ? null : Border.all(color: Colors.black, width: 1.5),
+        border: Border.all(color: borderColor, width: 1.5),
       ),
       child: Material(
         color: Colors.transparent,
         child: InkWell(
           borderRadius: BorderRadius.circular(8),
           onTap: () {
-            // Add navigation or action here
+            onTap();
           },
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
-            child: Text(
-              text,
-              style: AppDesign.buttonText(color: textColor).copyWith(
-                fontSize: 14,
-                fontWeight: FontWeight.w600,
-                letterSpacing: 0.5,
-              ),
+            child: Row(
+              children: [
+                brandIcon,
+                SizedBox(width: 5),
+                Text(
+                  text,
+                  style: AppDesign.buttonText(color: textColor).copyWith(
+                    fontSize: 14,
+                    fontWeight: FontWeight.w600,
+                    letterSpacing: 0.5,
+                  ),
+                ),
+              ],
             ),
           ),
         ),

@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 
@@ -43,4 +44,25 @@ class MenuItemData {
   final IconData icon;
 
   MenuItemData(this.title, this.icon);
+}
+
+class Certification {
+  final String name;
+  final String date;
+  final String company;
+
+  Certification({
+    required this.name,
+    required this.date,
+    required this.company,
+  });
+
+  factory Certification.fromFirestore(DocumentSnapshot doc) {
+    final Map<String, dynamic> data = doc.data() as Map<String, dynamic>? ?? {};
+    return Certification(
+      name: (data['name'] ?? '').toString(),
+      date: (data['date'] ?? '').toString(),
+      company: (data['company'] ?? '').toString(),
+    );
+  }
 }

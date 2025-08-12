@@ -291,7 +291,7 @@ class _MacMenuBarState extends State<MacMenuBar> {
                       Icon(
                         CupertinoIcons.command,
                         color: Colors.white,
-                        size: 16,
+                        size: 18,
                       ),
                       const SizedBox(width: 12),
                       Text(
@@ -344,7 +344,7 @@ class _MacMenuBarState extends State<MacMenuBar> {
                       child: Icon(
                         Bootstrap.github,
                         color: Colors.white,
-                        size: 14,
+                        size: 18,
                       ),
                     ),
                   ),
@@ -365,7 +365,7 @@ class _MacMenuBarState extends State<MacMenuBar> {
                       child: Icon(
                         CupertinoIcons.wifi,
                         color: Colors.white,
-                        size: 14,
+                        size: 18,
                       ),
                     ),
                   ),
@@ -374,7 +374,7 @@ class _MacMenuBarState extends State<MacMenuBar> {
                 Icon(
                   CupertinoIcons.battery_full,
                   color: Colors.white,
-                  size: 14,
+                  size: 18,
                 ),
                 const SizedBox(width: 8),
                 Text(formattedTime, style: AppDesign.menuBarTime()),
