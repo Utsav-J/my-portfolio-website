@@ -40,15 +40,15 @@ class _DockIconState extends State<DockIcon> {
                       vertical: 8,
                     ),
                     decoration: BoxDecoration(
-                      color: Colors.grey.withOpacity(0.95),
+                      color: Colors.grey.withValues(alpha: 0.95),
                       borderRadius: BorderRadius.circular(8),
                       border: Border.all(
-                        color: Colors.white.withOpacity(0.3),
+                        color: Colors.white.withValues(alpha: 0.3),
                         width: 0.5,
                       ),
                       boxShadow: [
                         BoxShadow(
-                          color: Colors.black.withOpacity(0.3),
+                          color: Colors.black.withValues(alpha: 0.3),
                           blurRadius: 10,
                           offset: const Offset(0, 4),
                         ),
@@ -80,7 +80,7 @@ class _DockIconState extends State<DockIcon> {
                         Text(
                           widget.app.description,
                           style: TextStyle(
-                            color: Colors.white.withOpacity(0.9),
+                            color: Colors.white.withValues(alpha: 0.9),
                             fontSize: 12,
                             fontWeight: FontWeight.w400,
                             height: 1.3,
@@ -111,7 +111,7 @@ class _DockIconState extends State<DockIcon> {
                     borderRadius: BorderRadius.circular(8.0),
                     color: Colors.transparent,
                     border: Border.all(
-                      color: Colors.white.withOpacity(0.2),
+                      color: Colors.white.withValues(alpha: 0.2),
                       width: 0.5,
                     ),
                   ),

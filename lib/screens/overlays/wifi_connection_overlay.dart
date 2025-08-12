@@ -116,7 +116,7 @@ class _WifiConnectionOverlayState extends State<WifiConnectionOverlay>
                         onPressed: _closeWithAnimation,
                         style: TextButton.styleFrom(
                           padding: const EdgeInsets.symmetric(vertical: 12),
-                          backgroundColor: Colors.white.withOpacity(0.1),
+                          backgroundColor: Colors.white.withValues(alpha: 0.1),
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(8),
                           ),
@@ -124,7 +124,7 @@ class _WifiConnectionOverlayState extends State<WifiConnectionOverlay>
                         child: Text(
                           'Maybe Later',
                           style: AppDesign.buttonText(
-                            color: Colors.white.withOpacity(0.8),
+                            color: Colors.white.withValues(alpha: 0.8),
                           ),
                         ),
                       ),

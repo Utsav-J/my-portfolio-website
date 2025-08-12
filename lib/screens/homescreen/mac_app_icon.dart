@@ -37,13 +37,13 @@ class _MacAppIconState extends State<MacAppIcon> {
                     end: Alignment.bottomRight,
                     colors: [
                       widget.app.color,
-                      widget.app.color.withOpacity(0.8),
+                      widget.app.color.withValues(alpha: 0.8),
                     ],
                   ),
                   borderRadius: BorderRadius.circular(12),
                   boxShadow: [
                     BoxShadow(
-                      color: Colors.black.withOpacity(0.3),
+                      color: Colors.black.withValues(alpha: 0.3),
                       blurRadius: 8,
                       offset: const Offset(0, 4),
                     ),
@@ -57,7 +57,7 @@ class _MacAppIconState extends State<MacAppIcon> {
                 style: AppDesign.appTitle().copyWith(
                   shadows: [
                     Shadow(
-                      color: Colors.black.withOpacity(0.5),
+                      color: Colors.black.withValues(alpha: 0.5),
                       blurRadius: 2,
                       offset: const Offset(0, 1),
                     ),

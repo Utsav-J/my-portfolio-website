@@ -95,14 +95,17 @@ class MacDock extends StatelessWidget {
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
             colors: [
-              Colors.grey.withOpacity(0.3),
-              Colors.grey.withOpacity(0.2),
+              Colors.grey.withValues(alpha: 0.3),
+              Colors.grey.withValues(alpha: 0.2),
             ],
           ),
-          border: Border.all(color: Colors.white.withOpacity(0.3), width: 0.5),
+          border: Border.all(
+            color: Colors.white.withValues(alpha: 0.3),
+            width: 0.5,
+          ),
           boxShadow: [
             BoxShadow(
-              color: Colors.black.withOpacity(0.2),
+              color: Colors.black.withValues(alpha: 0.2),
               blurRadius: 20,
               offset: const Offset(0, 8),
             ),

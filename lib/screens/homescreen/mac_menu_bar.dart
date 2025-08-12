@@ -108,7 +108,7 @@ class _MacMenuBarState extends State<MacMenuBar> {
       builder: (context) => GestureDetector(
         onTap: _closeWifiPopup,
         child: Container(
-          color: Colors.black.withOpacity(0.4),
+          color: Colors.black.withValues(alpha: 0.4),
           child: Center(
             child: WifiConnectionOverlay(
               onClose: _closeWifiPopup,
@@ -257,10 +257,10 @@ class _MacMenuBarState extends State<MacMenuBar> {
       height: 30,
       width: double.infinity,
       decoration: BoxDecoration(
-        color: Colors.black.withOpacity(0.4),
+        color: Colors.black.withValues(alpha: 0.4),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.2),
+            color: Colors.black.withValues(alpha: 0.2),
             blurRadius: 4,
             offset: const Offset(0, 1),
           ),
@@ -282,7 +282,7 @@ class _MacMenuBarState extends State<MacMenuBar> {
                   ),
                   decoration: BoxDecoration(
                     color: _isPortfolioMenuOpen
-                        ? Colors.white.withOpacity(0.2)
+                        ? Colors.white.withValues(alpha: 0.2)
                         : Colors.transparent,
                     borderRadius: BorderRadius.circular(4),
                   ),
@@ -317,7 +317,7 @@ class _MacMenuBarState extends State<MacMenuBar> {
                   ),
                   decoration: BoxDecoration(
                     color: _isFileMenuOpen
-                        ? Colors.white.withOpacity(0.2)
+                        ? Colors.white.withValues(alpha: 0.2)
                         : Colors.transparent,
                     borderRadius: BorderRadius.circular(4),
                   ),
@@ -337,7 +337,7 @@ class _MacMenuBarState extends State<MacMenuBar> {
                       padding: const EdgeInsets.all(4),
                       decoration: BoxDecoration(
                         color: _isGithubMenuOpen
-                            ? Colors.white.withOpacity(0.2)
+                            ? Colors.white.withValues(alpha: 0.2)
                             : Colors.transparent,
                         borderRadius: BorderRadius.circular(4),
                       ),
@@ -358,7 +358,7 @@ class _MacMenuBarState extends State<MacMenuBar> {
                       padding: const EdgeInsets.all(4),
                       decoration: BoxDecoration(
                         color: _isWifiPopupOpen
-                            ? Colors.white.withOpacity(0.2)
+                            ? Colors.white.withValues(alpha: 0.2)
                             : Colors.transparent,
                         borderRadius: BorderRadius.circular(4),
                       ),

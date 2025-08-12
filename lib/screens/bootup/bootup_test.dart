@@ -111,7 +111,7 @@ class _BootupScreenTestState extends State<BootupScreenTest>
                               'Loading...',
                               style: TextStyle(
                                 fontSize: 16,
-                                color: Colors.white.withOpacity(0.7),
+                                color: Colors.white.withValues(alpha: 0.7),
                                 fontWeight: FontWeight.w300,
                               ),
                             ),
@@ -120,7 +120,7 @@ class _BootupScreenTestState extends State<BootupScreenTest>
                               width: 200,
                               height: 4,
                               decoration: BoxDecoration(
-                                color: Colors.white.withOpacity(0.2),
+                                color: Colors.white.withValues(alpha: 0.2),
                                 borderRadius: BorderRadius.circular(2),
                               ),
                               child: AnimatedBuilder(
@@ -136,8 +136,8 @@ class _BootupScreenTestState extends State<BootupScreenTest>
                                         borderRadius: BorderRadius.circular(2),
                                         boxShadow: [
                                           BoxShadow(
-                                            color: Colors.white.withOpacity(
-                                              0.3,
+                                            color: Colors.white.withValues(
+                                              alpha: 0.3,
                                             ),
                                             blurRadius: 8,
                                             spreadRadius: 1,
@@ -168,7 +168,7 @@ class _BootupScreenTestState extends State<BootupScreenTest>
                   'Get Started',
                   style: TextStyle(
                     fontSize: 16,
-                    color: Colors.white.withOpacity(0.6),
+                    color: Colors.white.withValues(alpha: 0.6),
                     fontWeight: FontWeight.w300,
                   ),
                 ),

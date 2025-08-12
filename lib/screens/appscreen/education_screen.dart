@@ -331,7 +331,7 @@ class _EducationScreenState extends State<EducationScreen> {
         border: Border.all(color: Colors.grey[200]!, width: 1),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.06),
+            color: Colors.black.withValues(alpha: 0.06),
             blurRadius: 12,
             offset: const Offset(0, 4),
           ),
@@ -363,7 +363,10 @@ class _EducationScreenState extends State<EducationScreen> {
                 gradient: LinearGradient(
                   begin: Alignment.topCenter,
                   end: Alignment.bottomCenter,
-                  colors: [Colors.transparent, Colors.black.withOpacity(0.3)],
+                  colors: [
+                    Colors.transparent,
+                    Colors.black.withValues(alpha: 0.3),
+                  ],
                 ),
               ),
             ),
@@ -436,10 +439,10 @@ class _EducationScreenState extends State<EducationScreen> {
                     vertical: 6,
                   ),
                   decoration: BoxDecoration(
-                    color: AppDesign.systemGreen.withOpacity(0.1),
+                    color: AppDesign.systemGreen.withValues(alpha: 0.1),
                     borderRadius: BorderRadius.circular(16),
                     border: Border.all(
-                      color: AppDesign.systemGreen.withOpacity(0.3),
+                      color: AppDesign.systemGreen.withValues(alpha: 0.3),
                       width: 1,
                     ),
                   ),

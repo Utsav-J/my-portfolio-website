@@ -117,7 +117,7 @@ class _BootupScreenState extends State<BootupScreen>
                               'Booting Up...',
                               style: TextStyle(
                                 fontSize: 24,
-                                color: Colors.white.withOpacity(0.7),
+                                color: Colors.white.withValues(alpha: 0.7),
                                 fontWeight: FontWeight.w300,
                               ),
                             ),
@@ -126,7 +126,7 @@ class _BootupScreenState extends State<BootupScreen>
                               width: 200,
                               height: 4,
                               decoration: BoxDecoration(
-                                color: Colors.white.withOpacity(0.2),
+                                color: Colors.white.withValues(alpha: 0.2),
                                 borderRadius: BorderRadius.circular(2),
                               ),
                               child: AnimatedBuilder(
@@ -142,8 +142,8 @@ class _BootupScreenState extends State<BootupScreen>
                                         borderRadius: BorderRadius.circular(2),
                                         boxShadow: [
                                           BoxShadow(
-                                            color: Colors.white.withOpacity(
-                                              0.3,
+                                            color: Colors.white.withValues(
+                                              alpha: 0.3,
                                             ),
                                             blurRadius: 8,
                                             spreadRadius: 1,
@@ -174,7 +174,7 @@ class _BootupScreenState extends State<BootupScreen>
                   'Get Started',
                   style: TextStyle(
                     fontSize: 16,
-                    color: Colors.white.withOpacity(0.6),
+                    color: Colors.white.withValues(alpha: 0.6),
                     fontWeight: FontWeight.w300,
                   ),
                 ),

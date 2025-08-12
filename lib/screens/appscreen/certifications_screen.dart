@@ -251,7 +251,7 @@ class _CertificationsScreenState extends State<CertificationsScreen> {
                   width: 36,
                   height: 36,
                   decoration: BoxDecoration(
-                    color: AppDesign.systemBlue.withOpacity(0.1),
+                    color: AppDesign.systemBlue.withValues(alpha: 0.1),
                     borderRadius: BorderRadius.circular(8),
                   ),
                   child: const Icon(
@@ -289,10 +289,10 @@ class _CertificationsScreenState extends State<CertificationsScreen> {
                   vertical: 6,
                 ),
                 decoration: BoxDecoration(
-                  color: AppDesign.systemBlue.withOpacity(0.08),
+                  color: AppDesign.systemBlue.withValues(alpha: 0.08),
                   borderRadius: BorderRadius.circular(20),
                   border: Border.all(
-                    color: AppDesign.systemBlue.withOpacity(0.2),
+                    color: AppDesign.systemBlue.withValues(alpha: 0.2),
                     width: 1,
                   ),
                 ),

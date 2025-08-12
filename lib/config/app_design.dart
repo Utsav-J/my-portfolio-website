@@ -137,8 +137,11 @@ class AppDesign {
       title3.copyWith(color: color, fontWeight: FontWeight.w700);
 
   /// Popup body text style
-  static TextStyle popupBody({Color color = Colors.white}) =>
-      body.copyWith(color: color.withOpacity(0.8), fontSize: 14, height: 1.4);
+  static TextStyle popupBody({Color color = Colors.white}) => body.copyWith(
+    color: color.withValues(alpha: 0.8),
+    fontSize: 14,
+    height: 1.4,
+  );
 
   /// Menu item text style
   static TextStyle menuItem({Color color = Colors.white}) =>

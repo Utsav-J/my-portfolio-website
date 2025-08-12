@@ -174,7 +174,7 @@ class _AppScreenState extends State<AppScreen> {
           borderRadius: BorderRadius.circular(10),
           boxShadow: [
             BoxShadow(
-              color: Colors.black.withOpacity(isDragging ? 0.3 : 0.2),
+              color: Colors.black.withValues(alpha: isDragging ? 0.3 : 0.2),
               blurRadius: isDragging ? 25 : 20,
               offset: const Offset(0, 8),
             ),
@@ -295,14 +295,14 @@ class _AppScreenState extends State<AppScreen> {
                             // Plus Icon
                             Icon(
                               CupertinoIcons.add,
-                              color: Colors.white.withOpacity(0.8),
+                              color: Colors.white.withValues(alpha: 0.8),
                               size: 16,
                             ),
                             const SizedBox(width: 12),
                             // Three Dots Menu
                             Icon(
                               CupertinoIcons.ellipsis,
-                              color: Colors.white.withOpacity(0.8),
+                              color: Colors.white.withValues(alpha: 0.8),
                               size: 16,
                             ),
                           ],

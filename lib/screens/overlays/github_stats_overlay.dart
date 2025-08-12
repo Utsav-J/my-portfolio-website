@@ -114,7 +114,7 @@ class _GithubStatsOverlayState extends State<GithubStatsOverlay>
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(12),
                         border: Border.all(
-                          color: Colors.white.withOpacity(0.1),
+                          color: Colors.white.withValues(alpha: 0.1),
                           width: 1,
                         ),
                       ),

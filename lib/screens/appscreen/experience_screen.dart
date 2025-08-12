@@ -373,7 +373,7 @@ class _ExperienceScreenState extends State<ExperienceScreen> {
         border: Border.all(color: Colors.grey[200]!, width: 1),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.03),
+            color: Colors.black.withValues(alpha: 0.03),
             blurRadius: 6,
             offset: const Offset(0, 1),
           ),
@@ -392,7 +392,7 @@ class _ExperienceScreenState extends State<ExperienceScreen> {
                   width: 32,
                   height: 32,
                   decoration: BoxDecoration(
-                    color: AppDesign.systemBlue.withOpacity(0.1),
+                    color: AppDesign.systemBlue.withValues(alpha: 0.1),
                     borderRadius: BorderRadius.circular(6),
                   ),
                   child: Icon(
@@ -440,10 +440,10 @@ class _ExperienceScreenState extends State<ExperienceScreen> {
                     vertical: 4,
                   ),
                   decoration: BoxDecoration(
-                    color: AppDesign.systemBlue.withOpacity(0.1),
+                    color: AppDesign.systemBlue.withValues(alpha: 0.1),
                     borderRadius: BorderRadius.circular(12),
                     border: Border.all(
-                      color: AppDesign.systemBlue.withOpacity(0.3),
+                      color: AppDesign.systemBlue.withValues(alpha: 0.3),
                       width: 1,
                     ),
                   ),

@@ -475,9 +475,9 @@ class _MacDesktopAppsState extends State<MacDesktopApps> {
           Container(
             padding: const EdgeInsets.all(16),
             decoration: BoxDecoration(
-              color: app.color.withOpacity(0.1),
+              color: app.color.withValues(alpha: 0.1),
               borderRadius: BorderRadius.circular(8),
-              border: Border.all(color: app.color.withOpacity(0.3)),
+              border: Border.all(color: app.color.withValues(alpha: 0.3)),
             ),
             child: Row(
               children: [

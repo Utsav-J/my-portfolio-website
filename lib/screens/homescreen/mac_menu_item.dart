@@ -27,7 +27,7 @@ class _MacMenuItemState extends State<MacMenuItem> {
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
           decoration: BoxDecoration(
             color: _isHovered
-                ? const Color(0xFF007AFF).withOpacity(0.3)
+                ? const Color(0xFF007AFF).withValues(alpha: 0.3)
                 : Colors.transparent,
             borderRadius: BorderRadius.circular(6),
           ),
