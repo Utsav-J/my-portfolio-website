@@ -6,7 +6,7 @@ import 'package:portfolio/models/models.dart';
 class DockIcon extends StatefulWidget {
   final DockApp app;
 
-  const DockIcon({Key? key, required this.app}) : super(key: key);
+  const DockIcon({super.key, required this.app});
 
   @override
   State<DockIcon> createState() => _DockIconState();

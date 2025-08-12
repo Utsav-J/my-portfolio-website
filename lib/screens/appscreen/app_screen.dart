@@ -11,7 +11,7 @@ class AppScreen extends StatefulWidget {
   final Function(Offset)? onPositionChanged;
 
   const AppScreen({
-    Key? key,
+    super.key,
     required this.title,
     this.onClose,
     required this.child,
@@ -19,7 +19,7 @@ class AppScreen extends StatefulWidget {
     this.onPositionChanged,
     this.windowHeight,
     this.windowWidth,
-  }) : super(key: key);
+  });
 
   @override
   State<AppScreen> createState() => _AppScreenState();

@@ -1,15 +1,11 @@
-import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:portfolio/screens/appscreen/app_screen.dart';
 import 'package:portfolio/screens/homescreen/mac_app_icon.dart';
 import 'package:portfolio/models/models.dart';
-import 'package:portfolio/screens/appscreen/app_screen.dart';
-import 'package:portfolio/screens/appscreen/about_me_screen.dart';
-import 'package:portfolio/screens/appscreen/experience_screen.dart';
-import 'package:portfolio/screens/appscreen/certifications_screen.dart';
-import 'package:portfolio/screens/appscreen/education_screen.dart';
 
 class MacDesktopApps extends StatefulWidget {
-  const MacDesktopApps({Key? key}) : super(key: key);
+  const MacDesktopApps({super.key});
 
   @override
   State<MacDesktopApps> createState() => _MacDesktopAppsState();

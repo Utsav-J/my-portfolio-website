@@ -31,7 +31,7 @@ class Education {
 }
 
 class EducationScreen extends StatefulWidget {
-  const EducationScreen({Key? key}) : super(key: key);
+  const EducationScreen({super.key});
 
   @override
   State<EducationScreen> createState() => _EducationScreenState();

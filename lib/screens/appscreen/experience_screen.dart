@@ -76,7 +76,7 @@ class Experience {
 }
 
 class ExperienceScreen extends StatefulWidget {
-  const ExperienceScreen({Key? key}) : super(key: key);
+  const ExperienceScreen({super.key});
 
   @override
   State<ExperienceScreen> createState() => _ExperienceScreenState();

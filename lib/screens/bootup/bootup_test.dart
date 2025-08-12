@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'dart:async';
-
 import 'package:lottie/lottie.dart';
 
 class BootupScreenTest extends StatefulWidget {
-  const BootupScreenTest({Key? key}) : super(key: key);
+  const BootupScreenTest({super.key});
 
   @override
   State<BootupScreenTest> createState() => _BootupScreenTestState();

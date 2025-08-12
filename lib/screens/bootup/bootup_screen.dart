@@ -5,7 +5,7 @@ import 'package:lottie/lottie.dart';
 class BootupScreen extends StatefulWidget {
   final VoidCallback? onBootupComplete;
 
-  const BootupScreen({Key? key, this.onBootupComplete}) : super(key: key);
+  const BootupScreen({super.key, this.onBootupComplete});
 
   @override
   State<BootupScreen> createState() => _BootupScreenState();

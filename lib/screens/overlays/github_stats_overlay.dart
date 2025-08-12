@@ -4,7 +4,7 @@ import 'package:portfolio/config/app_design.dart';
 import 'package:portfolio/screens/overlays/github_stats_html.dart';
 
 class GithubStatsOverlay extends StatefulWidget {
-  const GithubStatsOverlay({Key? key}) : super(key: key);
+  const GithubStatsOverlay({super.key});
 
   @override
   State<GithubStatsOverlay> createState() => _GithubStatsOverlayState();

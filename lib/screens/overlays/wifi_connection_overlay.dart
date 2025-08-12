@@ -1,4 +1,3 @@
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:portfolio/config/app_design.dart';
@@ -8,10 +7,10 @@ class WifiConnectionOverlay extends StatefulWidget {
   final VoidCallback onLinkedInConnect;
 
   const WifiConnectionOverlay({
-    Key? key,
+    super.key,
     required this.onClose,
     required this.onLinkedInConnect,
-  }) : super(key: key);
+  });
 
   @override
   State<WifiConnectionOverlay> createState() => _WifiConnectionOverlayState();

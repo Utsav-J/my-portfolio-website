@@ -4,7 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:portfolio/config/app_design.dart';
 
 class AboutMeScreen extends StatefulWidget {
-  const AboutMeScreen({Key? key}) : super(key: key);
+  const AboutMeScreen({super.key});
 
   @override
   State<AboutMeScreen> createState() => _AboutMeScreenState();

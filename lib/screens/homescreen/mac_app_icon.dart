@@ -6,7 +6,7 @@ import 'package:portfolio/config/app_design.dart';
 class MacAppIcon extends StatefulWidget {
   final PortfolioApp app;
 
-  const MacAppIcon({Key? key, required this.app}) : super(key: key);
+  const MacAppIcon({super.key, required this.app});
 
   @override
   State<MacAppIcon> createState() => _MacAppIconState();

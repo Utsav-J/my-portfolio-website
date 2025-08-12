@@ -4,6 +4,7 @@ import 'package:icons_plus/icons_plus.dart';
 import 'package:intl/intl.dart';
 import 'package:portfolio/models/models.dart';
 import 'package:portfolio/config/app_design.dart';
+import 'package:portfolio/screens/homescreen/mac_dropdown_menu.dart';
 import 'package:portfolio/screens/overlays/github_stats_overlay.dart';
 import 'package:portfolio/screens/overlays/wifi_connection_overlay.dart';
 
@@ -380,99 +381,6 @@ class _MacMenuBarState extends State<MacMenuBar> {
               ],
             ),
           ],
-        ),
-      ),
-    );
-  }
-}
-
-class MacDropdownMenu extends StatelessWidget {
-  final Function(String) onItemSelected;
-  final List<MenuItemData>? menuItems;
-
-  const MacDropdownMenu({
-    Key? key,
-    required this.onItemSelected,
-    this.menuItems,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    final items =
-        menuItems ??
-        [
-          MenuItemData('Download Resume', CupertinoIcons.cloud_download),
-          MenuItemData('Print Portfolio', CupertinoIcons.printer),
-          MenuItemData('Share Portfolio', CupertinoIcons.share),
-          MenuItemData('Export as PDF', CupertinoIcons.doc),
-          MenuItemData('Settings', CupertinoIcons.gear),
-        ];
-
-    return Material(
-      color: Colors.transparent,
-      child: AppDesign.glassmorphicContainer(
-        width: 180,
-        borderRadius: 8.0,
-        blurStrength: 15.0,
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            for (int i = 0; i < items.length; i++) ...[
-              MacMenuItem(
-                item: items[i],
-                onTap: () => onItemSelected(items[i].title),
-              ),
-              if (i < items.length - 1)
-                Divider(
-                  height: 1,
-                  thickness: 0.5,
-                  color: Colors.white.withOpacity(0.1),
-                ),
-            ],
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-class MacMenuItem extends StatefulWidget {
-  final MenuItemData item;
-  final VoidCallback onTap;
-
-  const MacMenuItem({Key? key, required this.item, required this.onTap})
-    : super(key: key);
-
-  @override
-  State<MacMenuItem> createState() => _MacMenuItemState();
-}
-
-class _MacMenuItemState extends State<MacMenuItem> {
-  bool _isHovered = false;
-
-  @override
-  Widget build(BuildContext context) {
-    return MouseRegion(
-      onEnter: (_) => setState(() => _isHovered = true),
-      onExit: (_) => setState(() => _isHovered = false),
-      child: GestureDetector(
-        onTap: widget.onTap,
-        child: Container(
-          width: double.infinity,
-          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-          decoration: BoxDecoration(
-            color: _isHovered
-                ? const Color(0xFF007AFF).withOpacity(0.3)
-                : Colors.transparent,
-            borderRadius: BorderRadius.circular(6),
-          ),
-          child: Row(
-            children: [
-              Icon(widget.item.icon, color: Colors.white, size: 16),
-              const SizedBox(width: 12),
-              Text(widget.item.title, style: AppDesign.menuItem()),
-            ],
-          ),
         ),
       ),
     );
