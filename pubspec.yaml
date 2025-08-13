@@ -71,8 +71,10 @@ flutter:
   assets:
     - assets/lottie/apple_rotate.json
     - assets/lottie/welcome.json
-    # - assets/images/utsav_bootup.jpg
+    - assets/snake_head.png
+    - assets/game_over.png
     - assets/images/wallpaper.png
+    - assets/icons/
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

@@ -4,6 +4,7 @@ import 'package:portfolio/screens/appscreen/app_screen.dart';
 import 'package:portfolio/screens/homescreen/mac_app_icon.dart';
 import 'package:portfolio/models/models.dart';
 import 'package:portfolio/screens/appscreen/projects_screen.dart';
+import 'package:portfolio/screens/snake/snake_game.dart';
 
 class MacDesktopApps extends StatefulWidget {
   const MacDesktopApps({super.key});
@@ -340,15 +341,17 @@ class _MacDesktopAppsState extends State<MacDesktopApps> {
         ),
       ),
       PortfolioApp(
-        title: 'Portfolio',
-        icon: CupertinoIcons.folder,
+        title: 'Snake Game',
+        icon: CupertinoIcons.game_controller,
         color: const Color(0xFF48CAE4),
         onTap: () => _openApp(
           PortfolioApp(
-            title: 'Portfolio',
-            icon: CupertinoIcons.folder,
-            color: const Color(0xFF48CAE4),
+            title: 'Snake Game',
+            icon: CupertinoIcons.book,
+            color: const Color(0xFFAF52DE),
             onTap: () {},
+            height: 500,
+            width: 500,
           ),
         ),
       ),
@@ -411,14 +414,14 @@ class _MacDesktopAppsState extends State<MacDesktopApps> {
             onPositionChanged: (newPosition) =>
                 _updateWindowPosition(app.title, newPosition),
             onClose: () => _closeApp(app),
-            child: _buildDummyContent(app),
+            child: _buildContent(app),
           );
         }).toList(),
       ],
     );
   }
 
-  Widget _buildDummyContent(PortfolioApp app) {
+  Widget _buildContent(PortfolioApp app) {
     // Special case for About Me app
     if (app.title == 'About Me') {
       return const AboutMeScreen();
@@ -442,6 +445,10 @@ class _MacDesktopAppsState extends State<MacDesktopApps> {
     // Special case for Projects app
     if (app.title == 'Projects') {
       return const ProjectsScreen();
+    }
+
+    if (app.title == 'Snake Game') {
+      return const SnakeGame();
     }
 
     return Padding(
