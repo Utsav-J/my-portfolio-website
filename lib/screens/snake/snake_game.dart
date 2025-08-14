@@ -26,6 +26,17 @@ class _SnakeGameState extends State<SnakeGame> {
     'assets/icons/kubernetes.png',
     'assets/icons/react.png',
     'assets/icons/node.png',
+    //new
+    'assets/icons/dart.png',
+    'assets/icons/c.png',
+    'assets/icons/cpp.png',
+    'assets/icons/sql.png',
+    'assets/icons/bash.png',
+    'assets/icons/angular.png',
+    'assets/icons/huggingface.png',
+    'assets/icons/mongodb.png',
+    'assets/icons/postman.png',
+    'assets/icons/firebase.png',
   ];
 
   List<Point<int>> snake = [const Point(7, 7)];

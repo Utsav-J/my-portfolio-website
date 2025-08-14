@@ -18,7 +18,7 @@ class Portfolio extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: _buildAppleTheme(),
       home: const HomePage(),
-      routes: {'/home': (context) => const HomePage()},
+      routes: {'/home': (context) => const HomePage()}, 
     );
   }
 

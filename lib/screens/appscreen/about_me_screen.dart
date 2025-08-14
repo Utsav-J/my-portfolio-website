@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:icons_plus/icons_plus.dart';
 import 'package:portfolio/config/app_design.dart';
+import 'package:portfolio/utils/firebase_utils.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class AboutMeScreen extends StatefulWidget {
@@ -20,6 +21,8 @@ class _AboutMeScreenState extends State<AboutMeScreen>
   int _currentTitleIndex = 0;
   String? _profileImageUrl;
   bool _isLoadingImage = true;
+  String? _aboutMeSummary;
+  bool _isLoadingSummary = true;
 
   final List<String> _titles = [
     'COMPUTER SCIENCE STUDENT',
@@ -57,6 +60,27 @@ class _AboutMeScreenState extends State<AboutMeScreen>
     }
   }
 
+  Future<void> _loadAboutMeSummary() async {
+    try {
+      final summary = await FirebaseUtils.getAboutMeSummary();
+      if (mounted) {
+        setState(() {
+          _aboutMeSummary = summary;
+          _isLoadingSummary = false;
+        });
+      }
+    } catch (e) {
+      print('Error loading about me summary: $e');
+      if (mounted) {
+        setState(() {
+          _aboutMeSummary =
+              "I'm a passionate software developer with expertise in Flutter, mobile development, and creating elegant digital experiences. I love turning complex problems into simple, beautiful solutions.";
+          _isLoadingSummary = false;
+        });
+      }
+    }
+  }
+
   @override
   void initState() {
     super.initState();
@@ -71,6 +95,7 @@ class _AboutMeScreenState extends State<AboutMeScreen>
 
     _startTitleAnimation();
     _loadProfileImage();
+    _loadAboutMeSummary();
   }
 
   void _startTitleAnimation() {
@@ -288,11 +313,11 @@ class _AboutMeScreenState extends State<AboutMeScreen>
                       "Thanks for visiting my portfolio",
                       style: AppDesign.title1.copyWith(
                         color: Colors.black87,
-                        fontWeight: FontWeight.w400,
+                        fontWeight: FontWeight.w300,
                         fontSize: 20,
                       ),
                     ),
-                    const SizedBox(height: 40),
+                    const SizedBox(height: 28),
 
                     // Call-to-action buttons
                     Row(
@@ -316,17 +341,19 @@ class _AboutMeScreenState extends State<AboutMeScreen>
                         ),
                       ],
                     ),
-                    const SizedBox(height: 40),
+                    const SizedBox(height: 28),
 
-                    // Content paragraphs
-                    Text(
-                      "I'm a passionate software developer with expertise in Flutter, mobile development, and creating elegant digital experiences. I love turning complex problems into simple, beautiful solutions.",
-                      style: AppDesign.body.copyWith(
-                        color: Colors.black87,
-                        fontSize: 16,
-                        height: 1.6,
+                    if (_isLoadingSummary)
+                      const Center(child: CircularProgressIndicator())
+                    else
+                      Text(
+                        _aboutMeSummary!,
+                        style: AppDesign.body.copyWith(
+                          color: Colors.black87,
+                          fontSize: 15,
+                          height: 1.6,
+                        ),
                       ),
-                    ),
                   ],
                 ),
               ),
@@ -374,7 +401,7 @@ class _AboutMeScreenState extends State<AboutMeScreen>
             onTap();
           },
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
             child: Row(
               children: [
                 brandIcon,

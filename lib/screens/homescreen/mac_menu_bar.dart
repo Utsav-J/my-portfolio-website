@@ -5,6 +5,7 @@ import 'package:intl/intl.dart';
 import 'package:portfolio/models/models.dart';
 import 'package:portfolio/config/app_design.dart';
 import 'package:portfolio/screens/homescreen/mac_dropdown_menu.dart';
+import 'package:portfolio/screens/overlays/battery_status_overlay.dart';
 import 'package:portfolio/screens/overlays/github_stats_overlay.dart';
 import 'package:portfolio/screens/overlays/wifi_connection_overlay.dart';
 
@@ -18,10 +19,12 @@ class MacMenuBar extends StatefulWidget {
 class _MacMenuBarState extends State<MacMenuBar> {
   bool _isFileMenuOpen = false;
   bool _isWifiPopupOpen = false;
+  bool _isBatteryPopupOpen = false;
   bool _isPortfolioMenuOpen = false;
   bool _isGithubMenuOpen = false;
   OverlayEntry? _overlayEntry;
   OverlayEntry? _wifiOverlayEntry;
+  OverlayEntry? _batteryOverlayEntry;
   OverlayEntry? _portfolioOverlayEntry;
   OverlayEntry? _githubOverlayEntry;
 
@@ -99,6 +102,39 @@ class _MacMenuBarState extends State<MacMenuBar> {
     } else {
       _openWifiPopup();
     }
+  }
+
+  void _toggleBatteryStatusPopup() {
+    if (_isBatteryPopupOpen) {
+      _closeBatteryPopup();
+    } else {
+      _openBatteryPopup();
+    }
+  }
+
+  void _closeBatteryPopup() {
+    setState(() => _isBatteryPopupOpen = false);
+    _batteryOverlayEntry?.remove();
+    _batteryOverlayEntry = null;
+  }
+
+  void _openBatteryPopup() {
+    setState(() {
+      _isBatteryPopupOpen = true;
+    });
+
+    _batteryOverlayEntry = OverlayEntry(
+      builder: (context) => GestureDetector(
+        onTap: _closeBatteryPopup,
+        child: Container(
+          color: Colors.black.withValues(alpha: 0.4),
+          child: Center(
+            child: BatteryStatusOverlay(onClose: _closeBatteryPopup),
+          ),
+        ),
+      ),
+    );
+    Overlay.of(context).insert(_batteryOverlayEntry!);
   }
 
   void _openWifiPopup() {
@@ -371,10 +407,25 @@ class _MacMenuBarState extends State<MacMenuBar> {
                   ),
                 ),
                 const SizedBox(width: 8),
-                Icon(
-                  CupertinoIcons.battery_full,
-                  color: Colors.white,
-                  size: 18,
+                MouseRegion(
+                  cursor: SystemMouseCursors.click,
+                  child: GestureDetector(
+                    onTap: _toggleBatteryStatusPopup,
+                    child: Container(
+                      padding: const EdgeInsets.all(4),
+                      decoration: BoxDecoration(
+                        color: _isBatteryPopupOpen
+                            ? Colors.white.withValues(alpha: 0.2)
+                            : Colors.transparent,
+                        borderRadius: BorderRadius.circular(4),
+                      ),
+                      child: Icon(
+                        CupertinoIcons.battery_full,
+                        color: Colors.white,
+                        size: 18,
+                      ),
+                    ),
+                  ),
                 ),
                 const SizedBox(width: 8),
                 Text(formattedTime, style: AppDesign.menuBarTime()),

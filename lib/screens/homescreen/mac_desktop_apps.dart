@@ -288,19 +288,7 @@ class _MacDesktopAppsState extends State<MacDesktopApps> {
           ),
         ),
       ),
-      PortfolioApp(
-        title: 'Achievements',
-        icon: CupertinoIcons.star_circle,
-        color: const Color(0xFFFFD60A),
-        onTap: () => _openApp(
-          PortfolioApp(
-            title: 'Achievements',
-            icon: CupertinoIcons.star_circle,
-            color: const Color(0xFFFFD60A),
-            onTap: () {},
-          ),
-        ),
-      ),
+
       PortfolioApp(
         title: 'Blog',
         icon: CupertinoIcons.doc_text,
@@ -310,19 +298,6 @@ class _MacDesktopAppsState extends State<MacDesktopApps> {
             title: 'Blog',
             icon: CupertinoIcons.doc_text,
             color: const Color(0xFF32D74B),
-            onTap: () {},
-          ),
-        ),
-      ),
-      PortfolioApp(
-        title: 'Contact',
-        icon: CupertinoIcons.mail,
-        color: const Color(0xFFFF3B30),
-        onTap: () => _openApp(
-          PortfolioApp(
-            title: 'Contact',
-            icon: CupertinoIcons.mail,
-            color: const Color(0xFFFF3B30),
             onTap: () {},
           ),
         ),
@@ -341,30 +316,17 @@ class _MacDesktopAppsState extends State<MacDesktopApps> {
         ),
       ),
       PortfolioApp(
-        title: 'Snake Game',
+        title: 'Game',
         icon: CupertinoIcons.game_controller,
         color: const Color(0xFF48CAE4),
         onTap: () => _openApp(
           PortfolioApp(
-            title: 'Snake Game',
+            title: 'Help Utsav catch all the tech',
             icon: CupertinoIcons.book,
             color: const Color(0xFFAF52DE),
             onTap: () {},
             height: 500,
             width: 500,
-          ),
-        ),
-      ),
-      PortfolioApp(
-        title: 'Testimonials',
-        icon: CupertinoIcons.chat_bubble_2,
-        color: const Color(0xFFFF6B6B),
-        onTap: () => _openApp(
-          PortfolioApp(
-            title: 'Testimonials',
-            icon: CupertinoIcons.chat_bubble_2,
-            color: const Color(0xFFFF6B6B),
-            onTap: () {},
           ),
         ),
       ),
