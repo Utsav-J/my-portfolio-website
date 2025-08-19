@@ -16,6 +16,8 @@ class MacDesktopApps extends StatefulWidget {
 class _MacDesktopAppsState extends State<MacDesktopApps> {
   List<PortfolioApp> openWindows = [];
   Map<String, Offset> windowPositions = {};
+  Map<String, int> windowZIndices = {}; // Track z-index for each window
+  int _nextZIndex = 0; // Counter for next available z-index
   Size? _lastScreenSize;
 
   @override
@@ -23,6 +25,15 @@ class _MacDesktopAppsState extends State<MacDesktopApps> {
     super.initState();
     // Initialize with a default screen size
     _lastScreenSize = const Size(1920, 1080);
+  }
+
+  // Ensure all open windows have z-indices assigned
+  void _ensureZIndices() {
+    for (final app in openWindows) {
+      if (!windowZIndices.containsKey(app.title)) {
+        windowZIndices[app.title] = _nextZIndex++;
+      }
+    }
   }
 
   @override
@@ -122,6 +133,8 @@ class _MacDesktopAppsState extends State<MacDesktopApps> {
         // Use smart positioning to avoid overlaps and stay within bounds
         final initialPosition = _calculateSmartInitialPosition(app);
         windowPositions[app.title] = initialPosition;
+        // Assign the highest z-index to the newly opened window
+        windowZIndices[app.title] = _nextZIndex++;
       }
     });
   }
@@ -132,6 +145,7 @@ class _MacDesktopAppsState extends State<MacDesktopApps> {
     setState(() {
       openWindows.remove(app);
       windowPositions.remove(app.title);
+      windowZIndices.remove(app.title);
     });
   }
 
@@ -140,6 +154,28 @@ class _MacDesktopAppsState extends State<MacDesktopApps> {
 
     setState(() {
       windowPositions[title] = newPosition;
+    });
+  }
+
+  // Bring a window to the front when tapped
+  void _bringToFront(String title) {
+    if (!mounted || !windowZIndices.containsKey(title)) return;
+
+    setState(() {
+      // Assign the highest z-index to bring this window to front
+      windowZIndices[title] = _nextZIndex++;
+
+      // Prevent z-index overflow by resetting counter if it gets too large
+      if (_nextZIndex > 1000000) {
+        // Reset all z-indices to smaller values while maintaining relative order
+        final sortedEntries = windowZIndices.entries.toList()
+          ..sort((a, b) => a.value.compareTo(b.value));
+
+        for (int i = 0; i < sortedEntries.length; i++) {
+          windowZIndices[sortedEntries[i].key] = i;
+        }
+        _nextZIndex = sortedEntries.length;
+      }
     });
   }
 
@@ -199,6 +235,9 @@ class _MacDesktopAppsState extends State<MacDesktopApps> {
 
   @override
   Widget build(BuildContext context) {
+    // Ensure all open windows have z-indices assigned
+    _ensureZIndices();
+
     final portfolioApps = [
       PortfolioApp(
         title: 'About Me',
@@ -321,7 +360,7 @@ class _MacDesktopAppsState extends State<MacDesktopApps> {
         color: const Color(0xFF48CAE4),
         onTap: () => _openApp(
           PortfolioApp(
-            title: 'Help Utsav catch all the tech',
+            title: 'Help Utsav catch all of tech',
             icon: CupertinoIcons.book,
             color: const Color(0xFFAF52DE),
             onTap: () {},
@@ -364,7 +403,7 @@ class _MacDesktopAppsState extends State<MacDesktopApps> {
           ),
         ),
 
-        // Open Windows - Now using the draggable AppScreen
+        // Open Windows - Now using the draggable AppScreen with z-index ordering
         ...openWindows.map((app) {
           final position = windowPositions[app.title] ?? const Offset(50, 60);
           return AppScreen(
@@ -376,6 +415,8 @@ class _MacDesktopAppsState extends State<MacDesktopApps> {
             onPositionChanged: (newPosition) =>
                 _updateWindowPosition(app.title, newPosition),
             onClose: () => _closeApp(app),
+            onBringToFront: () =>
+                _bringToFront(app.title), // Add bring-to-front callback
             child: _buildContent(app),
           );
         }).toList(),
@@ -409,7 +450,7 @@ class _MacDesktopAppsState extends State<MacDesktopApps> {
       return const ProjectsScreen();
     }
 
-    if (app.title == 'Snake Game') {
+    if (app.title == 'Help Utsav catch all of tech') {
       return const SnakeGame();
     }
 

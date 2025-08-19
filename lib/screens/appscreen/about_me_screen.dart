@@ -119,16 +119,16 @@ class _AboutMeScreenState extends State<AboutMeScreen>
     });
   }
 
-  Future<void> _handleOpenGithub() async {
+  Future<void> _handleOpenSocials(String socialUrl) async {
     try {
-      final Uri url = Uri.parse('https://github.com/Utsav-J');
+      final Uri url = Uri.parse(socialUrl);
       if (await canLaunchUrl(url)) {
         await launchUrl(url, mode: LaunchMode.externalApplication);
       } else {
         _showErrorSnackBar('Could not open resume link');
       }
     } catch (e) {
-      _showErrorSnackBar('Error downloading resume: $e');
+      _showErrorSnackBar('An unknown error occurred: $e');
     }
   }
 
@@ -271,13 +271,23 @@ class _AboutMeScreenState extends State<AboutMeScreen>
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        _buildSocialIcon(Icons.facebook, 'Facebook'),
+                        _buildSocialIcon(
+                          Brands.github,
+                          'GitHub',
+                          'https://github.com/Utsav-J',
+                        ),
                         const SizedBox(width: 20),
-                        _buildSocialIcon(Icons.flutter_dash, 'Twitter'),
+                        _buildSocialIcon(
+                          Brands.linkedin_circled,
+                          'LinkedIn',
+                          'https://www.linkedin.com/in/iamutsavjaiswal/',
+                        ),
                         const SizedBox(width: 20),
-                        _buildSocialIcon(Icons.work, 'LinkedIn'),
-                        const SizedBox(width: 20),
-                        _buildSocialIcon(Icons.camera_alt, 'Instagram'),
+                        _buildSocialIcon(
+                          Brands.instagram,
+                          'Instagram',
+                          'https://www.instagram.com/acoolstick_/',
+                        ),
                       ],
                     ),
                   ],
@@ -334,7 +344,8 @@ class _AboutMeScreenState extends State<AboutMeScreen>
                         _buildButton(
                           'GitHub',
                           Brand(Brands.github, size: 20),
-                          _handleOpenGithub,
+                          () =>
+                              _handleOpenSocials('https://github.com/Utsav-J'),
                           Colors.white,
                           Colors.black,
                           Colors.black,
@@ -364,17 +375,21 @@ class _AboutMeScreenState extends State<AboutMeScreen>
     );
   }
 
-  Widget _buildSocialIcon(IconData icon, String label) {
+  Widget _buildSocialIcon(String brandName, String label, String socialUrl) {
     return Tooltip(
+      mouseCursor: SystemMouseCursors.click,
       message: label,
-      child: Container(
-        width: 40,
-        height: 40,
-        decoration: BoxDecoration(
-          color: Colors.transparent,
-          borderRadius: BorderRadius.circular(8),
+      child: GestureDetector(
+        onTap: () => _handleOpenSocials(socialUrl),
+        child: Container(
+          width: 40,
+          height: 40,
+          decoration: BoxDecoration(
+            color: Colors.transparent,
+            borderRadius: BorderRadius.circular(8),
+          ),
+          child: Brand(brandName, size: 20),
         ),
-        child: Icon(icon, color: Colors.black87, size: 24),
       ),
     );
   }

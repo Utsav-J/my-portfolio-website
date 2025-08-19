@@ -93,6 +93,20 @@ class _ExperienceScreenState extends State<ExperienceScreen> {
     _loadExperiences();
   }
 
+  String _calculateExperience() {
+    int totalExperienceMonths = 0;
+    for (var experience in _experiences) {
+      final durationString = experience.duration;
+      final duration = durationString.split(' ');
+      final durationValue = int.parse(duration[0]);
+      totalExperienceMonths += durationValue;
+    }
+    if (totalExperienceMonths >= 12) {
+      return "${totalExperienceMonths ~/ 12} years ${totalExperienceMonths % 12} months";
+    }
+    return "$totalExperienceMonths months";
+  }
+
   Future<void> _loadExperiences() async {
     try {
       setState(() {
@@ -176,19 +190,13 @@ class _ExperienceScreenState extends State<ExperienceScreen> {
                   ),
                 ),
                 // Stats in a compact row
-                Row(
-                  children: [
-                    _buildCompactStat('Roles', _experiences.length.toString()),
-                    const SizedBox(width: 16),
-                    _buildCompactStat(
-                      'Companies',
-                      _experiences
-                          .map((e) => e.companyName)
-                          .toSet()
-                          .length
-                          .toString(),
-                    ),
-                  ],
+                Text(
+                  _calculateExperience(),
+                  style: AppDesign.title1.copyWith(
+                    color: AppDesign.systemBlue,
+                    fontWeight: FontWeight.w400,
+                    fontSize: 16,
+                  ),
                 ),
               ],
             ),
@@ -206,73 +214,9 @@ class _ExperienceScreenState extends State<ExperienceScreen> {
             ),
 
             const SizedBox(height: 16),
-
-            // Refresh button
-            Align(
-              alignment: Alignment.centerRight,
-              child: _buildCompactRefreshButton(),
-            ),
-
-            const SizedBox(height: 16),
-
             // Experience list
             Expanded(child: _buildExperienceContent()),
           ],
-        ),
-      ),
-    );
-  }
-
-  Widget _buildCompactStat(String label, String value) {
-    return Column(
-      children: [
-        Text(
-          value,
-          style: AppDesign.title1.copyWith(
-            color: AppDesign.systemBlue,
-            fontWeight: FontWeight.w700,
-            fontSize: 20,
-          ),
-        ),
-        Text(
-          label,
-          style: AppDesign.body.copyWith(
-            color: Colors.black87,
-            fontSize: 10,
-            fontWeight: FontWeight.w500,
-          ),
-        ),
-      ],
-    );
-  }
-
-  Widget _buildCompactRefreshButton() {
-    return Container(
-      decoration: BoxDecoration(
-        color: AppDesign.systemBlue,
-        borderRadius: BorderRadius.circular(6),
-      ),
-      child: Material(
-        color: Colors.transparent,
-        child: InkWell(
-          borderRadius: BorderRadius.circular(6),
-          onTap: _loadExperiences,
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-            child: Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Icon(Icons.refresh, color: Colors.white, size: 14),
-                const SizedBox(width: 4),
-                Text(
-                  'Refresh',
-                  style: AppDesign.buttonText(
-                    color: Colors.white,
-                  ).copyWith(fontSize: 11, fontWeight: FontWeight.w600),
-                ),
-              ],
-            ),
-          ),
         ),
       ),
     );
@@ -321,8 +265,6 @@ class _ExperienceScreenState extends State<ExperienceScreen> {
               ),
               textAlign: TextAlign.center,
             ),
-            const SizedBox(height: 16),
-            _buildCompactRefreshButton(),
           ],
         ),
       );
