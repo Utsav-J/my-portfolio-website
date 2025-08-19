@@ -25,6 +25,34 @@ class _MacDesktopAppsState extends State<MacDesktopApps> {
     super.initState();
     // Initialize with a default screen size
     _lastScreenSize = const Size(1920, 1080);
+
+    // Open default windows (About Me and Experience) after first frame
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (!mounted) return;
+      _lastScreenSize = MediaQuery.of(context).size;
+
+      _openApp(
+        PortfolioApp(
+          title: 'About Me',
+          icon: CupertinoIcons.person_circle,
+          color: const Color(0xFF34C759),
+          onTap: () {},
+          height: 560,
+          width: 768,
+        ),
+      );
+
+      _openApp(
+        PortfolioApp(
+          title: 'Experience',
+          icon: CupertinoIcons.briefcase,
+          color: const Color(0xFF007AFF),
+          onTap: () {},
+          height: 400,
+          width: 600,
+        ),
+      );
+    });
   }
 
   // Ensure all open windows have z-indices assigned
