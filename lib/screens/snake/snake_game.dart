@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:portfolio/config/app_design.dart';
 
 class SnakeGame extends StatefulWidget {
   const SnakeGame({super.key});
@@ -78,38 +79,7 @@ class _SnakeGameState extends State<SnakeGame> {
         newHead.y >= rows ||
         snake.contains(newHead)) {
       timer.cancel();
-      showDialog(
-        context: context,
-        builder: (_) => AlertDialog(
-          title: const Text('Game Over'),
-          content: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Image.asset('assets/game_over.png', height: 300),
-              SizedBox(height: 10),
-              Text('Your score: ${snake.length - 1}'),
-            ],
-          ),
-          actions: [
-            TextButton(
-              onPressed: () {
-                Navigator.pop(context);
-                setState(() {
-                  snake = [const Point(7, 7)];
-                  direction = const Point(1, 0);
-                  _spawnFood();
-                  this.timer = Timer.periodic(
-                    const Duration(milliseconds: 200),
-                    _update,
-                  );
-                });
-              },
-              child: const Text('Restart'),
-            ),
-          ],
-        ),
-      );
+      _showGameOverOverlay();
       return;
     }
 
@@ -130,6 +100,32 @@ class _SnakeGameState extends State<SnakeGame> {
         direction = newDir;
       });
     }
+  }
+
+  void _showGameOverOverlay() {
+    showDialog(
+      context: context,
+      barrierDismissible: true,
+      barrierColor: Colors.black54,
+      builder: (_) => _GameOverOverlay(
+        score: snake.length - 1,
+        onRestart: () {
+          Navigator.pop(context);
+          setState(() {
+            snake = [const Point(7, 7)];
+            direction = const Point(1, 0);
+            _spawnFood();
+            this.timer = Timer.periodic(
+              const Duration(milliseconds: 200),
+              _update,
+            );
+          });
+        },
+        onClose: () {
+          Navigator.pop(context);
+        },
+      ),
+    );
   }
 
   @override
@@ -258,4 +254,147 @@ class _SnakePainter extends CustomPainter {
 
   @override
   bool shouldRepaint(covariant CustomPainter oldDelegate) => true;
+}
+
+class _GameOverOverlay extends StatefulWidget {
+  final int score;
+  final VoidCallback onRestart;
+  final VoidCallback onClose;
+
+  const _GameOverOverlay({
+    required this.score,
+    required this.onRestart,
+    required this.onClose,
+  });
+
+  @override
+  State<_GameOverOverlay> createState() => _GameOverOverlayState();
+}
+
+class _GameOverOverlayState extends State<_GameOverOverlay>
+    with TickerProviderStateMixin {
+  late AnimationController _scaleController;
+  late AnimationController _fadeController;
+  late Animation<double> _scaleAnimation;
+  late Animation<double> _fadeAnimation;
+
+  @override
+  void initState() {
+    super.initState();
+
+    _scaleController = AnimationController(
+      duration: const Duration(milliseconds: 300),
+      vsync: this,
+    );
+
+    _fadeController = AnimationController(
+      duration: const Duration(milliseconds: 200),
+      vsync: this,
+    );
+
+    _scaleAnimation = Tween<double>(begin: 0.8, end: 1.0).animate(
+      CurvedAnimation(parent: _scaleController, curve: Curves.easeOutBack),
+    );
+
+    _fadeAnimation = Tween<double>(
+      begin: 0.0,
+      end: 1.0,
+    ).animate(CurvedAnimation(parent: _fadeController, curve: Curves.easeOut));
+
+    // Start animations
+    _fadeController.forward();
+    _scaleController.forward();
+  }
+
+  @override
+  void dispose() {
+    _scaleController.dispose();
+    _fadeController.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return FadeTransition(
+      opacity: _fadeAnimation,
+      child: ScaleTransition(
+        scale: _scaleAnimation,
+        child: Material(
+          color: Colors.transparent,
+          child: Center(
+            child: AppDesign.glassmorphicContainer(
+              width: 300,
+              padding: const EdgeInsets.all(20),
+              borderRadius: 16.0,
+              blurStrength: 20.0,
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  // Header with close button
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text('Game Over', style: AppDesign.popupTitle()),
+                      IconButton(
+                        onPressed: widget.onClose,
+                        icon: const Icon(
+                          Icons.close,
+                          color: Colors.white70,
+                          size: 20,
+                        ),
+                        style: IconButton.styleFrom(
+                          backgroundColor: Colors.white.withValues(alpha: 0.1),
+                          padding: const EdgeInsets.all(8),
+                          minimumSize: const Size(32, 32),
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 16),
+
+                  // Game Over Image
+                  Image.asset('assets/game_over.png', height: 120),
+                  const SizedBox(height: 16),
+
+                  // Score
+                  Text(
+                    'Your score: ${widget.score}',
+                    textAlign: TextAlign.center,
+                    style: AppDesign.popupBody(),
+                  ),
+                  const SizedBox(height: 20),
+
+                  // Buttons
+                  Row(
+                    children: [
+                      Expanded(
+                        child: TextButton(
+                          onPressed: widget.onRestart,
+                          style: TextButton.styleFrom(
+                            padding: const EdgeInsets.symmetric(vertical: 12),
+                            backgroundColor: Colors.white.withValues(
+                              alpha: 0.1,
+                            ),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                          ),
+                          child: Text(
+                            'Restart',
+                            style: AppDesign.buttonText(
+                              color: Colors.white.withValues(alpha: 0.8),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
 }
