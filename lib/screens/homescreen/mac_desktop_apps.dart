@@ -5,6 +5,7 @@ import 'package:portfolio/screens/appscreen/app_screen.dart';
 import 'package:portfolio/screens/homescreen/mac_app_icon.dart';
 import 'package:portfolio/models/models.dart';
 import 'package:portfolio/screens/appscreen/projects_screen.dart';
+import 'package:portfolio/screens/homescreen/widgets/utsav_memoji.dart';
 import 'package:portfolio/screens/snake/snake_game.dart';
 
 class MacDesktopApps extends StatefulWidget {
@@ -434,13 +435,7 @@ class _MacDesktopAppsState extends State<MacDesktopApps> {
                   StaggeredGridTile.count(
                     crossAxisCellCount: 1,
                     mainAxisCellCount: 1,
-                    child: Container(
-                      decoration: BoxDecoration(
-                        color: const Color(0xFFE6F2E6),
-                        borderRadius: BorderRadius.circular(12),
-                        border: Border.all(color: const Color(0xFFBFD8BF)),
-                      ),
-                    ),
+                    child: UtsavMemoji(),
                   ),
                   StaggeredGridTile.count(
                     crossAxisCellCount: 2,

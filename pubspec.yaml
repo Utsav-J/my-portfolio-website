@@ -75,6 +75,7 @@ flutter:
     - assets/snake_head.png
     - assets/game_over.png
     - assets/images/wallpaper.png
+    - assets/images/memoji-removebg.png
     - assets/icons/
   #   - images/a_dot_ham.jpeg
 
