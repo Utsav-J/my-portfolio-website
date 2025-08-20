@@ -101,6 +101,7 @@ class _GithubStatsOverlayState extends State<GithubStatsOverlay>
                   style: AppDesign.headline.copyWith(
                     color: Colors.white.withAlpha(180),
                     fontSize: 14,
+                    fontWeight: FontWeight.w300,
                   ),
                 ),
                 const SizedBox(height: 15),

@@ -10,12 +10,11 @@ class UtsavMemoji extends StatelessWidget {
         Container(
           decoration: BoxDecoration(
             gradient: LinearGradient(
-              colors: [Colors.white12, Colors.white70],
+              colors: [Colors.black12, Colors.black87],
               begin: Alignment.topCenter,
               end: Alignment.bottomCenter,
             ),
             borderRadius: BorderRadius.circular(12),
-            border: Border.all(color: Colors.white, width: 0.5),
           ),
         ),
         Image.asset("assets/images/memoji-removebg.png"),
