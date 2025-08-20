@@ -6,6 +6,7 @@ import 'package:portfolio/screens/homescreen/mac_app_icon.dart';
 import 'package:portfolio/models/models.dart';
 import 'package:portfolio/screens/appscreen/projects_screen.dart';
 import 'package:portfolio/screens/homescreen/widgets/utsav_memoji.dart';
+import 'package:portfolio/screens/homescreen/widgets/spotify_music_frame.dart';
 import 'package:portfolio/screens/homescreen/widgets/calendar_widget.dart';
 import 'package:portfolio/screens/snake/snake_game.dart';
 
@@ -473,24 +474,12 @@ class _MacDesktopAppsState extends State<MacDesktopApps> {
                   StaggeredGridTile.count(
                     crossAxisCellCount: 2,
                     mainAxisCellCount: 2,
-                    child: Container(
-                      decoration: BoxDecoration(
-                        color: const Color(0xFFF7EFE9),
-                        borderRadius: BorderRadius.circular(12),
-                        border: Border.all(color: const Color(0xFFE8D6C4)),
-                      ),
-                    ),
+                    child: Container(color: Colors.white),
                   ),
                   StaggeredGridTile.count(
                     crossAxisCellCount: 2,
-                    mainAxisCellCount: 1.5,
-                    child: Container(
-                      decoration: BoxDecoration(
-                        color: const Color(0xFFF7EFE9),
-                        borderRadius: BorderRadius.circular(12),
-                        border: Border.all(color: const Color(0xFFE8D6C4)),
-                      ),
-                    ),
+                    mainAxisCellCount: 1.2,
+                    child: const SpotifyMusicFrame(),
                   ),
                   StaggeredGridTile.count(
                     crossAxisCellCount: 1,

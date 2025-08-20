@@ -28,7 +28,7 @@ class _GitHubStatsHtmlState extends State<GitHubStatsHtml> {
   void _registerViews() {
     // Register streak stats view
     ui.platformViewRegistry.registerViewFactory(streakViewType, (int viewId) {
-      final img = html.ImageElement()
+      final img = html.HTMLImageElement()
         ..src =
             'https://nirzak-streak-stats.vercel.app/?user=${widget.username}&theme=tokyonight&hide_border=true'
         ..style.width = '100%'
