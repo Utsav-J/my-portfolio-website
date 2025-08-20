@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:portfolio/screens/appscreen/app_screen.dart';
 import 'package:portfolio/screens/homescreen/mac_app_icon.dart';
 import 'package:portfolio/models/models.dart';
@@ -356,32 +357,32 @@ class _MacDesktopAppsState extends State<MacDesktopApps> {
         ),
       ),
 
-      PortfolioApp(
-        title: 'Blog',
-        icon: CupertinoIcons.doc_text,
-        color: const Color(0xFF32D74B),
-        onTap: () => _openApp(
-          PortfolioApp(
-            title: 'Blog',
-            icon: CupertinoIcons.doc_text,
-            color: const Color(0xFF32D74B),
-            onTap: () {},
-          ),
-        ),
-      ),
-      PortfolioApp(
-        title: 'Resume',
-        icon: CupertinoIcons.doc,
-        color: const Color(0xFF8E8E93),
-        onTap: () => _openApp(
-          PortfolioApp(
-            title: 'Resume',
-            icon: CupertinoIcons.doc,
-            color: const Color(0xFF8E8E93),
-            onTap: () {},
-          ),
-        ),
-      ),
+      // PortfolioApp(
+      //   title: 'Blog',
+      //   icon: CupertinoIcons.doc_text,
+      //   color: const Color(0xFF32D74B),
+      //   onTap: () => _openApp(
+      //     PortfolioApp(
+      //       title: 'Blog',
+      //       icon: CupertinoIcons.doc_text,
+      //       color: const Color(0xFF32D74B),
+      //       onTap: () {},
+      //     ),
+      //   ),
+      // ),
+      // PortfolioApp(
+      //   title: 'Resume',
+      //   icon: CupertinoIcons.doc,
+      //   color: const Color(0xFF8E8E93),
+      //   onTap: () => _openApp(
+      //     PortfolioApp(
+      //       title: 'Resume',
+      //       icon: CupertinoIcons.doc,
+      //       color: const Color(0xFF8E8E93),
+      //       onTap: () {},
+      //     ),
+      //   ),
+      // ),
       PortfolioApp(
         title: 'Game',
         icon: CupertinoIcons.game_controller,
@@ -417,17 +418,132 @@ class _MacDesktopAppsState extends State<MacDesktopApps> {
         // Desktop Apps Grid
         Padding(
           padding: const EdgeInsets.all(40),
-          child: GridView.builder(
-            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 6,
-              childAspectRatio: 1,
-              crossAxisSpacing: 20,
-              mainAxisSpacing: 20,
+          child: SingleChildScrollView(
+            child: Builder(
+              builder: (context) {
+                int appIndex = 0;
+
+                Widget buildIcon() {
+                  final icon = MacAppIcon(app: portfolioApps[appIndex]);
+                  appIndex++;
+                  return icon;
+                }
+
+                List<Widget> children = [
+                  // Row 1-2: large placeholder, medium placeholder, two icons stacked
+                  StaggeredGridTile.count(
+                    crossAxisCellCount: 1,
+                    mainAxisCellCount: 1,
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: const Color(0xFFE6F2E6),
+                        borderRadius: BorderRadius.circular(12),
+                        border: Border.all(color: const Color(0xFFBFD8BF)),
+                      ),
+                    ),
+                  ),
+                  StaggeredGridTile.count(
+                    crossAxisCellCount: 2,
+                    mainAxisCellCount: 1,
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: const Color(0xFFF2F2F7),
+                        borderRadius: BorderRadius.circular(12),
+                        border: Border.all(color: const Color(0xFFE0E0E6)),
+                      ),
+                    ),
+                  ),
+                  StaggeredGridTile.count(
+                    crossAxisCellCount: 1,
+                    mainAxisCellCount: 1,
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: const Color(0xFFF2F2F7),
+                        borderRadius: BorderRadius.circular(12),
+                        border: Border.all(color: const Color(0xFFE0E0E6)),
+                      ),
+                    ),
+                  ),
+
+                  StaggeredGridTile.count(
+                    crossAxisCellCount: 1,
+                    mainAxisCellCount: 1,
+                    child: buildIcon(),
+                  ),
+                  StaggeredGridTile.count(
+                    crossAxisCellCount: 1,
+                    mainAxisCellCount: 1,
+                    child: buildIcon(),
+                  ),
+                  StaggeredGridTile.count(
+                    crossAxisCellCount: 1,
+                    mainAxisCellCount: 1,
+                    child: buildIcon(),
+                  ),
+                  StaggeredGridTile.count(
+                    crossAxisCellCount: 2,
+                    mainAxisCellCount: 2,
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: const Color(0xFFF7EFE9),
+                        borderRadius: BorderRadius.circular(12),
+                        border: Border.all(color: const Color(0xFFE8D6C4)),
+                      ),
+                    ),
+                  ),
+                  StaggeredGridTile.count(
+                    crossAxisCellCount: 2,
+                    mainAxisCellCount: 1.5,
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: const Color(0xFFF7EFE9),
+                        borderRadius: BorderRadius.circular(12),
+                        border: Border.all(color: const Color(0xFFE8D6C4)),
+                      ),
+                    ),
+                  ),
+                  StaggeredGridTile.count(
+                    crossAxisCellCount: 1,
+                    mainAxisCellCount: 1,
+                    child: buildIcon(),
+                  ),
+                  StaggeredGridTile.count(
+                    crossAxisCellCount: 1,
+                    mainAxisCellCount: 1,
+                    child: buildIcon(),
+                  ),
+
+                  StaggeredGridTile.count(
+                    crossAxisCellCount: 1,
+                    mainAxisCellCount: 1,
+                    child: buildIcon(),
+                  ),
+                  StaggeredGridTile.count(
+                    crossAxisCellCount: 1,
+                    mainAxisCellCount: 1,
+                    child: buildIcon(),
+                  ),
+                ];
+
+                // Ensure any remaining apps are added as 1x1 tiles
+                while (appIndex < portfolioApps.length) {
+                  children.add(
+                    StaggeredGridTile.count(
+                      crossAxisCellCount: 1,
+                      mainAxisCellCount: 1,
+                      child: MacAppIcon(app: portfolioApps[appIndex++]),
+                    ),
+                  );
+                }
+
+                return StaggeredGrid.count(
+                  crossAxisCount: 7,
+                  mainAxisSpacing: 20,
+                  crossAxisSpacing: 20,
+                  children: children,
+                );
+              },
             ),
-            itemCount: portfolioApps.length,
-            itemBuilder: (context, index) {
-              return MacAppIcon(app: portfolioApps[index]);
-            },
           ),
         ),
 
