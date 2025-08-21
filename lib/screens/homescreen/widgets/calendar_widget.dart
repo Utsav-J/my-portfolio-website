@@ -91,7 +91,13 @@ class CalendarWidget extends StatelessWidget {
 
                 // Calendar dates grid
                 Expanded(
-                  child: _buildCalendarGrid(firstWeekday, daysInMonth, now.day),
+                  child: SingleChildScrollView(
+                    child: _buildCalendarGrid(
+                      firstWeekday,
+                      daysInMonth,
+                      now.day,
+                    ),
+                  ),
                 ),
               ],
             ),

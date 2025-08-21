@@ -100,20 +100,20 @@ class _SpotifyMusicFrameState extends State<SpotifyMusicFrame> {
       child: Stack(
         children: [
           Positioned.fill(child: _buildContent()),
-          Align(
-            alignment: Alignment.bottomCenter,
-            child: Padding(
-              padding: const EdgeInsets.only(bottom: 8.0, left: 8.0),
-              child: Text(
-                "here's a song recommendation",
-                style: TextStyle(
-                  color: Colors.white54,
-                  fontWeight: FontWeight.w200,
-                  fontSize: 16,
-                ),
-              ),
-            ),
-          ),
+          // Align(
+          //   alignment: Alignment.bottomCenter,
+          //   child: Padding(
+          //     padding: const EdgeInsets.only(bottom: 8.0, left: 8.0),
+          //     child: Text(
+          //       "here's a song recommendation",
+          //       style: TextStyle(
+          //         color: Colors.white54,
+          //         fontWeight: FontWeight.w200,
+          //         fontSize: 16,
+          //       ),
+          //     ),
+          //   ),
+          // ),
         ],
       ),
     );

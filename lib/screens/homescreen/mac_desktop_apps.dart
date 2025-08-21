@@ -8,6 +8,7 @@ import 'package:portfolio/screens/appscreen/projects_screen.dart';
 import 'package:portfolio/screens/homescreen/widgets/utsav_memoji.dart';
 import 'package:portfolio/screens/homescreen/widgets/spotify_music_frame.dart';
 import 'package:portfolio/screens/homescreen/widgets/calendar_widget.dart';
+import 'package:portfolio/screens/homescreen/widgets/skill_carousel.dart';
 import 'package:portfolio/screens/snake/snake_game.dart';
 
 class MacDesktopApps extends StatefulWidget {
@@ -500,7 +501,7 @@ class _MacDesktopAppsState extends State<MacDesktopApps> {
                   StaggeredGridTile.count(
                     crossAxisCellCount: 2,
                     mainAxisCellCount: 1,
-                    child: Container(color: Colors.white),
+                    child: SkillCarousel(),
                   ),
                 ];
 
@@ -542,7 +543,7 @@ class _MacDesktopAppsState extends State<MacDesktopApps> {
                 _bringToFront(app.title), // Add bring-to-front callback
             child: _buildContent(app),
           );
-        }).toList(),
+        }),
       ],
     );
   }
