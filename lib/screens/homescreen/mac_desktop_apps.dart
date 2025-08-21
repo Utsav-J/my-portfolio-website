@@ -437,7 +437,7 @@ class _MacDesktopAppsState extends State<MacDesktopApps> {
                   StaggeredGridTile.count(
                     crossAxisCellCount: 1,
                     mainAxisCellCount: 1,
-                    child: UtsavMemoji(),
+                    child: const UtsavMemoji(),
                   ),
                   StaggeredGridTile.count(
                     crossAxisCellCount: 2,
@@ -473,13 +473,13 @@ class _MacDesktopAppsState extends State<MacDesktopApps> {
                   ),
                   StaggeredGridTile.count(
                     crossAxisCellCount: 2,
-                    mainAxisCellCount: 2,
-                    child: Container(color: Colors.white),
+                    mainAxisCellCount: 1,
+                    child: const SpotifyMusicFrame(),
                   ),
                   StaggeredGridTile.count(
                     crossAxisCellCount: 2,
-                    mainAxisCellCount: 1.2,
-                    child: const SpotifyMusicFrame(),
+                    mainAxisCellCount: 2,
+                    child: Container(color: Colors.white),
                   ),
                   StaggeredGridTile.count(
                     crossAxisCellCount: 1,
@@ -498,9 +498,9 @@ class _MacDesktopAppsState extends State<MacDesktopApps> {
                     child: buildIcon(),
                   ),
                   StaggeredGridTile.count(
-                    crossAxisCellCount: 1,
+                    crossAxisCellCount: 2,
                     mainAxisCellCount: 1,
-                    child: buildIcon(),
+                    child: Container(color: Colors.white),
                   ),
                 ];
 

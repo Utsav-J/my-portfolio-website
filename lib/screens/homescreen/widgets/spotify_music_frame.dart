@@ -1,4 +1,6 @@
 import 'dart:convert';
+import 'dart:math';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -21,6 +23,22 @@ class _SpotifyMusicFrameState extends State<SpotifyMusicFrame> {
   String? _iframeUrl;
   Widget? _embed;
 
+  Future<String?> _getRandomTrackUrlFromFirestore() async {
+    try {
+      final snapshot = await FirebaseFirestore.instance
+          .collection('spotify')
+          .get();
+      if (snapshot.docs.isEmpty) return null;
+      final randomIndex = Random().nextInt(snapshot.docs.length);
+      final data = snapshot.docs[randomIndex].data();
+      final trackUrl = data['track_url'];
+      if (trackUrl is String && trackUrl.isNotEmpty) return trackUrl;
+      return null;
+    } catch (e) {
+      return null;
+    }
+  }
+
   @override
   void initState() {
     super.initState();
@@ -33,9 +51,11 @@ class _SpotifyMusicFrameState extends State<SpotifyMusicFrame> {
       _errorMessage = null;
     });
 
-    final trackUrl =
-        widget.trackUrl ??
-        'https://open.spotify.com/track/2Z8WuEywRWYTKe1NybPQEW';
+    String? trackUrl = widget.trackUrl;
+
+    trackUrl ??= await _getRandomTrackUrlFromFirestore();
+
+    trackUrl ??= 'https://open.spotify.com/track/4PTG3Z6ehGkBFwjybzWkR8';
     final uri = Uri.parse(
       'https://open.spotify.com/oembed?url=${Uri.encodeComponent(trackUrl)}',
     );
