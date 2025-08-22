@@ -62,67 +62,77 @@ class _SkillCarouselState extends State<SkillCarousel>
 
   @override
   Widget build(BuildContext context) {
-    return LayoutBuilder(
-      builder: (context, constraints) {
-        // Calculate the maximum scroll extent based on the container width
-        _maxScrollExtent =
-            constraints.maxWidth * 1.5; // Adjust multiplier as needed
+    return SingleChildScrollView(
+      child: LayoutBuilder(
+        builder: (context, constraints) {
+          _maxScrollExtent =
+              constraints.maxWidth * 1.5; // Adjust multiplier as needed
 
-        return Stack(
-          children: [
-            SingleChildScrollView(
-              scrollDirection: Axis.horizontal,
-              controller: _scrollController,
-              physics: const NeverScrollableScrollPhysics(),
-              child: Container(
-                padding: const EdgeInsets.symmetric(horizontal: 0, vertical: 5),
-                decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                    colors: [Colors.black26, Colors.black87],
-                    begin: Alignment.topCenter,
-                    end: Alignment.bottomCenter,
+          return Stack(
+            children: [
+              SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                controller: _scrollController,
+                physics: const NeverScrollableScrollPhysics(),
+                child: Container(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 0,
+                    vertical: 5,
                   ),
-                  borderRadius: BorderRadius.circular(12),
-                ),
-                child: Row(
-                  children: [
-                    // First set of skills
-                    _SkillsGrid(),
-                    const SizedBox(width: 100), // Gap between sets
-                    // Duplicate set for seamless looping
-                    _SkillsGrid(),
-                  ],
+                  decoration: BoxDecoration(
+                    // color: Colors.black26,
+                    gradient: LinearGradient(
+                      colors: [
+                        Colors.black54,
+                        Colors.transparent,
+                        Colors.black54,
+                      ],
+                      begin: Alignment.centerLeft,
+                      end: Alignment.centerRight,
+                      stops: [0.0, 0.5, 1.0],
+                    ),
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  child: Row(
+                    children: [
+                      // First set of skills
+                      _SkillsGrid(),
+                      const SizedBox(width: 100), // Gap between sets
+                      // Duplicate set for seamless looping
+                      _SkillsGrid(),
+                    ],
+                  ),
                 ),
               ),
-            ),
-            // Control button positioned at top-right
-            Positioned(
-              top: 8,
-              right: 8,
-              child: GestureDetector(
-                onTap: _toggleAnimation,
-                child: Container(
-                  width: 32,
-                  height: 32,
-                  decoration: BoxDecoration(
-                    color: Colors.black.withOpacity(0.7),
-                    borderRadius: BorderRadius.circular(16),
-                    border: Border.all(
-                      color: Colors.white.withOpacity(0.3),
-                      width: 1,
+              // Control button positioned at top-right
+              Positioned(
+                top: 8,
+                right: 8,
+                child: GestureDetector(
+                  onTap: _toggleAnimation,
+                  child: Container(
+                    width: 32,
+                    height: 32,
+                    decoration: BoxDecoration(
+                      color: Colors.black.withOpacity(0.7),
+                      borderRadius: BorderRadius.circular(16),
+                      border: Border.all(
+                        color: Colors.white.withOpacity(0.3),
+                        width: 1,
+                      ),
+                    ),
+                    child: Icon(
+                      _isPlaying ? Icons.pause : Icons.play_arrow,
+                      color: Colors.white,
+                      size: 18,
                     ),
                   ),
-                  child: Icon(
-                    _isPlaying ? Icons.pause : Icons.play_arrow,
-                    color: Colors.white,
-                    size: 18,
-                  ),
                 ),
               ),
-            ),
-          ],
-        );
-      },
+            ],
+          );
+        },
+      ),
     );
   }
 }

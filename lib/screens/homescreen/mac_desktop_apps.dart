@@ -5,6 +5,7 @@ import 'package:portfolio/screens/appscreen/app_screen.dart';
 import 'package:portfolio/screens/homescreen/mac_app_icon.dart';
 import 'package:portfolio/models/models.dart';
 import 'package:portfolio/screens/appscreen/projects_screen.dart';
+import 'package:portfolio/screens/homescreen/widgets/github_profile_card.dart';
 import 'package:portfolio/screens/homescreen/widgets/utsav_memoji.dart';
 import 'package:portfolio/screens/homescreen/widgets/spotify_music_frame.dart';
 import 'package:portfolio/screens/homescreen/widgets/calendar_widget.dart';
@@ -448,13 +449,7 @@ class _MacDesktopAppsState extends State<MacDesktopApps> {
                   StaggeredGridTile.count(
                     crossAxisCellCount: 1,
                     mainAxisCellCount: 1,
-                    child: Container(
-                      decoration: BoxDecoration(
-                        color: const Color(0xFFF2F2F7),
-                        borderRadius: BorderRadius.circular(12),
-                        border: Border.all(color: const Color(0xFFE0E0E6)),
-                      ),
-                    ),
+                    child: GithubProfileCard(),
                   ),
 
                   StaggeredGridTile.count(
@@ -475,7 +470,7 @@ class _MacDesktopAppsState extends State<MacDesktopApps> {
                   StaggeredGridTile.count(
                     crossAxisCellCount: 2,
                     mainAxisCellCount: 1,
-                    child: const SpotifyMusicFrame(),
+                    child: SkillCarousel(),
                   ),
                   StaggeredGridTile.count(
                     crossAxisCellCount: 2,
@@ -501,7 +496,7 @@ class _MacDesktopAppsState extends State<MacDesktopApps> {
                   StaggeredGridTile.count(
                     crossAxisCellCount: 2,
                     mainAxisCellCount: 1,
-                    child: SkillCarousel(),
+                    child: const SpotifyMusicFrame(),
                   ),
                 ];
 
