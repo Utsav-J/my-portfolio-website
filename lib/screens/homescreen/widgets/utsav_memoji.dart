@@ -16,9 +16,18 @@ class UtsavMemoji extends StatelessWidget {
             barrierDismissible: true,
             barrierColor: Colors.transparent,
             builder: (context) => SendMessageOverlay(
-              onSendMessage: (String message) async {
-                // Handle the message
+              onSendMessage: (Map<String, dynamic> messageData) async {
+                // Handle the message with contact info
+                final message = messageData['message'] as String;
+                final contactType = messageData['contactType'] as String;
+                final contactInfo = messageData['contactInfo'] as String;
+
                 print('Message: $message');
+                print('Contact Type: $contactType');
+                print('Contact Info: $contactInfo');
+
+                // You can add your message handling logic here
+                // For example, send to your backend, email service, etc.
               },
             ),
           );

@@ -6,7 +6,7 @@ import '../../config/app_design.dart';
 /// Contains an avatar section on the left and a contact form on the right
 class SendMessageOverlay extends StatefulWidget {
   final VoidCallback? onClose;
-  final Function(String message)? onSendMessage;
+  final Function(Map<String, dynamic> messageData)? onSendMessage;
 
   const SendMessageOverlay({super.key, this.onClose, this.onSendMessage});
 
@@ -20,11 +20,29 @@ class _SendMessageOverlayState extends State<SendMessageOverlay>
   late Animation<double> _fadeAnimation;
 
   final TextEditingController _messageController = TextEditingController();
+  final TextEditingController _contactController = TextEditingController();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   bool _isExpanded = false;
   bool _isLoading = false;
+  String _selectedContactType = 'email';
+
   String whereDoesTheMessageGo =
-      "Don't worry, the messages actually reach me. The moment you hit send, I get a notification on my phone. Make sure you include your contact info if you wanna keep in touch though.";
+      "Don't worry, the messages actually reach me. The moment you hit send, I get a notification on my phone.\nMake sure you include your contact info if you wanna keep in touch though.";
+
+  final List<Map<String, String>> _contactTypes = [
+    {'value': 'email', 'label': 'Email', 'hint': 'your.email@example.com'},
+    {
+      'value': 'linkedin',
+      'label': 'LinkedIn',
+      'hint': 'linkedin.com/in/yourprofile',
+    },
+    {'value': 'whatsapp', 'label': 'WhatsApp', 'hint': '+1234567890'},
+    {
+      'value': 'anonymous',
+      'label': 'Anonymous',
+      'hint': 'No contact info needed',
+    },
+  ];
   @override
   void initState() {
     super.initState();
@@ -50,6 +68,7 @@ class _SendMessageOverlayState extends State<SendMessageOverlay>
   void dispose() {
     _animationController.dispose();
     _messageController.dispose();
+    _contactController.dispose();
     super.dispose();
   }
 
@@ -64,23 +83,77 @@ class _SendMessageOverlayState extends State<SendMessageOverlay>
   }
 
   Future<void> _handleSendMessage() async {
-    if (!_formKey.currentState!.validate()) return;
+    // Validate all fields first
+    if (!_validateAllFields()) {
+      return;
+    }
 
     setState(() {
       _isLoading = true;
     });
 
     try {
-      if (widget.onSendMessage != null) {
-        await widget.onSendMessage!(_messageController.text);
+      // Create message data object
+      final messageData = {
+        'message': _messageController.text.trim(),
+        'contactType': _selectedContactType,
+        'contactInfo': _contactController.text.trim(),
+        'timestamp': DateTime.now().toIso8601String(),
+      };
+
+      // Print validation results and data to console
+      print('=== MESSAGE VALIDATION RESULTS ===');
+      print('✅ All validations passed successfully!');
+      print('');
+      print('=== MESSAGE DATA ===');
+      print('Message: "${messageData['message']}"');
+      print('Contact Type: ${messageData['contactType']}');
+      print('Contact Info: "${messageData['contactInfo']}"');
+      print('Timestamp: ${messageData['timestamp']}');
+      print('');
+      print('=== VALIDATION DETAILS ===');
+
+      // Contact validation details
+      switch (_selectedContactType) {
+        case 'email':
+          print('✅ Email validation: PASSED');
+          print('   - Format: Valid email address');
+          break;
+        case 'linkedin':
+          print('✅ LinkedIn URL validation: PASSED');
+          print('   - Format: Valid LinkedIn profile URL');
+          break;
+        case 'whatsapp':
+          print('✅ WhatsApp number validation: PASSED');
+          print('   - Format: Valid phone number with country code');
+          break;
+        case 'anonymous':
+          print('✅ Anonymous contact: PASSED');
+          print('   - No contact info required');
+          break;
       }
+
+      // Message validation details
+      final message = _messageController.text.trim();
+      final wordCount = message.split(RegExp(r'\s+')).length;
+      final charCount = message.length;
+
+      print('✅ Message validation: PASSED');
+      print('   - Character count: $charCount');
+      print('   - Word count: $wordCount');
+      print('   - Length requirement: 10+ characters ✓');
+      print('   - Word limit: 500 words max ✓');
+      print('');
+      print('=== READY TO SEND ===');
+      print('All data validated and ready for transmission!');
+      print('==============================================');
 
       // Show success feedback
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: Text(
-              'Message sent successfully!',
+              'Validation successful! Check console for details.',
               style: AppDesign.body.copyWith(color: Colors.white),
             ),
             backgroundColor: AppDesign.systemGreen,
@@ -92,6 +165,7 @@ class _SendMessageOverlayState extends State<SendMessageOverlay>
         );
 
         _messageController.clear();
+        _contactController.clear();
         _closeOverlay();
       }
     } catch (e) {
@@ -99,7 +173,7 @@ class _SendMessageOverlayState extends State<SendMessageOverlay>
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: Text(
-              'Failed to send message. Please try again.',
+              'An error occurred during validation.',
               style: AppDesign.body.copyWith(color: Colors.white),
             ),
             backgroundColor: AppDesign.systemRed,
@@ -117,6 +191,119 @@ class _SendMessageOverlayState extends State<SendMessageOverlay>
         });
       }
     }
+  }
+
+  // Validation methods
+  bool _isValidEmail(String email) {
+    final emailRegex = RegExp(
+      r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$',
+    );
+    return emailRegex.hasMatch(email);
+  }
+
+  bool _isValidLinkedInUrl(String url) {
+    // Accept both linkedin.com/in/username and www.linkedin.com/in/username
+    final linkedinRegex = RegExp(
+      r'^(https?://)?(www\.)?linkedin\.com/in/[a-zA-Z0-9_-]+/?$',
+    );
+    return linkedinRegex.hasMatch(url);
+  }
+
+  bool _isValidWhatsAppNumber(String number) {
+    // Remove spaces, hyphens, and parentheses for normalization
+    final cleaned = number.replaceAll(RegExp(r'[\s\-\(\)]'), '');
+
+    final whatsappRegex = RegExp(r'^\+?[1-9]\d{7,14}$');
+
+    return whatsappRegex.hasMatch(cleaned);
+  }
+
+  String? _validateContactInfo(String? value) {
+    if (_selectedContactType == 'anonymous') {
+      return null; // No validation needed for anonymous
+    }
+
+    if (value == null || value.trim().isEmpty) {
+      return 'Please provide your contact information';
+    }
+
+    final trimmedValue = value.trim();
+
+    switch (_selectedContactType) {
+      case 'email':
+        if (!_isValidEmail(trimmedValue)) {
+          return 'Please enter a valid email address';
+        }
+        break;
+      case 'linkedin':
+        if (!_isValidLinkedInUrl(trimmedValue)) {
+          return 'Please enter a valid LinkedIn profile URL (e.g., linkedin.com/in/username)';
+        }
+        break;
+      case 'whatsapp':
+        if (!_isValidWhatsAppNumber(trimmedValue)) {
+          return 'Please enter a valid phone number with country code (e.g., +1234567890)';
+        }
+        break;
+    }
+
+    return null;
+  }
+
+  String? _validateMessage(String? value) {
+    if (value == null || value.trim().isEmpty) {
+      return 'Please enter a message';
+    }
+
+    final trimmedValue = value.trim();
+
+    if (trimmedValue.length < 10) {
+      return 'Message must be at least 10 characters long';
+    }
+
+    // Check word count (roughly 500 words)
+    final words = trimmedValue.split(RegExp(r'\s+'));
+    if (words.length > 500) {
+      return 'Message must be 500 words or less';
+    }
+
+    return null;
+  }
+
+  bool _validateAllFields() {
+    // Validate contact info
+    final contactValidation = _validateContactInfo(_contactController.text);
+    if (contactValidation != null) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(contactValidation),
+          backgroundColor: AppDesign.systemRed,
+          behavior: SnackBarBehavior.floating,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(AppDesign.mediumRadius),
+          ),
+        ),
+      );
+      return false;
+    }
+
+    // Validate message
+    final messageValidation = _validateMessage(_messageController.text);
+    if (messageValidation != null) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(messageValidation),
+          backgroundColor: AppDesign.systemRed,
+          behavior: SnackBarBehavior.floating,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(AppDesign.mediumRadius),
+          ),
+        ),
+      );
+      return false;
+    }
+
+    return true;
   }
 
   @override
@@ -142,62 +329,67 @@ class _SendMessageOverlayState extends State<SendMessageOverlay>
                     () {}, // Prevent closing when tapping on the overlay content
                 child: AppDesign.glassmorphicContainer(
                   width: 700,
-                  height: 500,
+                  height: null, // Allow height to grow based on content
                   padding: const EdgeInsets.all(24),
-                  child: Stack(
-                    children: [
-                      // Close button in top left
-                      Positioned(
-                        top: 0,
-                        left: 0,
-                        child: GestureDetector(
-                          onTap: _closeOverlay,
-                          child: Container(
-                            width: 32,
-                            height: 32,
-                            decoration: BoxDecoration(
-                              color: Colors.white.withOpacity(0.1),
-                              borderRadius: BorderRadius.circular(16),
-                              border: Border.all(
-                                color: AppDesign.glassmorphicBorder,
-                                width: 1,
+                  child: IntrinsicHeight(
+                    // This will make the container grow with content
+                    child: Stack(
+                      children: [
+                        // Close button in top left
+                        Positioned(
+                          top: 0,
+                          left: 0,
+                          child: GestureDetector(
+                            onTap: _closeOverlay,
+                            child: Container(
+                              width: 32,
+                              height: 32,
+                              decoration: BoxDecoration(
+                                color: Colors.white.withValues(alpha: 0.1),
+                                borderRadius: BorderRadius.circular(16),
+                                border: Border.all(
+                                  color: AppDesign.glassmorphicBorder,
+                                  width: 1,
+                                ),
                               ),
-                            ),
-                            child: Icon(
-                              Icons.close,
-                              size: 18,
-                              color: Colors.white.withOpacity(0.8),
+                              child: Icon(
+                                Icons.close,
+                                size: 18,
+                                color: Colors.white.withValues(alpha: 0.8),
+                              ),
                             ),
                           ),
                         ),
-                      ),
 
-                      // Main content
-                      Padding(
-                        padding: const EdgeInsets.only(top: 40),
-                        child: Row(
-                          children: [
-                            // Left Section - Avatar
-                            Expanded(flex: 2, child: _buildAvatarSection()),
+                        // Main content
+                        Padding(
+                          padding: const EdgeInsets.only(top: 40),
+                          child: Row(
+                            crossAxisAlignment:
+                                CrossAxisAlignment.start, // Align items to top
+                            children: [
+                              // Left Section - Avatar
+                              Expanded(flex: 2, child: _buildAvatarSection()),
 
-                            // Divider
-                            Container(
-                              width: 1,
-                              margin: const EdgeInsets.symmetric(
-                                horizontal: 24,
+                              // Divider
+                              Container(
+                                width: 1,
+                                margin: const EdgeInsets.symmetric(
+                                  horizontal: 24,
+                                ),
+                                decoration: BoxDecoration(
+                                  color: AppDesign.glassmorphicBorder,
+                                  borderRadius: BorderRadius.circular(0.5),
+                                ),
                               ),
-                              decoration: BoxDecoration(
-                                color: AppDesign.glassmorphicBorder,
-                                borderRadius: BorderRadius.circular(0.5),
-                              ),
-                            ),
 
-                            // Right Section - Form
-                            Expanded(flex: 3, child: _buildFormSection()),
-                          ],
+                              // Right Section - Form
+                              Expanded(flex: 3, child: _buildFormSection()),
+                            ],
+                          ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ),
               ),
@@ -210,25 +402,53 @@ class _SendMessageOverlayState extends State<SendMessageOverlay>
 
   Widget _buildAvatarSection() {
     return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
+      mainAxisAlignment: MainAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        Image.asset("assets/images/memoji-message.png", width: 150),
+        _selectedContactType == 'anonymous'
+            ? Image.asset(
+                "assets/images/memoji-private-message.png",
+                width: 150,
+              )
+            : Image.asset("assets/images/memoji-message.png", width: 150),
+        const SizedBox(height: 16),
         MouseRegion(
           cursor: SystemMouseCursors.click,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text("Where does it even go?"),
-              GestureDetector(
-                onTap: _toggleExpanded,
-                child: _isExpanded
-                    ? Icon(Icons.keyboard_arrow_down_rounded)
-                    : Icon(Icons.keyboard_arrow_up_rounded),
-              ),
-            ],
+          child: GestureDetector(
+            onTap: _toggleExpanded,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  "Where does it even go?",
+                  style: AppDesign.subhead.copyWith(
+                    color: Colors.white.withValues(alpha: 0.9),
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
+                const SizedBox(width: 4),
+                Icon(
+                  _isExpanded
+                      ? Icons.keyboard_arrow_down_rounded
+                      : Icons.keyboard_arrow_up_rounded,
+                  color: Colors.white.withValues(alpha: 0.8),
+                  size: 20,
+                ),
+              ],
+            ),
           ),
         ),
-        if (_isExpanded) Text(whereDoesTheMessageGo),
+        if (_isExpanded) ...[
+          const SizedBox(height: 12),
+          Text(
+            whereDoesTheMessageGo,
+            style: AppDesign.footnote.copyWith(
+              color: Colors.white.withValues(alpha: 0.8),
+              height: 1.4,
+            ),
+            textAlign: TextAlign.justify,
+          ),
+        ],
       ],
     );
   }
@@ -255,10 +475,146 @@ class _SendMessageOverlayState extends State<SendMessageOverlay>
               fontWeight: FontWeight.w100,
             ),
           ),
-          const SizedBox(height: 32),
+          const SizedBox(height: 24),
 
-          // Message Field
-          Expanded(
+          // Contact Type Dropdown and Contact Info Field (merged)
+          Text(
+            'How should I contact you back?',
+            style: AppDesign.subhead.copyWith(
+              color: Colors.white.withOpacity(0.9),
+              fontWeight: FontWeight.w500,
+            ),
+          ),
+          const SizedBox(height: 8),
+          Row(
+            children: [
+              // Contact Type Dropdown (left side)
+              Container(
+                width: 120,
+                decoration: BoxDecoration(
+                  color: Colors.white.withOpacity(0.1),
+                  borderRadius: BorderRadius.circular(AppDesign.mediumRadius),
+                  border: Border.all(
+                    color: AppDesign.glassmorphicBorder,
+                    width: 1,
+                  ),
+                ),
+                child: DropdownButtonFormField<String>(
+                  value: _selectedContactType,
+                  decoration: InputDecoration(
+                    contentPadding: const EdgeInsets.symmetric(
+                      horizontal: 12,
+                      vertical: 12,
+                    ),
+                    border: InputBorder.none,
+                    hintText: 'Type',
+                    hintStyle: AppDesign.body.copyWith(
+                      color: Colors.white.withOpacity(0.5),
+                      fontSize: 14,
+                    ),
+                  ),
+                  dropdownColor: AppDesign.darkSecondaryBackground,
+                  style: AppDesign.body.copyWith(
+                    color: Colors.white,
+                    fontSize: 14,
+                  ),
+                  icon: Icon(
+                    Icons.keyboard_arrow_down,
+                    color: Colors.white.withOpacity(0.8),
+                    size: 18,
+                  ),
+                  items: _contactTypes.map((contactType) {
+                    return DropdownMenuItem<String>(
+                      value: contactType['value'],
+                      child: Text(
+                        contactType['label']!,
+                        style: AppDesign.body.copyWith(fontSize: 14),
+                      ),
+                    );
+                  }).toList(),
+                  onChanged: (value) {
+                    setState(() {
+                      _selectedContactType = value!;
+                      if (value == 'anonymous') {
+                        _contactController.clear();
+                      }
+                    });
+                  },
+                ),
+              ),
+
+              const SizedBox(width: 12),
+
+              // Contact Info Field (right side)
+              Expanded(
+                child: TextFormField(
+                  controller: _contactController,
+                  enabled: _selectedContactType != 'anonymous',
+                  style: AppDesign.body.copyWith(
+                    color: _selectedContactType != 'anonymous'
+                        ? Colors.white
+                        : Colors.white.withOpacity(0.5),
+                  ),
+                  decoration: InputDecoration(
+                    hintText: _selectedContactType == 'anonymous'
+                        ? 'No contact info needed'
+                        : _contactTypes.firstWhere(
+                            (ct) => ct['value'] == _selectedContactType,
+                          )['hint'],
+                    hintStyle: AppDesign.body.copyWith(
+                      color: Colors.white.withOpacity(0.5),
+                    ),
+                    filled: true,
+                    fillColor: _selectedContactType != 'anonymous'
+                        ? Colors.white.withOpacity(0.1)
+                        : Colors.white.withOpacity(0.05),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(
+                        AppDesign.mediumRadius,
+                      ),
+                      borderSide: BorderSide(
+                        color: AppDesign.glassmorphicBorder,
+                        width: 1,
+                      ),
+                    ),
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(
+                        AppDesign.mediumRadius,
+                      ),
+                      borderSide: BorderSide(
+                        color: AppDesign.glassmorphicBorder,
+                        width: 1,
+                      ),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(
+                        AppDesign.mediumRadius,
+                      ),
+                      borderSide: BorderSide(
+                        color: AppDesign.systemBlue,
+                        width: 2,
+                      ),
+                    ),
+                    contentPadding: const EdgeInsets.all(16),
+                  ),
+                  validator: _validateContactInfo,
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 16),
+
+          // Message Field (smaller size)
+          Text(
+            'Your message',
+            style: AppDesign.subhead.copyWith(
+              color: Colors.white.withOpacity(0.9),
+              fontWeight: FontWeight.w500,
+            ),
+          ),
+          const SizedBox(height: 8),
+          Container(
+            height: 120, // Fixed height instead of expanded
             child: TextFormField(
               controller: _messageController,
               maxLines: null,
@@ -266,7 +622,7 @@ class _SendMessageOverlayState extends State<SendMessageOverlay>
               textAlignVertical: TextAlignVertical.top,
               style: AppDesign.body.copyWith(color: Colors.white),
               decoration: InputDecoration(
-                hintText: 'Type your message here...',
+                hintText: 'Type your message here... (max 500 words)',
                 hintStyle: AppDesign.body.copyWith(
                   color: Colors.white.withOpacity(0.5),
                 ),
@@ -292,15 +648,7 @@ class _SendMessageOverlayState extends State<SendMessageOverlay>
                 ),
                 contentPadding: const EdgeInsets.all(16),
               ),
-              validator: (value) {
-                if (value == null || value.trim().isEmpty) {
-                  return 'Please enter a message';
-                }
-                if (value.trim().length < 10) {
-                  return 'Message must be at least 10 characters long';
-                }
-                return null;
-              },
+              validator: _validateMessage,
             ),
           ),
 
@@ -347,7 +695,7 @@ extension SendMessageOverlayExtension on BuildContext {
   /// Shows the SendMessageOverlay as a full-screen overlay
   void showSendMessageOverlay({
     VoidCallback? onClose,
-    Function(String message)? onSendMessage,
+    Function(Map<String, dynamic> messageData)? onSendMessage,
   }) {
     showDialog(
       context: this,

@@ -48,7 +48,7 @@ class SkillButton extends StatelessWidget {
             style: TextStyle(
               color: isHighlighted
                   ? Colors.white
-                  : Colors.white.withOpacity(0.9),
+                  : Colors.white.withValues(alpha: 0.9),
               fontSize: 12,
               fontWeight: FontWeight.w600,
               letterSpacing: 0.5,
