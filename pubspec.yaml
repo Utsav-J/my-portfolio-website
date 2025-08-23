@@ -48,6 +48,7 @@ dependencies:
   http: ^1.2.2
   web: ^1.1.1
   glassmorphic_ui_kit: ^1.1.5
+  google_fonts: ^6.3.0
 
 dev_dependencies:
   flutter_test:

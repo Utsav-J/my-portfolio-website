@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:portfolio/screens/homescreen/widgets/skill_button.dart';
+import 'package:portfolio/screens/homescreen_widgets/skill_carousel/skill_button.dart';
 
 class SkillCarousel extends StatefulWidget {
   const SkillCarousel({super.key});

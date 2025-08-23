@@ -5,12 +5,12 @@ import 'package:portfolio/screens/appscreen/app_screen.dart';
 import 'package:portfolio/screens/homescreen/mac_app_icon.dart';
 import 'package:portfolio/models/models.dart';
 import 'package:portfolio/screens/appscreen/projects_screen.dart';
-import 'package:portfolio/screens/homescreen/widgets/github_profile_card.dart';
-import 'package:portfolio/screens/homescreen/widgets/notes.dart';
-import 'package:portfolio/screens/homescreen/widgets/utsav_memoji.dart';
-import 'package:portfolio/screens/homescreen/widgets/spotify_music_frame.dart';
-import 'package:portfolio/screens/homescreen/widgets/calendar_widget.dart';
-import 'package:portfolio/screens/homescreen/widgets/skill_carousel.dart';
+import 'package:portfolio/screens/homescreen_widgets/github_profile_card.dart';
+import 'package:portfolio/screens/homescreen_widgets/notes/notes_widget.dart';
+import 'package:portfolio/screens/homescreen_widgets/utsav_memoji.dart';
+import 'package:portfolio/screens/homescreen_widgets/spotify/spotify_music_frame.dart';
+import 'package:portfolio/screens/homescreen_widgets/calendar_widget.dart';
+import 'package:portfolio/screens/homescreen_widgets/skill_carousel/skill_carousel.dart';
 import 'package:portfolio/screens/snake/snake_game.dart';
 
 class MacDesktopApps extends StatefulWidget {

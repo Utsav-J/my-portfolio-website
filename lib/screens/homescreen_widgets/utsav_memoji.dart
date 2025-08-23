@@ -42,7 +42,6 @@ class UtsavMemoji extends StatelessWidget {
                 begin: Alignment.topCenter,
                 end: Alignment.bottomCenter,
               ),
-              
             ),
             Image.asset("assets/images/memoji-removebg.png"),
             Align(
