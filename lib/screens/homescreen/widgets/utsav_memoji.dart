@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:glassmorphic_ui_kit/glassmorphic_ui_kit.dart';
 import 'package:portfolio/config/app_design.dart';
 import 'package:portfolio/screens/overlays/send_message_overlay.dart';
 
@@ -34,15 +35,14 @@ class UtsavMemoji extends StatelessWidget {
         },
         child: Stack(
           children: [
-            Container(
-              decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  colors: [Colors.black12, Colors.black87],
-                  begin: Alignment.topCenter,
-                  end: Alignment.bottomCenter,
-                ),
-                borderRadius: BorderRadius.circular(12),
+            GlassContainer(
+              borderRadius: BorderRadius.circular(12),
+              gradient: LinearGradient(
+                colors: [Colors.black87, Colors.black],
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
               ),
+              
             ),
             Image.asset("assets/images/memoji-removebg.png"),
             Align(

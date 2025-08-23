@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:glassmorphic_ui_kit/glassmorphic_ui_kit.dart';
 import 'package:intl/intl.dart';
 
 class CalendarWidget extends StatelessWidget {
@@ -17,14 +18,12 @@ class CalendarWidget extends StatelessWidget {
     final firstWeekday = firstDayOfMonth.weekday % 7; // Make Sunday = 0
     final daysInMonth = lastDayOfMonth.day;
 
-    return Container(
-      decoration: BoxDecoration(
-        gradient: LinearGradient(
-          colors: [Colors.black12, Colors.black87],
-          begin: Alignment.topCenter,
-          end: Alignment.bottomCenter,
-        ),
-        borderRadius: BorderRadius.circular(12),
+    return GlassContainer(
+      borderRadius: BorderRadius.circular(12),
+      gradient: LinearGradient(
+        colors: [Colors.black87, Colors.black],
+        begin: Alignment.topCenter,
+        end: Alignment.bottomCenter,
       ),
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
       child: Row(
@@ -37,7 +36,7 @@ class CalendarWidget extends StatelessWidget {
               Text(
                 dayName, //wednesday
                 style: const TextStyle(
-                  color: Color(0xFF8E8E93),
+                  color: Color.fromARGB(255, 186, 186, 188),
                   fontSize: 12,
                   fontWeight: FontWeight.w500,
                   letterSpacing: 0.5,
@@ -55,9 +54,9 @@ class CalendarWidget extends StatelessWidget {
               Text(
                 monthName, //wednesday
                 style: const TextStyle(
-                  color: Color.fromARGB(255, 189, 52, 52),
+                  color: Color.fromARGB(255, 255, 100, 100),
                   fontSize: 12,
-                  fontWeight: FontWeight.w500,
+                  fontWeight: FontWeight.bold,
                   letterSpacing: 0.5,
                 ),
               ),
@@ -77,7 +76,7 @@ class CalendarWidget extends StatelessWidget {
                             day,
                             textAlign: TextAlign.center,
                             style: const TextStyle(
-                              color: Color.fromARGB(255, 168, 48, 48),
+                              color: Color.fromARGB(255, 255, 100, 100),
                               fontSize: 11,
                               fontWeight: FontWeight.w500,
                             ),
@@ -134,7 +133,9 @@ class CalendarWidget extends StatelessWidget {
             child: Text(
               '$day',
               style: TextStyle(
-                color: isToday ? Colors.white : const Color(0xFF8E8E93),
+                color: isToday
+                    ? Colors.white
+                    : const Color.fromARGB(255, 186, 186, 188),
                 fontSize: 12,
                 fontWeight: isToday ? FontWeight.w600 : FontWeight.w400,
               ),

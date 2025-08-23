@@ -6,6 +6,7 @@ import 'package:portfolio/screens/homescreen/mac_app_icon.dart';
 import 'package:portfolio/models/models.dart';
 import 'package:portfolio/screens/appscreen/projects_screen.dart';
 import 'package:portfolio/screens/homescreen/widgets/github_profile_card.dart';
+import 'package:portfolio/screens/homescreen/widgets/notes.dart';
 import 'package:portfolio/screens/homescreen/widgets/utsav_memoji.dart';
 import 'package:portfolio/screens/homescreen/widgets/spotify_music_frame.dart';
 import 'package:portfolio/screens/homescreen/widgets/calendar_widget.dart';
@@ -475,7 +476,7 @@ class _MacDesktopAppsState extends State<MacDesktopApps> {
                   StaggeredGridTile.count(
                     crossAxisCellCount: 2,
                     mainAxisCellCount: 2,
-                    child: Container(color: Colors.white),
+                    child: Notes(),
                   ),
                   StaggeredGridTile.count(
                     crossAxisCellCount: 1,

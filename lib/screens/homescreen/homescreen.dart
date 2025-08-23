@@ -15,7 +15,7 @@ class DummyScreen extends StatelessWidget {
         height: double.infinity,
         decoration: const BoxDecoration(
           image: DecorationImage(
-            image: AssetImage("assets/images/wallpaper.png"),
+            image: AssetImage("assets/images/wallpaper.jpg"),
             fit: BoxFit.cover,
           ),
         ),

@@ -198,6 +198,14 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  flutter_blur:
+    dependency: transitive
+    description:
+      name: flutter_blur
+      sha256: "0be9d31edfbdab758bf1b8ad37525b33580d3153cc249a5e4f83c6caf1272c2e"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.0.2"
   flutter_cache_manager:
     dependency: transitive
     description:
@@ -248,6 +256,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.1.0"
+  glassmorphic_ui_kit:
+    dependency: "direct main"
+    description:
+      name: glassmorphic_ui_kit
+      sha256: b8b86164b0f5a46f3a74f58ec26617fdf515ac8daea82eb8d0c252b4ba1a7913
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.1.5"
   http:
     dependency: "direct main"
     description:
