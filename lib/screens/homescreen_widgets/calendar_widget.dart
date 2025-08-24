@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:glassmorphic_ui_kit/glassmorphic_ui_kit.dart';
 import 'package:intl/intl.dart';
 
@@ -25,7 +26,7 @@ class CalendarWidget extends StatelessWidget {
         begin: Alignment.topCenter,
         end: Alignment.bottomCenter,
       ),
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+      padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 12.h),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -35,34 +36,34 @@ class CalendarWidget extends StatelessWidget {
             children: [
               Text(
                 dayName, //wednesday
-                style: const TextStyle(
-                  color: Color.fromARGB(255, 186, 186, 188),
-                  fontSize: 12,
+                style: TextStyle(
+                  color: const Color.fromARGB(255, 186, 186, 188),
+                  fontSize: 12.sp,
                   fontWeight: FontWeight.w500,
                   letterSpacing: 0.5,
                 ),
               ),
               Text(
                 dayNumber, //20th wala 20
-                style: const TextStyle(
+                style: TextStyle(
                   color: Colors.white,
-                  fontSize: 40,
+                  fontSize: 40.sp,
                   fontWeight: FontWeight.w300,
                   height: 1.0,
                 ),
               ),
               Text(
                 monthName, //wednesday
-                style: const TextStyle(
-                  color: Color.fromARGB(255, 255, 100, 100),
-                  fontSize: 12,
+                style: TextStyle(
+                  color: const Color.fromARGB(255, 255, 100, 100),
+                  fontSize: 12.sp,
                   fontWeight: FontWeight.bold,
                   letterSpacing: 0.5,
                 ),
               ),
             ],
           ),
-          const SizedBox(width: 24),
+          SizedBox(width: 24.w),
           Expanded(
             child: Column(
               children: [
@@ -75,9 +76,9 @@ class CalendarWidget extends StatelessWidget {
                           child: Text(
                             day,
                             textAlign: TextAlign.center,
-                            style: const TextStyle(
-                              color: Color.fromARGB(255, 255, 100, 100),
-                              fontSize: 11,
+                            style: TextStyle(
+                              color: const Color.fromARGB(255, 255, 100, 100),
+                              fontSize: 16.sp,
                               fontWeight: FontWeight.w500,
                             ),
                           ),
@@ -86,7 +87,7 @@ class CalendarWidget extends StatelessWidget {
                       .toList(),
                 ),
 
-                const SizedBox(height: 4),
+                SizedBox(height: 6.h),
 
                 // Calendar dates grid
                 Expanded(
@@ -122,7 +123,7 @@ class CalendarWidget extends StatelessWidget {
       currentWeek.add(
         Expanded(
           child: Container(
-            height: 20,
+            height: 24.h,
             alignment: Alignment.center,
             decoration: isToday
                 ? const BoxDecoration(
@@ -136,7 +137,7 @@ class CalendarWidget extends StatelessWidget {
                 color: isToday
                     ? Colors.white
                     : const Color.fromARGB(255, 186, 186, 188),
-                fontSize: 12,
+                fontSize: 16.sp,
                 fontWeight: isToday ? FontWeight.w600 : FontWeight.w400,
               ),
             ),
@@ -148,7 +149,7 @@ class CalendarWidget extends StatelessWidget {
       if (currentWeek.length == 7) {
         calendarRows.add(
           Padding(
-            padding: const EdgeInsets.symmetric(vertical: 2),
+            padding: EdgeInsets.symmetric(vertical: 4.h),
             child: Row(children: currentWeek),
           ),
         );
@@ -165,7 +166,7 @@ class CalendarWidget extends StatelessWidget {
     if (currentWeek.isNotEmpty) {
       calendarRows.add(
         Padding(
-          padding: const EdgeInsets.symmetric(vertical: 2),
+          padding: EdgeInsets.symmetric(vertical: 4.h),
           child: Row(children: currentWeek),
         ),
       );

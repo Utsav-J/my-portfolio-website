@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class SkillButton extends StatelessWidget {
   final String label;
@@ -31,25 +32,25 @@ class SkillButton extends StatelessWidget {
             ? null
             : Border.all(color: const Color(0xFF374151), width: 1),
       ),
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+      padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 12.h),
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
           Image.asset(
             iconPath,
-            width: 20,
-            height: 20,
+            width: 20.w,
+            height: 20.h,
             errorBuilder: (context, error, stackTrace) =>
-                const SizedBox(width: 20, height: 20),
+                SizedBox(width: 20.w, height: 20.h),
           ),
-          const SizedBox(width: 8),
+          SizedBox(width: 8.w),
           Text(
             label.toUpperCase(),
             style: TextStyle(
               color: isHighlighted
                   ? Colors.white
                   : Colors.white.withValues(alpha: 0.9),
-              fontSize: 12,
+              fontSize: 12.sp,
               fontWeight: FontWeight.w600,
               letterSpacing: 0.5,
             ),

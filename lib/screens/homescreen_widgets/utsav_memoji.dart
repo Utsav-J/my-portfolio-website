@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:glassmorphic_ui_kit/glassmorphic_ui_kit.dart';
 import 'package:portfolio/config/app_design.dart';
 import 'package:portfolio/screens/overlays/send_message_overlay.dart';
@@ -47,18 +48,18 @@ class UtsavMemoji extends StatelessWidget {
             Align(
               alignment: Alignment.bottomCenter,
               child: Padding(
-                padding: EdgeInsets.only(bottom: 8),
+                padding: EdgeInsets.only(bottom: 8.h),
                 child: Text(
                   'say hi',
                   style: AppDesign.caption1.copyWith(
                     color: Colors.white,
                     fontWeight: FontWeight.w300,
-                    fontSize: 16,
+                    fontSize: 18.sp,
                     shadows: [
                       Shadow(
                         offset: Offset(1, 1), // slight right & down
-                        blurRadius: 3, // soft blur
-                        color: Colors.black54, // semi-transparent black
+                        blurRadius: 4, // soft blur
+                        color: Colors.black87, // semi-transparent black
                       ),
                     ],
                   ),

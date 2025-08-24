@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:portfolio/screens/appscreen/app_screen.dart';
 import 'package:portfolio/screens/homescreen/mac_app_icon.dart';
@@ -535,47 +536,47 @@ class _MacDesktopAppsState extends State<MacDesktopApps> {
     }
 
     return Padding(
-      padding: const EdgeInsets.all(20),
+      padding: EdgeInsets.all(20.w),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
             children: [
-              Icon(app.icon, color: app.color, size: 32),
-              const SizedBox(width: 12),
+              Icon(app.icon, color: app.color, size: 32.sp),
+              SizedBox(width: 12.w),
               Text(
                 app.title,
-                style: const TextStyle(
-                  fontSize: 24,
+                style: TextStyle(
+                  fontSize: 24.sp,
                   fontWeight: FontWeight.bold,
-                  color: Color(0xFF2C2C2C),
+                  color: const Color(0xFF2C2C2C),
                 ),
               ),
             ],
           ),
-          const SizedBox(height: 20),
+          SizedBox(height: 20.h),
           Text(
             'Welcome to ${app.title}!',
-            style: const TextStyle(
-              fontSize: 18,
+            style: TextStyle(
+              fontSize: 18.sp,
               fontWeight: FontWeight.w600,
-              color: Color(0xFF2C2C2C),
+              color: const Color(0xFF2C2C2C),
             ),
           ),
-          const SizedBox(height: 12),
+          SizedBox(height: 12.h),
           Text(
             'This is a sample content area for the ${app.title} application. '
             'You can add your actual content here including text, images, '
             'forms, or any other widgets you need.',
-            style: const TextStyle(
-              fontSize: 14,
-              color: Color(0xFF666666),
+            style: TextStyle(
+              fontSize: 14.sp,
+              color: const Color(0xFF666666),
               height: 1.5,
             ),
           ),
-          const SizedBox(height: 20),
+          SizedBox(height: 20.h),
           Container(
-            padding: const EdgeInsets.all(16),
+            padding: EdgeInsets.all(16.w),
             decoration: BoxDecoration(
               color: app.color.withValues(alpha: 0.1),
               borderRadius: BorderRadius.circular(8),
@@ -583,8 +584,8 @@ class _MacDesktopAppsState extends State<MacDesktopApps> {
             ),
             child: Row(
               children: [
-                Icon(app.icon, color: app.color, size: 20),
-                const SizedBox(width: 8),
+                Icon(app.icon, color: app.color, size: 20.sp),
+                SizedBox(width: 8.w),
                 Text(
                   'Sample ${app.title} Content',
                   style: TextStyle(

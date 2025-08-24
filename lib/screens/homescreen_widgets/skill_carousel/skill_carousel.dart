@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:portfolio/screens/homescreen_widgets/skill_carousel/skill_button.dart';
 
 class SkillCarousel extends StatefulWidget {
@@ -75,10 +76,7 @@ class _SkillCarouselState extends State<SkillCarousel>
                 controller: _scrollController,
                 physics: const NeverScrollableScrollPhysics(),
                 child: Container(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 0,
-                    vertical: 5,
-                  ),
+                  padding: EdgeInsets.symmetric(horizontal: 0, vertical: 5.h),
                   decoration: BoxDecoration(
                     // color: Colors.black26,
                     gradient: LinearGradient(
@@ -97,7 +95,7 @@ class _SkillCarouselState extends State<SkillCarousel>
                     children: [
                       // First set of skills
                       _SkillsGrid(),
-                      const SizedBox(width: 100), // Gap between sets
+                      SizedBox(width: 100.w), // Gap between sets
                       // Duplicate set for seamless looping
                       _SkillsGrid(),
                     ],
@@ -106,13 +104,13 @@ class _SkillCarouselState extends State<SkillCarousel>
               ),
               // Control button positioned at top-right
               Positioned(
-                top: 8,
-                right: 8,
+                top: 8.h,
+                right: 8.w,
                 child: GestureDetector(
                   onTap: _toggleAnimation,
                   child: Container(
-                    width: 32,
-                    height: 32,
+                    width: 32.w,
+                    height: 32.h,
                     decoration: BoxDecoration(
                       color: Colors.black.withValues(alpha: 0.7),
                       borderRadius: BorderRadius.circular(16),
@@ -124,7 +122,7 @@ class _SkillCarouselState extends State<SkillCarousel>
                     child: Icon(
                       _isPlaying ? Icons.pause : Icons.play_arrow,
                       color: Colors.white,
-                      size: 18,
+                      size: 18.sp,
                     ),
                   ),
                 ),
@@ -146,28 +144,28 @@ class _SkillsGrid extends StatelessWidget {
         Row(
           children: [
             SkillButton('Python', 'assets/icons/python.png', false),
-            const SizedBox(width: 12),
+            SizedBox(width: 12.w),
             SkillButton(
               'Flutter',
               'assets/icons/flutter.png',
               true,
               gradient: [const Color(0xFF8B5CF6), const Color(0xFF06B6D4)],
             ),
-            const SizedBox(width: 12),
+            SizedBox(width: 12.w),
             SkillButton('JavaScript', 'assets/icons/javascript.png', false),
-            const SizedBox(width: 12),
+            SizedBox(width: 12.w),
             SkillButton('React', 'assets/icons/react.png', false),
-            const SizedBox(width: 12),
+            SizedBox(width: 12.w),
             SkillButton('Node.js', 'assets/icons/node.png', false),
-            const SizedBox(width: 12),
+            SizedBox(width: 12.w),
             SkillButton('Java', 'assets/icons/java.png', false),
-            const SizedBox(width: 12),
+            SizedBox(width: 12.w),
             SkillButton('C++', 'assets/icons/cpp.png', false),
-            const SizedBox(width: 12),
+            SizedBox(width: 12.w),
             SkillButton('AWS', 'assets/icons/aws.png', false),
           ],
         ),
-        const SizedBox(height: 12),
+        SizedBox(height: 12.h),
         // Row 2
         Row(
           children: [
@@ -177,45 +175,45 @@ class _SkillsGrid extends StatelessWidget {
               true,
               gradient: [const Color(0xFFEF4444), const Color(0xFFEC4899)],
             ),
-            const SizedBox(width: 12),
+            SizedBox(width: 12.w),
             SkillButton('Docker', 'assets/icons/docker.png', false),
-            const SizedBox(width: 12),
+            SizedBox(width: 12.w),
             SkillButton('Kubernetes', 'assets/icons/kubernetes.png', false),
-            const SizedBox(width: 12),
+            SizedBox(width: 12.w),
             SkillButton('MongoDB', 'assets/icons/mongodb.png', false),
-            const SizedBox(width: 12),
+            SizedBox(width: 12.w),
             SkillButton('SQL', 'assets/icons/sql.png', false),
-            const SizedBox(width: 12),
+            SizedBox(width: 12.w),
             SkillButton('Firebase', 'assets/icons/firebase.png', false),
-            const SizedBox(width: 12),
+            SizedBox(width: 12.w),
             SkillButton('Bash', 'assets/icons/bash.png', false),
-            const SizedBox(width: 12),
+            SizedBox(width: 12.w),
             SkillButton('Postman', 'assets/icons/postman.png', false),
           ],
         ),
-        const SizedBox(height: 12),
+        SizedBox(height: 12.h),
         // Row 3
         Row(
           children: [
             SkillButton('C', 'assets/icons/c.png', false),
-            const SizedBox(width: 12),
+            SizedBox(width: 12.w),
             SkillButton(
               'Hugging Face',
               'assets/icons/huggingface.png',
               true,
               gradient: [const Color(0xFF10B981), const Color(0xFF3B82F6)],
             ),
-            const SizedBox(width: 12),
+            SizedBox(width: 12.w),
             SkillButton('Angular', 'assets/icons/angular.png', false),
-            const SizedBox(width: 12),
+            SizedBox(width: 12.w),
             SkillButton('Python', 'assets/icons/python2.png', false),
-            const SizedBox(width: 12),
+            SizedBox(width: 12.w),
             SkillButton('Flutter', 'assets/icons/flutter.png', false),
-            const SizedBox(width: 12),
+            SizedBox(width: 12.w),
             SkillButton('React', 'assets/icons/react.png', false),
-            const SizedBox(width: 12),
+            SizedBox(width: 12.w),
             SkillButton('Node.js', 'assets/icons/node.png', false),
-            const SizedBox(width: 12),
+            SizedBox(width: 12.w),
             SkillButton('Java', 'assets/icons/java.png', false),
           ],
         ),

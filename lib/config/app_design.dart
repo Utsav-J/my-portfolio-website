@@ -1,19 +1,20 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'dart:ui';
 import 'package:google_fonts/google_fonts.dart';
 
 class AppDesign {
   AppDesign._();
   static TextStyle largeTitle = GoogleFonts.quicksand(
-    fontSize: 34,
+    fontSize: 34.sp,
     fontWeight: FontWeight.w700,
     letterSpacing: 0.37,
     height: 1.12,
   );
 
   static TextStyle title1 = GoogleFonts.quicksand(
-    fontSize: 28,
+    fontSize: 28.sp,
     fontWeight: FontWeight.w400,
     letterSpacing: 0.36,
     height: 1.14,
@@ -21,7 +22,7 @@ class AppDesign {
 
   /// Title 2 text style
   static TextStyle title2 = GoogleFonts.quicksand(
-    fontSize: 22,
+    fontSize: 22.sp,
     fontWeight: FontWeight.w400,
     letterSpacing: 0.35,
     height: 1.18,
@@ -29,7 +30,7 @@ class AppDesign {
 
   /// Title 3 text style
   static TextStyle title3 = GoogleFonts.quicksand(
-    fontSize: 20,
+    fontSize: 20.sp,
     fontWeight: FontWeight.w400,
     letterSpacing: 0.38,
     height: 1.20,
@@ -37,7 +38,7 @@ class AppDesign {
 
   /// Headline text style
   static TextStyle headline = GoogleFonts.quicksand(
-    fontSize: 17,
+    fontSize: 17.sp,
     fontWeight: FontWeight.w600,
     letterSpacing: -0.41,
     height: 1.29,
@@ -45,7 +46,7 @@ class AppDesign {
 
   /// Body text style
   static TextStyle body = GoogleFonts.quicksand(
-    fontSize: 17,
+    fontSize: 17.sp,
     fontWeight: FontWeight.w400,
     letterSpacing: -0.41,
     height: 1.29,
@@ -53,7 +54,7 @@ class AppDesign {
 
   /// Callout text style
   static TextStyle callout = GoogleFonts.quicksand(
-    fontSize: 16,
+    fontSize: 16.sp,
     fontWeight: FontWeight.w400,
     letterSpacing: -0.32,
     height: 1.31,
@@ -61,7 +62,7 @@ class AppDesign {
 
   /// Subhead text style
   static TextStyle subhead = GoogleFonts.quicksand(
-    fontSize: 15,
+    fontSize: 15.sp,
     fontWeight: FontWeight.w400,
     letterSpacing: -0.24,
     height: 1.33,
@@ -69,7 +70,7 @@ class AppDesign {
 
   /// Footnote text style
   static TextStyle footnote = GoogleFonts.quicksand(
-    fontSize: 13,
+    fontSize: 13.sp,
     fontWeight: FontWeight.w400,
     letterSpacing: -0.08,
     height: 1.38,
@@ -77,7 +78,7 @@ class AppDesign {
 
   /// Caption 1 text style
   static TextStyle caption1 = GoogleFonts.quicksand(
-    fontSize: 12,
+    fontSize: 12.sp,
     fontWeight: FontWeight.w400,
     letterSpacing: 0.0,
     height: 1.33,
@@ -85,7 +86,7 @@ class AppDesign {
 
   /// Caption 2 text style
   static TextStyle caption2 = GoogleFonts.quicksand(
-    fontSize: 11,
+    fontSize: 11.sp,
     fontWeight: FontWeight.w400,
     letterSpacing: 0.07,
     height: 1.36,
@@ -95,16 +96,16 @@ class AppDesign {
 
   /// Menu bar text style
   static TextStyle menuBarText({Color color = Colors.white}) => headline
-      .copyWith(color: color, fontSize: 16, fontWeight: FontWeight.w600);
+      .copyWith(color: color, fontSize: 16.sp, fontWeight: FontWeight.w600);
 
   /// Menu bar time text style
   static TextStyle menuBarTime({Color color = Colors.white}) => caption1
-      .copyWith(color: color, fontSize: 16, fontWeight: FontWeight.w500);
+      .copyWith(color: color, fontSize: 16.sp, fontWeight: FontWeight.w500);
 
   /// App title text style
   static TextStyle appTitle({Color color = Colors.white}) => caption1.copyWith(
     color: color,
-    fontSize: 11,
+    fontSize: 11.sp,
     fontWeight: FontWeight.w500,
   );
 
@@ -119,7 +120,7 @@ class AppDesign {
   /// Popup body text style
   static TextStyle popupBody({Color color = Colors.white}) => body.copyWith(
     color: color.withValues(alpha: 0.8),
-    fontSize: 14,
+    fontSize: 14.sp,
     height: 1.4,
   );
 

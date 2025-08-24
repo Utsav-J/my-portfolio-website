@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:portfolio/config/app_design.dart';
 import 'package:portfolio/models/models.dart';
 
@@ -63,25 +64,25 @@ class _DockIconState extends State<DockIcon> {
                             Icon(
                               widget.app.icon,
                               color: Colors.white,
-                              size: 16,
+                              size: 16.sp,
                             ),
-                            const SizedBox(width: 8),
+                            SizedBox(width: 8.w),
                             Text(
                               widget.app.title,
-                              style: const TextStyle(
+                              style: TextStyle(
                                 color: Colors.white,
-                                fontSize: 14,
+                                fontSize: 14.sp,
                                 fontWeight: FontWeight.w600,
                               ),
                             ),
                           ],
                         ),
-                        const SizedBox(height: 6),
+                        SizedBox(height: 6.h),
                         Text(
                           widget.app.description,
                           style: TextStyle(
                             color: Colors.white.withValues(alpha: 0.9),
-                            fontSize: 12,
+                            fontSize: 12.sp,
                             fontWeight: FontWeight.w400,
                             height: 1.3,
                           ),
@@ -117,9 +118,9 @@ class _DockIconState extends State<DockIcon> {
                   ),
                   child: Row(
                     children: [
-                      Icon(widget.app.icon, color: Colors.white, size: 24),
+                      Icon(widget.app.icon, color: Colors.white, size: 24.sp),
                       if (widget.app.title == 'Download CV')
-                        const SizedBox(width: 8),
+                        SizedBox(width: 8.w),
                       if (widget.app.title == 'Download CV')
                         Text("Download my Resume", style: AppDesign.caption1),
                     ],

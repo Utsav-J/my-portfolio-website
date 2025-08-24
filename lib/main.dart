@@ -1,5 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:portfolio/firebase_options.dart';
 import 'screens/homepage/homepage.dart';
 import 'config/app_design.dart';
@@ -13,12 +14,19 @@ class Portfolio extends StatelessWidget {
   const Portfolio({super.key});
 
   @override
-  Widget build(BuildContext context) {  
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      theme: _buildAppleTheme(),
-      home: const HomePage(),
-      routes: {'/home': (context) => const HomePage()},
+  Widget build(BuildContext context) {
+    return ScreenUtilInit(
+      designSize: const Size(1920, 1080), // Base design size for desktop
+      minTextAdapt: true,
+      splitScreenMode: true,
+      builder: (context, child) {
+        return MaterialApp(
+          debugShowCheckedModeBanner: false,
+          theme: _buildAppleTheme(),
+          home: const HomePage(),
+          routes: {'/home': (context) => const HomePage()},
+        );
+      },
     );
   }
 

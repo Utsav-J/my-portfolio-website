@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:glassmorphic_ui_kit/glassmorphic_ui_kit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:portfolio/screens/homescreen_widgets/notes/note_items.dart';
@@ -40,11 +41,11 @@ class _NotesState extends State<Notes> {
     AsyncSnapshot<List<Map<String, dynamic>>> snapshot,
   ) {
     if (snapshot.data == null || snapshot.data!.isEmpty) {
-      return const Padding(
-        padding: EdgeInsets.all(20.0),
+      return Padding(
+        padding: EdgeInsets.all(20.0.w),
         child: Text(
           'No notes found',
-          style: TextStyle(color: Colors.white70, fontSize: 16),
+          style: TextStyle(color: Colors.white70, fontSize: 16.sp),
         ),
       );
     }
@@ -84,7 +85,7 @@ class _NotesState extends State<Notes> {
       child: Column(
         children: [
           Container(
-            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 12),
+            padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 12.h),
             decoration: BoxDecoration(color: Colors.orange),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -94,7 +95,7 @@ class _NotesState extends State<Notes> {
                   child: PopupMenuButton<String>(
                     color: Colors.amber,
                     elevation: 5,
-                    menuPadding: const EdgeInsets.all(5),
+                    menuPadding: EdgeInsets.all(5.w),
                     borderRadius: BorderRadius.circular(12),
                     icon: Icon(CupertinoIcons.ellipsis_vertical_circle_fill),
                     onSelected: (String newTitle) {
@@ -108,13 +109,13 @@ class _NotesState extends State<Notes> {
                     itemBuilder: (context) => noteOptions.keys
                         .map(
                           (String option) => PopupMenuItem(
-                            padding: const EdgeInsets.all(5),
+                            padding: EdgeInsets.all(5.w),
                             value: option,
                             child: Text(
                               option,
                               style: GoogleFonts.newsreader(
                                 color: Colors.white,
-                                fontSize: 20,
+                                fontSize: 20.sp,
                               ),
                             ),
                           ),
@@ -127,7 +128,7 @@ class _NotesState extends State<Notes> {
                   overflow: TextOverflow.fade,
                   style: GoogleFonts.newsreader(
                     color: Colors.white,
-                    fontSize: 20,
+                    fontSize: 20.sp,
                   ),
                 ),
                 const SizedBox(),

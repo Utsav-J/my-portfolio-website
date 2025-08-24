@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:http/http.dart' as http;
 
 class WeatherSquare extends StatefulWidget {
@@ -37,8 +38,8 @@ class _WeatherSquareState extends State<WeatherSquare> {
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return Container(
-            width: 200,
-            height: 280,
+            width: 200.w,
+            height: 280.h,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(16),
               gradient: const LinearGradient(
@@ -56,8 +57,8 @@ class _WeatherSquareState extends State<WeatherSquare> {
           );
         } else if (snapshot.hasError) {
           return Container(
-            width: 200,
-            height: 280,
+            width: 200.w,
+            height: 280.h,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(16),
               gradient: const LinearGradient(
@@ -66,10 +67,10 @@ class _WeatherSquareState extends State<WeatherSquare> {
                 colors: [Color(0xFF1E3A8A), Color(0xFF3B82F6)],
               ),
             ),
-            child: const Center(
+            child: Center(
               child: Text(
                 'Error loading weather',
-                style: TextStyle(color: Colors.white, fontSize: 14),
+                style: TextStyle(color: Colors.white, fontSize: 14.sp),
               ),
             ),
           );
@@ -80,8 +81,8 @@ class _WeatherSquareState extends State<WeatherSquare> {
           final condition = current["condition"];
 
           return Container(
-            width: 200,
-            height: 280,
+            width: 200.w,
+            height: 280.h,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(16),
               gradient: const LinearGradient(
@@ -91,7 +92,7 @@ class _WeatherSquareState extends State<WeatherSquare> {
               ),
             ),
             child: Padding(
-              padding: const EdgeInsets.all(16.0),
+              padding: EdgeInsets.all(16.0.w),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -104,17 +105,17 @@ class _WeatherSquareState extends State<WeatherSquare> {
                         children: [
                           Text(
                             location["name"] ?? "Unknown",
-                            style: const TextStyle(
+                            style: TextStyle(
                               color: Colors.white,
-                              fontSize: 18,
+                              fontSize: 18.sp,
                               fontWeight: FontWeight.w600,
                             ),
                           ),
-                          const SizedBox(width: 4),
-                          const Icon(
+                          SizedBox(width: 4.w),
+                          Icon(
                             Icons.keyboard_arrow_up,
                             color: Colors.white,
-                            size: 16,
+                            size: 16.sp,
                           ),
                         ],
                       ),
@@ -123,8 +124,8 @@ class _WeatherSquareState extends State<WeatherSquare> {
                         children: [
                           // Weather condition icon
                           Container(
-                            width: 32,
-                            height: 32,
+                            width: 32.w,
+                            height: 32.h,
                             decoration: BoxDecoration(
                               color: Colors.white.withOpacity(0.2),
                               borderRadius: BorderRadius.circular(8),
@@ -132,24 +133,24 @@ class _WeatherSquareState extends State<WeatherSquare> {
                             child: Icon(
                               _getWeatherIcon(condition["code"] ?? 1000),
                               color: Colors.white,
-                              size: 20,
+                              size: 20.sp,
                             ),
                           ),
-                          const SizedBox(height: 4),
+                          SizedBox(height: 4.h),
                           // High and low temperatures (using current temp as placeholder)
                           Text(
                             "H:${(current["temp_c"] ?? 0).round()}°",
-                            style: const TextStyle(
+                            style: TextStyle(
                               color: Colors.white,
-                              fontSize: 12,
+                              fontSize: 12.sp,
                               fontWeight: FontWeight.w500,
                             ),
                           ),
                           Text(
                             "L:${(current["temp_c"] ?? 0).round()}°",
-                            style: const TextStyle(
+                            style: TextStyle(
                               color: Colors.white,
-                              fontSize: 12,
+                              fontSize: 12.sp,
                               fontWeight: FontWeight.w500,
                             ),
                           ),
@@ -158,38 +159,38 @@ class _WeatherSquareState extends State<WeatherSquare> {
                     ],
                   ),
 
-                  const SizedBox(height: 16),
+                  SizedBox(height: 16.h),
 
                   // Main temperature
                   Text(
                     "${(current["temp_c"] ?? 0).round()}°",
-                    style: const TextStyle(
+                    style: TextStyle(
                       color: Colors.white,
-                      fontSize: 48,
+                      fontSize: 48.sp,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
 
-                  const SizedBox(height: 8),
+                  SizedBox(height: 8.h),
 
                   // Feels like temperature
                   Text(
                     "Feels like ${(current["feelslike_c"] ?? 0).round()}°",
-                    style: const TextStyle(
+                    style: TextStyle(
                       color: Colors.white,
-                      fontSize: 14,
+                      fontSize: 14.sp,
                       fontWeight: FontWeight.w500,
                     ),
                   ),
 
-                  const SizedBox(height: 16),
+                  SizedBox(height: 16.h),
 
                   // Weather condition text
                   Text(
                     condition["text"] ?? "Unknown",
-                    style: const TextStyle(
+                    style: TextStyle(
                       color: Colors.white,
-                      fontSize: 16,
+                      fontSize: 16.sp,
                       fontWeight: FontWeight.w500,
                     ),
                   ),
@@ -203,7 +204,7 @@ class _WeatherSquareState extends State<WeatherSquare> {
                   ),
                   _buildWeatherDetail(
                     "Humidity",
-                    "${current["humidity"] ?? 0}%",
+                    "${(current["humidity"] ?? 0)}%",
                   ),
                 ],
               ),
@@ -212,8 +213,8 @@ class _WeatherSquareState extends State<WeatherSquare> {
         }
 
         return Container(
-          width: 200,
-          height: 280,
+          width: 200.w,
+          height: 280.h,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(16),
             gradient: const LinearGradient(
@@ -222,10 +223,10 @@ class _WeatherSquareState extends State<WeatherSquare> {
               colors: [Color(0xFF1E3A8A), Color(0xFF3B82F6)],
             ),
           ),
-          child: const Center(
+          child: Center(
             child: Text(
               'No weather data',
-              style: TextStyle(color: Colors.white, fontSize: 14),
+              style: TextStyle(color: Colors.white, fontSize: 14.sp),
             ),
           ),
         );
@@ -235,23 +236,23 @@ class _WeatherSquareState extends State<WeatherSquare> {
 
   Widget _buildWeatherDetail(String label, String value) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 2.0),
+      padding: EdgeInsets.symmetric(vertical: 2.0.h),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Text(
             label,
-            style: const TextStyle(
+            style: TextStyle(
               color: Colors.white,
-              fontSize: 12,
+              fontSize: 12.sp,
               fontWeight: FontWeight.w400,
             ),
           ),
           Text(
             value,
-            style: const TextStyle(
+            style: TextStyle(
               color: Colors.white,
-              fontSize: 12,
+              fontSize: 12.sp,
               fontWeight: FontWeight.w500,
             ),
           ),

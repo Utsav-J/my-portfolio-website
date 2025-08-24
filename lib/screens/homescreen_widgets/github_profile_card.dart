@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:icons_plus/icons_plus.dart';
 import 'package:portfolio/utils/url_launcher_utils.dart';
 
@@ -11,7 +12,8 @@ class GithubProfileCard extends StatelessWidget {
     return MouseRegion(
       cursor: SystemMouseCursors.click,
       child: GestureDetector(
-        onTap: () => UrlLauncherUtils.handleOpenSocials('https://github.com/Utsav-J'),
+        onTap: () =>
+            UrlLauncherUtils.handleOpenSocials('https://github.com/Utsav-J'),
         child: Container(
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(12),
@@ -25,21 +27,25 @@ class GithubProfileCard extends StatelessWidget {
             alignment: Alignment.bottomRight,
 
             child: Padding(
-              padding: const EdgeInsets.all(10.0),
+              padding: EdgeInsets.all(10.0.w),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Row(
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
-                      Icon(BoxIcons.bx_git_commit, color: Colors.white54),
-                      const SizedBox(width: 4),
+                      Icon(
+                        BoxIcons.bx_git_commit,
+                        color: Colors.white54,
+                        size: 20.sp,
+                      ),
+                      SizedBox(width: 4.w),
                       Text(
                         "545+",
                         overflow: TextOverflow.fade,
                         style: TextStyle(
                           color: Colors.white60,
-                          fontSize: 16,
+                          fontSize: 20.sp,
                           fontWeight: FontWeight.w800,
                         ),
                       ),
@@ -48,14 +54,18 @@ class GithubProfileCard extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
-                      Icon(CupertinoIcons.tray, color: Colors.white54),
-                      const SizedBox(width: 4),
+                      Icon(
+                        CupertinoIcons.tray,
+                        color: Colors.white54,
+                        size: 16.sp,
+                      ),
+                      SizedBox(width: 4.w),
                       Text(
                         "50+",
                         overflow: TextOverflow.fade,
                         style: TextStyle(
                           color: Colors.white60,
-                          fontSize: 16,
+                          fontSize: 16.sp,
                           fontWeight: FontWeight.w800,
                         ),
                       ),

@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:http/http.dart' as http;
 import 'spotify_iframe_stub.dart'
     if (dart.library.html) 'spotify_iframe_web.dart'
@@ -128,7 +129,7 @@ class _SpotifyMusicFrameState extends State<SpotifyMusicFrame> {
       return Center(
         child: Text(
           _errorMessage!,
-          style: const TextStyle(color: Colors.black54),
+          style: TextStyle(color: Colors.black54, fontSize: 14.sp),
           textAlign: TextAlign.center,
         ),
       );
@@ -139,10 +140,10 @@ class _SpotifyMusicFrameState extends State<SpotifyMusicFrame> {
     }
 
     // Non-web fallback message
-    return const Center(
+    return Center(
       child: Text(
         'Spotify embed is available on this web builds',
-        style: TextStyle(color: Colors.black54),
+        style: TextStyle(color: Colors.black54, fontSize: 14.sp),
         textAlign: TextAlign.center,
       ),
     );

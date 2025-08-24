@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:portfolio/models/models.dart';
 import 'package:portfolio/config/app_design.dart';
 
@@ -29,8 +30,8 @@ class _MacAppIconState extends State<MacAppIcon> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Container(
-                width: 60,
-                height: 60,
+                width: 60.w,
+                height: 60.h,
                 decoration: BoxDecoration(
                   gradient: LinearGradient(
                     begin: Alignment.topLeft,
@@ -49,9 +50,9 @@ class _MacAppIconState extends State<MacAppIcon> {
                     ),
                   ],
                 ),
-                child: Icon(widget.app.icon, color: Colors.white, size: 32),
+                child: Icon(widget.app.icon, color: Colors.white, size: 32.sp),
               ),
-              const SizedBox(height: 6),
+              SizedBox(height: 6.h),
               Text(
                 widget.app.title,
                 style: AppDesign.appTitle().copyWith(
