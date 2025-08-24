@@ -1,16 +1,15 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:portfolio/screens/appscreen/app_screen.dart';
 import 'package:portfolio/screens/homescreen/mac_app_icon.dart';
 import 'package:portfolio/models/models.dart';
-import 'package:portfolio/screens/appscreen/projects_screen.dart';
 import 'package:portfolio/screens/homescreen_widgets/github_profile_card.dart';
+import 'package:portfolio/screens/homescreen_widgets/location_weather/location_weather_widget.dart';
 import 'package:portfolio/screens/homescreen_widgets/notes/notes_widget.dart';
 import 'package:portfolio/screens/homescreen_widgets/utsav_memoji.dart';
 import 'package:portfolio/screens/homescreen_widgets/spotify/spotify_music_frame.dart';
 import 'package:portfolio/screens/homescreen_widgets/calendar_widget.dart';
-import 'package:portfolio/screens/homescreen_widgets/skill_carousel/skill_carousel.dart';
 import 'package:portfolio/screens/snake/snake_game.dart';
 
 class MacDesktopApps extends StatefulWidget {
@@ -432,7 +431,7 @@ class _MacDesktopAppsState extends State<MacDesktopApps> {
                   StaggeredGridTile.count(
                     crossAxisCellCount: 2,
                     mainAxisCellCount: 1,
-                    child: SkillCarousel(),
+                    child: LocationWeatherWidget(),
                   ),
                   StaggeredGridTile.count(
                     crossAxisCellCount: 2,

@@ -1,17 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'dart:ui';
-
 import 'package:google_fonts/google_fonts.dart';
 
-/// Design configuration for the portfolio app
-/// Follows Apple's Human Interface Guidelines and iOS design language
 class AppDesign {
-  // Private constructor to prevent instantiation
   AppDesign._();
-
-
-  /// Large title text style (iOS style)
   static TextStyle largeTitle = GoogleFonts.quicksand(
     fontSize: 34,
     fontWeight: FontWeight.w700,
@@ -19,9 +12,7 @@ class AppDesign {
     height: 1.12,
   );
 
-  /// Title 1 text style
   static TextStyle title1 = GoogleFonts.quicksand(
-    
     fontSize: 28,
     fontWeight: FontWeight.w400,
     letterSpacing: 0.36,
@@ -30,7 +21,6 @@ class AppDesign {
 
   /// Title 2 text style
   static TextStyle title2 = GoogleFonts.quicksand(
-    
     fontSize: 22,
     fontWeight: FontWeight.w400,
     letterSpacing: 0.35,
@@ -39,7 +29,6 @@ class AppDesign {
 
   /// Title 3 text style
   static TextStyle title3 = GoogleFonts.quicksand(
-    
     fontSize: 20,
     fontWeight: FontWeight.w400,
     letterSpacing: 0.38,
@@ -48,7 +37,6 @@ class AppDesign {
 
   /// Headline text style
   static TextStyle headline = GoogleFonts.quicksand(
-    
     fontSize: 17,
     fontWeight: FontWeight.w600,
     letterSpacing: -0.41,
@@ -57,7 +45,6 @@ class AppDesign {
 
   /// Body text style
   static TextStyle body = GoogleFonts.quicksand(
-    
     fontSize: 17,
     fontWeight: FontWeight.w400,
     letterSpacing: -0.41,
@@ -66,7 +53,6 @@ class AppDesign {
 
   /// Callout text style
   static TextStyle callout = GoogleFonts.quicksand(
-    
     fontSize: 16,
     fontWeight: FontWeight.w400,
     letterSpacing: -0.32,
@@ -75,7 +61,6 @@ class AppDesign {
 
   /// Subhead text style
   static TextStyle subhead = GoogleFonts.quicksand(
-    
     fontSize: 15,
     fontWeight: FontWeight.w400,
     letterSpacing: -0.24,
@@ -84,7 +69,6 @@ class AppDesign {
 
   /// Footnote text style
   static TextStyle footnote = GoogleFonts.quicksand(
-    
     fontSize: 13,
     fontWeight: FontWeight.w400,
     letterSpacing: -0.08,
@@ -93,7 +77,6 @@ class AppDesign {
 
   /// Caption 1 text style
   static TextStyle caption1 = GoogleFonts.quicksand(
-    
     fontSize: 12,
     fontWeight: FontWeight.w400,
     letterSpacing: 0.0,
@@ -102,7 +85,6 @@ class AppDesign {
 
   /// Caption 2 text style
   static TextStyle caption2 = GoogleFonts.quicksand(
-    
     fontSize: 11,
     fontWeight: FontWeight.w400,
     letterSpacing: 0.07,
