@@ -2,78 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:portfolio/config/app_design.dart';
-
-class Experience {
-  final String companyName;
-  final List<String> description;
-  final String duration;
-  final String endDate;
-  final String role;
-  final String startDate;
-
-  Experience({
-    required this.companyName,
-    required this.description,
-    required this.duration,
-    required this.endDate,
-    required this.role,
-    required this.startDate,
-  });
-
-  factory Experience.fromFirestore(DocumentSnapshot doc) {
-    Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
-    final dynamic rawDescription = data['description'];
-    List<String> parsedDescription = [];
-    if (rawDescription is List) {
-      parsedDescription = rawDescription.whereType<String>().toList();
-    } else if (rawDescription is String) {
-      final String trimmed = rawDescription.trim();
-      if (trimmed.isNotEmpty) {
-        parsedDescription = [trimmed];
-      }
-    }
-    return Experience(
-      companyName: data['companyName'] ?? '',
-      description: parsedDescription,
-      duration: data['duration'] ?? '',
-      endDate: data['endDate'] ?? '',
-      role: data['role'] ?? '',
-      startDate: data['startDate'] ?? '',
-    );
-  }
-
-  DateTime? get startDateTime {
-    try {
-      // Parse dates like "June, 2025" to DateTime
-      final months = {
-        'January': 1,
-        'February': 2,
-        'March': 3,
-        'April': 4,
-        'May': 5,
-        'June': 6,
-        'July': 7,
-        'August': 8,
-        'September': 9,
-        'October': 10,
-        'November': 11,
-        'December': 12,
-      };
-
-      final parts = startDate.split(', ');
-      if (parts.length == 2) {
-        final month = months[parts[0]];
-        final year = int.tryParse(parts[1]);
-        if (month != null && year != null) {
-          return DateTime(year, month);
-        }
-      }
-      return null;
-    } catch (e) {
-      return null;
-    }
-  }
-}
+import 'package:portfolio/models/models.dart';
 
 class ExperienceScreen extends StatefulWidget {
   const ExperienceScreen({super.key});

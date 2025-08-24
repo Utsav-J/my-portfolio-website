@@ -145,15 +145,7 @@ class _MacMenuBarState extends State<MacMenuBar> {
         onTap: _closeWifiPopup,
         child: Container(
           color: Colors.black.withValues(alpha: 0.4),
-          child: Center(
-            child: WifiConnectionOverlay(
-              onClose: _closeWifiPopup,
-              onLinkedInConnect: () {
-                _closeWifiPopup();
-                _openLinkedIn();
-              },
-            ),
-          ),
+          child: Center(child: WifiConnectionOverlay(onClose: _closeWifiPopup)),
         ),
       ),
     );
@@ -165,11 +157,6 @@ class _MacMenuBarState extends State<MacMenuBar> {
     setState(() => _isWifiPopupOpen = false);
     _wifiOverlayEntry?.remove();
     _wifiOverlayEntry = null;
-  }
-
-  void _openLinkedIn() {
-    // TODO: Implement LinkedIn URL launch
-    print('Opening LinkedIn profile...');
   }
 
   void _togglePortfolioMenu() {

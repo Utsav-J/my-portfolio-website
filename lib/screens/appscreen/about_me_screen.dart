@@ -5,7 +5,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:icons_plus/icons_plus.dart';
 import 'package:portfolio/config/app_design.dart';
 import 'package:portfolio/utils/firebase_utils.dart';
-import 'package:url_launcher/url_launcher.dart';
+import 'package:portfolio/utils/url_launcher_utils.dart';
 
 class AboutMeScreen extends StatefulWidget {
   const AboutMeScreen({super.key});
@@ -74,7 +74,7 @@ class _AboutMeScreenState extends State<AboutMeScreen>
       if (mounted) {
         setState(() {
           _aboutMeSummary =
-              "I'm a passionate software developer with expertise in Flutter, mobile development, and creating elegant digital experiences. I love turning complex problems into simple, beautiful solutions.";
+              "I'm a passionate software developer with expertise in Flutter development, and creating elegant digital experiences. I love turning complex problems into simple, beautiful solutions.";
           _isLoadingSummary = false;
         });
       }
@@ -117,56 +117,6 @@ class _AboutMeScreenState extends State<AboutMeScreen>
         }
       });
     });
-  }
-
-  Future<void> _handleOpenSocials(String socialUrl) async {
-    try {
-      final Uri url = Uri.parse(socialUrl);
-      if (await canLaunchUrl(url)) {
-        await launchUrl(url, mode: LaunchMode.externalApplication);
-      } else {
-        _showErrorSnackBar('Could not open resume link');
-      }
-    } catch (e) {
-      _showErrorSnackBar('An unknown error occurred: $e');
-    }
-  }
-
-  Future<void> _handleDownloadCV() async {
-    try {
-      final DocumentSnapshot resumeDoc = await FirebaseFirestore.instance
-          .collection('data')
-          .doc('resume')
-          .get();
-
-      if (resumeDoc.exists && resumeDoc.data() != null) {
-        final Map<String, dynamic> data =
-            resumeDoc.data() as Map<String, dynamic>;
-        final String? resumeUrl = data['url'] as String?;
-
-        if (resumeUrl != null && resumeUrl.isNotEmpty) {
-          // Launch the URL to download the resume
-          final Uri url = Uri.parse(resumeUrl);
-          if (await canLaunchUrl(url)) {
-            await launchUrl(url, mode: LaunchMode.externalApplication);
-          } else {
-            // Show error if URL can't be launched
-            _showErrorSnackBar('Could not open resume link');
-          }
-        } else {
-          _showErrorSnackBar('Resume URL not found');
-        }
-      } else {
-        _showErrorSnackBar('Resume document not found');
-      }
-    } catch (e) {
-      _showErrorSnackBar('Error downloading resume: $e');
-    }
-  }
-
-  void _showErrorSnackBar(String message) {
-    // You can implement a proper error dialog or snackbar here
-    print('Error: $message');
   }
 
   @override
@@ -312,7 +262,7 @@ class _AboutMeScreenState extends State<AboutMeScreen>
                       style: AppDesign.largeTitle.copyWith(
                         color: Colors.black,
                         fontWeight: FontWeight.w700,
-                        fontSize: 58,
+                        fontSize: 48,
                         height: 1.0,
                       ),
                     ),
@@ -335,7 +285,7 @@ class _AboutMeScreenState extends State<AboutMeScreen>
                         _buildButton(
                           'Resume',
                           Brand(Brands.google_drive, size: 20),
-                          _handleDownloadCV,
+                          UrlLauncherUtils.handleDownloadCV,
                           const Color.fromARGB(255, 93, 171, 255),
                           Colors.white,
                           AppDesign.systemBlue,
@@ -344,8 +294,9 @@ class _AboutMeScreenState extends State<AboutMeScreen>
                         _buildButton(
                           'GitHub',
                           Brand(Brands.github, size: 20),
-                          () =>
-                              _handleOpenSocials('https://github.com/Utsav-J'),
+                          () => UrlLauncherUtils.handleOpenSocials(
+                            'https://github.com/Utsav-J',
+                          ),
                           Colors.white,
                           Colors.black,
                           Colors.black,
@@ -380,7 +331,7 @@ class _AboutMeScreenState extends State<AboutMeScreen>
       mouseCursor: SystemMouseCursors.click,
       message: label,
       child: GestureDetector(
-        onTap: () => _handleOpenSocials(socialUrl),
+        onTap: () => UrlLauncherUtils.handleOpenSocials(socialUrl),
         child: Container(
           width: 40,
           height: 40,

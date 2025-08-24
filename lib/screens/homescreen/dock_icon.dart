@@ -121,10 +121,7 @@ class _DockIconState extends State<DockIcon> {
                       if (widget.app.title == 'Download CV')
                         const SizedBox(width: 8),
                       if (widget.app.title == 'Download CV')
-                        const Text(
-                          "Download my Resume",
-                          style: AppDesign.caption1,
-                        ),
+                        Text("Download my Resume", style: AppDesign.caption1),
                     ],
                   ),
                 ),

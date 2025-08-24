@@ -2,46 +2,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:portfolio/config/app_design.dart';
-import 'package:url_launcher/url_launcher.dart';
-
-class Project {
-  final List<String> description;
-  final String githubUrl;
-  final String imageUrl;
-  final String name;
-  final int rank;
-
-  Project({
-    required this.description,
-    required this.githubUrl,
-    required this.imageUrl,
-    required this.name,
-    required this.rank,
-  });
-
-  factory Project.fromFirestore(DocumentSnapshot doc) {
-    Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
-
-    List<String> parsedDescription = [];
-    final dynamic rawDescription = data['description'];
-    if (rawDescription is List) {
-      parsedDescription = rawDescription.whereType<String>().toList();
-    } else if (rawDescription is String) {
-      final String trimmed = rawDescription.trim();
-      if (trimmed.isNotEmpty) {
-        parsedDescription = [trimmed];
-      }
-    }
-
-    return Project(
-      description: parsedDescription,
-      githubUrl: data['githubUrl'] ?? '',
-      imageUrl: data['imageUrl'] ?? '',
-      name: data['name'] ?? '',
-      rank: data['rank'] ?? 0,
-    );
-  }
-}
+import 'package:portfolio/models/models.dart';
+import 'package:portfolio/utils/url_launcher_utils.dart';
 
 class ProjectsScreen extends StatefulWidget {
   const ProjectsScreen({super.key});
@@ -54,7 +16,7 @@ class _ProjectsScreenState extends State<ProjectsScreen> {
   List<Project> _projects = [];
   bool _isLoading = true;
   String? _error;
-  Set<String> _expandedProjects = {};
+  final Set<String> _expandedProjects = {};
 
   @override
   void initState() {
@@ -104,19 +66,6 @@ class _ProjectsScreenState extends State<ProjectsScreen> {
         _expandedProjects.add(projectName);
       }
     });
-  }
-
-  Future<void> _launchGitHubUrl(String url) async {
-    if (url.isNotEmpty) {
-      try {
-        final Uri uri = Uri.parse(url);
-        if (await canLaunchUrl(uri)) {
-          await launchUrl(uri, mode: LaunchMode.externalApplication);
-        }
-      } catch (e) {
-        print('Error launching URL: $e');
-      }
-    }
   }
 
   @override
@@ -379,7 +328,7 @@ class _ProjectsScreenState extends State<ProjectsScreen> {
         borderRadius: BorderRadius.circular(12),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withValues(alpha:0.2),
+            color: Colors.black.withValues(alpha: 0.2),
             blurRadius: 12,
             offset: const Offset(0, 4),
           ),
@@ -401,7 +350,6 @@ class _ProjectsScreenState extends State<ProjectsScreen> {
               ),
             ),
 
-            // Content overlay - positioned at bottom for white section
             Positioned(
               bottom: 0,
               left: 0,
@@ -414,7 +362,9 @@ class _ProjectsScreenState extends State<ProjectsScreen> {
                   children: [
                     // Project name only
                     GestureDetector(
-                      onTap: () => _launchGitHubUrl(project.githubUrl),
+                      onTap: () => UrlLauncherUtils.launchGitHubProject(
+                        project.githubUrl,
+                      ),
                       child: Text(
                         project.name,
                         style: AppDesign.title2.copyWith(
@@ -443,7 +393,7 @@ class _ProjectsScreenState extends State<ProjectsScreen> {
         color: Colors.white,
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withValues(alpha:0.1),
+            color: Colors.black.withValues(alpha: 0.1),
             blurRadius: 8,
             offset: const Offset(0, 4),
           ),

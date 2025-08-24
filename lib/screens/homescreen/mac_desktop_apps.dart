@@ -335,19 +335,6 @@ class _MacDesktopAppsState extends State<MacDesktopApps> {
         ),
       ),
       PortfolioApp(
-        title: 'Skills',
-        icon: CupertinoIcons.lightbulb,
-        color: const Color(0xFF5856D6),
-        onTap: () => _openApp(
-          PortfolioApp(
-            title: 'Skills',
-            icon: CupertinoIcons.lightbulb,
-            color: const Color(0xFF5856D6),
-            onTap: () {},
-          ),
-        ),
-      ),
-      PortfolioApp(
         title: 'Education',
         icon: CupertinoIcons.book,
         color: const Color(0xFFAF52DE),
@@ -363,32 +350,6 @@ class _MacDesktopAppsState extends State<MacDesktopApps> {
         ),
       ),
 
-      // PortfolioApp(
-      //   title: 'Blog',
-      //   icon: CupertinoIcons.doc_text,
-      //   color: const Color(0xFF32D74B),
-      //   onTap: () => _openApp(
-      //     PortfolioApp(
-      //       title: 'Blog',
-      //       icon: CupertinoIcons.doc_text,
-      //       color: const Color(0xFF32D74B),
-      //       onTap: () {},
-      //     ),
-      //   ),
-      // ),
-      // PortfolioApp(
-      //   title: 'Resume',
-      //   icon: CupertinoIcons.doc,
-      //   color: const Color(0xFF8E8E93),
-      //   onTap: () => _openApp(
-      //     PortfolioApp(
-      //       title: 'Resume',
-      //       icon: CupertinoIcons.doc,
-      //       color: const Color(0xFF8E8E93),
-      //       onTap: () {},
-      //     ),
-      //   ),
-      // ),
       PortfolioApp(
         title: 'Game',
         icon: CupertinoIcons.game_controller,

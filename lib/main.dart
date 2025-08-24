@@ -18,17 +18,13 @@ class Portfolio extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: _buildAppleTheme(),
       home: const HomePage(),
-      routes: {'/home': (context) => const HomePage()}, 
+      routes: {'/home': (context) => const HomePage()},
     );
   }
 
   ThemeData _buildAppleTheme() {
     return ThemeData(
-      // Use San Francisco font as the primary font family
-      fontFamily: '.AppleSystemUIFont',
-
-      // Define text theme using Apple's typography scale
-      textTheme: const TextTheme(
+      textTheme: TextTheme(
         displayLarge: AppDesign.largeTitle,
         displayMedium: AppDesign.title1,
         displaySmall: AppDesign.title2,

@@ -1,16 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:portfolio/config/app_design.dart';
+import 'package:portfolio/utils/url_launcher_utils.dart';
 
 class WifiConnectionOverlay extends StatefulWidget {
   final VoidCallback onClose;
-  final VoidCallback onLinkedInConnect;
 
-  const WifiConnectionOverlay({
-    super.key,
-    required this.onClose,
-    required this.onLinkedInConnect,
-  });
+  const WifiConnectionOverlay({super.key, required this.onClose});
 
   @override
   State<WifiConnectionOverlay> createState() => _WifiConnectionOverlayState();
@@ -132,7 +128,12 @@ class _WifiConnectionOverlayState extends State<WifiConnectionOverlay>
                     const SizedBox(width: 12),
                     Expanded(
                       child: ElevatedButton(
-                        onPressed: widget.onLinkedInConnect,
+                        onPressed: () {
+                          UrlLauncherUtils.handleOpenSocials(
+                            'https://www.linkedin.com/in/iamutsavjaiswal/',
+                          );
+                          _closeWithAnimation();
+                        },
                         style: ElevatedButton.styleFrom(
                           padding: const EdgeInsets.symmetric(vertical: 12),
                           backgroundColor: const Color(

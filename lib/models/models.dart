@@ -9,6 +9,117 @@ export '../screens/appscreen/certifications_screen.dart';
 export '../screens/appscreen/education_screen.dart';
 export '../screens/appscreen/projects_screen.dart';
 
+class Project {
+  final List<String> description;
+  final String githubUrl;
+  final String imageUrl;
+  final String name;
+  final int rank;
+
+  Project({
+    required this.description,
+    required this.githubUrl,
+    required this.imageUrl,
+    required this.name,
+    required this.rank,
+  });
+
+  factory Project.fromFirestore(DocumentSnapshot doc) {
+    Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
+
+    List<String> parsedDescription = [];
+    final dynamic rawDescription = data['description'];
+    if (rawDescription is List) {
+      parsedDescription = rawDescription.whereType<String>().toList();
+    } else if (rawDescription is String) {
+      final String trimmed = rawDescription.trim();
+      if (trimmed.isNotEmpty) {
+        parsedDescription = [trimmed];
+      }
+    }
+
+    return Project(
+      description: parsedDescription,
+      githubUrl: data['githubUrl'] ?? '',
+      imageUrl: data['imageUrl'] ?? '',
+      name: data['name'] ?? '',
+      rank: data['rank'] ?? 0,
+    );
+  }
+}
+
+class Experience {
+  final String companyName;
+  final List<String> description;
+  final String duration;
+  final String endDate;
+  final String role;
+  final String startDate;
+
+  Experience({
+    required this.companyName,
+    required this.description,
+    required this.duration,
+    required this.endDate,
+    required this.role,
+    required this.startDate,
+  });
+
+  factory Experience.fromFirestore(DocumentSnapshot doc) {
+    Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
+    final dynamic rawDescription = data['description'];
+    List<String> parsedDescription = [];
+    if (rawDescription is List) {
+      parsedDescription = rawDescription.whereType<String>().toList();
+    } else if (rawDescription is String) {
+      final String trimmed = rawDescription.trim();
+      if (trimmed.isNotEmpty) {
+        parsedDescription = [trimmed];
+      }
+    }
+    return Experience(
+      companyName: data['companyName'] ?? '',
+      description: parsedDescription,
+      duration: data['duration'] ?? '',
+      endDate: data['endDate'] ?? '',
+      role: data['role'] ?? '',
+      startDate: data['startDate'] ?? '',
+    );
+  }
+
+  DateTime? get startDateTime {
+    try {
+      // Parse dates like "June, 2025" to DateTime
+      final months = {
+        'January': 1,
+        'February': 2,
+        'March': 3,
+        'April': 4,
+        'May': 5,
+        'June': 6,
+        'July': 7,
+        'August': 8,
+        'September': 9,
+        'October': 10,
+        'November': 11,
+        'December': 12,
+      };
+
+      final parts = startDate.split(', ');
+      if (parts.length == 2) {
+        final month = months[parts[0]];
+        final year = int.tryParse(parts[1]);
+        if (month != null && year != null) {
+          return DateTime(year, month);
+        }
+      }
+      return null;
+    } catch (e) {
+      return null;
+    }
+  }
+}
+
 class PortfolioApp {
   final String title;
   final IconData icon;
