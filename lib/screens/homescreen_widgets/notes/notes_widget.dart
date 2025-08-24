@@ -51,23 +51,25 @@ class _NotesState extends State<Notes> {
     }
 
     if (selectedTab == "Things not on my resume..") {
-      return Column(
-        children: [
-          ...snapshot.data!.map(
-            (note) => NoteItem(
-              title: note['question'] ?? 'No title',
-              content: note['answer'] ?? 'No content',
-            ),
-          ),
-        ],
+      return ListView.builder(
+        padding: EdgeInsets.symmetric(vertical: 8.h),
+        itemCount: snapshot.data!.length,
+        itemBuilder: (context, index) {
+          final note = snapshot.data![index];
+          return NoteItem(
+            title: note['question'] ?? 'No title',
+            content: note['answer'] ?? 'No content',
+          );
+        },
       );
     } else if (selectedTab == "Shower Thoughts") {
-      return Column(
-        children: [
-          ...snapshot.data!.map(
-            (note) => ThoughtNoteItem(content: note['content'] ?? 'No content'),
-          ),
-        ],
+      return ListView.builder(
+        padding: EdgeInsets.symmetric(vertical: 8.h),
+        itemCount: snapshot.data!.length,
+        itemBuilder: (context, index) {
+          final note = snapshot.data![index];
+          return ThoughtNoteItem(content: note['content'] ?? 'No content');
+        },
       );
     }
     return const SizedBox.shrink();
@@ -85,7 +87,7 @@ class _NotesState extends State<Notes> {
       child: Column(
         children: [
           Container(
-            padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 12.h),
+            padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 5.h),
             decoration: BoxDecoration(color: Colors.orange),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -97,7 +99,10 @@ class _NotesState extends State<Notes> {
                     elevation: 5,
                     menuPadding: EdgeInsets.all(5.w),
                     borderRadius: BorderRadius.circular(12),
-                    icon: Icon(CupertinoIcons.ellipsis_vertical_circle_fill),
+                    icon: Icon(
+                      CupertinoIcons.ellipsis_vertical_circle_fill,
+                      size: 28.sp,
+                    ),
                     onSelected: (String newTitle) {
                       setState(() {
                         _selectedTab = newTitle;
@@ -115,7 +120,7 @@ class _NotesState extends State<Notes> {
                               option,
                               style: GoogleFonts.newsreader(
                                 color: Colors.white,
-                                fontSize: 20.sp,
+                                fontSize: 22.sp,
                               ),
                             ),
                           ),
@@ -135,7 +140,7 @@ class _NotesState extends State<Notes> {
               ],
             ),
           ),
-          SingleChildScrollView(
+          Expanded(
             child: FutureBuilder(
               future: _notesFuture,
               builder: (context, snapshot) {
