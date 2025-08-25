@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:icons_plus/icons_plus.dart';
 import 'package:portfolio/config/app_design.dart';
 import 'package:portfolio/models/models.dart';
 
@@ -26,76 +27,6 @@ class _DockIconState extends State<DockIcon> {
         child: Stack(
           clipBehavior: Clip.none,
           children: [
-            // Tooltip positioned above the dock
-            if (isHovered)
-              Positioned(
-                bottom: 50,
-                left: -70,
-                child: AnimatedOpacity(
-                  opacity: isHovered ? 1.0 : 0.0,
-                  duration: const Duration(milliseconds: 200),
-                  child: Container(
-                    width: 140,
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 12,
-                      vertical: 8,
-                    ),
-                    decoration: BoxDecoration(
-                      color: Colors.grey.withValues(alpha: 0.95),
-                      borderRadius: BorderRadius.circular(8),
-                      border: Border.all(
-                        color: Colors.white.withValues(alpha: 0.3),
-                        width: 0.5,
-                      ),
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.black.withValues(alpha: 0.3),
-                          blurRadius: 10,
-                          offset: const Offset(0, 4),
-                        ),
-                      ],
-                    ),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Row(
-                          children: [
-                            Icon(
-                              widget.app.icon,
-                              color: Colors.white,
-                              size: 16.sp,
-                            ),
-                            SizedBox(width: 8.w),
-                            Text(
-                              widget.app.title,
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 14.sp,
-                                fontWeight: FontWeight.w600,
-                              ),
-                            ),
-                          ],
-                        ),
-                        SizedBox(height: 6.h),
-                        Text(
-                          widget.app.description,
-                          style: TextStyle(
-                            color: Colors.white.withValues(alpha: 0.9),
-                            fontSize: 12.sp,
-                            fontWeight: FontWeight.w400,
-                            height: 1.3,
-                          ),
-                          maxLines: 2,
-                          overflow: TextOverflow.ellipsis,
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ),
-
-            // Icon
             AnimatedScale(
               scale: isHovered ? 1.2 : 1.0,
               duration: const Duration(milliseconds: 200),
@@ -105,20 +36,31 @@ class _DockIconState extends State<DockIcon> {
                   duration: const Duration(milliseconds: 200),
                   curve: Curves.easeInOut,
                   margin: isHovered
-                      ? const EdgeInsets.symmetric(horizontal: 12)
+                      ? EdgeInsets.symmetric(horizontal: 12.w)
                       : EdgeInsets.zero,
-                  padding: const EdgeInsets.all(12),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(8.0),
-                    color: Colors.transparent,
-                    border: Border.all(
-                      color: Colors.white.withValues(alpha: 0.2),
-                      width: 0.5,
-                    ),
-                  ),
+                  padding: widget.app.title == 'Download CV'
+                      ? EdgeInsets.all(12.w)
+                      : EdgeInsets.zero,
+                  decoration: widget.app.title == 'Download CV'
+                      ? BoxDecoration(
+                          borderRadius: BorderRadius.circular(8.r),
+                          color: Colors.transparent,
+
+                          border: Border.all(
+                            color: Colors.white.withValues(alpha: 0.2),
+                            width: 0.5,
+                          ),
+                        )
+                      : BoxDecoration(
+                          borderRadius: BorderRadius.circular(8.r),
+                          color: Colors.transparent,
+                        ),
                   child: Row(
                     children: [
-                      Icon(widget.app.icon, color: Colors.white, size: 24.sp),
+                      if (widget.app.icon != null)
+                        Icon(widget.app.icon, color: Colors.white, size: 32.w)
+                      else
+                        Brand(widget.app.brandName, size: 48.w),
                       if (widget.app.title == 'Download CV')
                         SizedBox(width: 8.w),
                       if (widget.app.title == 'Download CV')

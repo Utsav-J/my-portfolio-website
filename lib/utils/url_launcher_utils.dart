@@ -64,4 +64,29 @@ class UrlLauncherUtils {
       _showErrorSnackBar('Error downloading resume: $e');
     }
   }
+
+  static Future<void> handleMailtoLink(
+    String email, {
+    String? subject,
+    String? body,
+  }) async {
+    try {
+      final Uri mailtoUri = Uri(
+        scheme: 'mailto',
+        path: email,
+        queryParameters: {
+          if (subject != null) 'subject': subject,
+          if (body != null) 'body': body,
+        },
+      );
+
+      if (await canLaunchUrl(mailtoUri)) {
+        await launchUrl(mailtoUri, mode: LaunchMode.externalApplication);
+      } else {
+        _showErrorSnackBar('Could not open email client');
+      }
+    } catch (e) {
+      _showErrorSnackBar('An error occurred while opening email: $e');
+    }
+  }
 }

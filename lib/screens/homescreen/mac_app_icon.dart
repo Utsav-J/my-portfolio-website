@@ -30,8 +30,8 @@ class _MacAppIconState extends State<MacAppIcon> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Container(
-                width: 60.w,
-                height: 60.h,
+                width: 72.h,
+                height: 72.h,
                 decoration: BoxDecoration(
                   gradient: LinearGradient(
                     begin: Alignment.topLeft,
@@ -41,7 +41,7 @@ class _MacAppIconState extends State<MacAppIcon> {
                       widget.app.color.withValues(alpha: 0.8),
                     ],
                   ),
-                  borderRadius: BorderRadius.circular(12),
+                  borderRadius: BorderRadius.circular(12.r),
                   boxShadow: [
                     BoxShadow(
                       color: Colors.black.withValues(alpha: 0.3),

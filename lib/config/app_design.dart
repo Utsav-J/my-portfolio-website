@@ -105,7 +105,7 @@ class AppDesign {
   /// App title text style
   static TextStyle appTitle({Color color = Colors.white}) => caption1.copyWith(
     color: color,
-    fontSize: 11.sp,
+    fontSize: 14.sp,
     fontWeight: FontWeight.w500,
   );
 
@@ -120,7 +120,7 @@ class AppDesign {
   /// Popup body text style
   static TextStyle popupBody({Color color = Colors.white}) => body.copyWith(
     color: color.withValues(alpha: 0.8),
-    fontSize: 14.sp,
+    fontSize: 16.sp,
     height: 1.4,
   );
 

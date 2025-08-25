@@ -94,7 +94,7 @@ class _LocationWeatherWidgetState extends State<LocationWeatherWidget> {
             margin: EdgeInsets.all(8.0.w),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(12),
-              color: Colors.white.withOpacity(0.1),
+              color: Colors.white.withValues(alpha: 0.1),
             ),
             child: ClipRRect(
               borderRadius: BorderRadius.circular(12),
@@ -118,7 +118,7 @@ class _LocationWeatherWidgetState extends State<LocationWeatherWidget> {
           margin: EdgeInsets.all(8.0.w),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(12),
-            color: Colors.white.withOpacity(0.1),
+            color: Colors.white.withValues(alpha: 0.1),
           ),
           child: Center(
             child: Icon(Icons.location_on, color: Colors.white, size: 48.sp),
@@ -177,7 +177,7 @@ class _LocationWeatherWidgetState extends State<LocationWeatherWidget> {
                         width: 28.w,
                         height: 28.h,
                         decoration: BoxDecoration(
-                          color: Colors.white.withOpacity(0.2),
+                          color: Colors.white.withValues(alpha: 0.2),
                           borderRadius: BorderRadius.circular(6),
                         ),
                         child: Icon(

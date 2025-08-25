@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../config/app_design.dart';
 
 /// A glassmorphic overlay widget that appears in the center of the screen
@@ -9,11 +10,7 @@ class SendMessageOverlay extends StatefulWidget {
   final String title;
   final VoidCallback? onClose;
 
-  const SendMessageOverlay({
-    super.key,
-    this.onClose,
-    required this.title,
-  });
+  const SendMessageOverlay({super.key, this.onClose, required this.title});
 
   @override
   State<SendMessageOverlay> createState() => _SendMessageOverlayState();
@@ -289,9 +286,9 @@ class _SendMessageOverlayState extends State<SendMessageOverlay>
                 onTap:
                     () {}, // Prevent closing when tapping on the overlay content
                 child: AppDesign.glassmorphicContainer(
-                  width: 700,
+                  width: 900.w,
                   height: null, // Allow height to grow based on content
-                  padding: const EdgeInsets.all(24),
+                  padding: EdgeInsets.all(24.w),
                   child: IntrinsicHeight(
                     // This will make the container grow with content
                     child: Stack(
@@ -303,8 +300,8 @@ class _SendMessageOverlayState extends State<SendMessageOverlay>
                           child: GestureDetector(
                             onTap: _closeOverlay,
                             child: Container(
-                              width: 32,
-                              height: 32,
+                              width: 32.h,
+                              height: 32.h,
                               decoration: BoxDecoration(
                                 color: Colors.white.withValues(alpha: 0.1),
                                 borderRadius: BorderRadius.circular(16),
@@ -442,47 +439,47 @@ class _SendMessageOverlayState extends State<SendMessageOverlay>
           Text(
             'How should I contact you back?',
             style: AppDesign.subhead.copyWith(
-              color: Colors.white.withOpacity(0.9),
+              color: Colors.white.withValues(alpha: 0.9),
               fontWeight: FontWeight.w500,
             ),
           ),
-          const SizedBox(height: 8),
+          SizedBox(height: 8.h),
           Row(
             children: [
               // Contact Type Dropdown (left side)
               Container(
-                width: 120,
+                width: 150.w,
                 decoration: BoxDecoration(
-                  color: Colors.white.withOpacity(0.1),
+                  color: Colors.white.withValues(alpha: 0.1),
                   borderRadius: BorderRadius.circular(AppDesign.mediumRadius),
                   border: Border.all(
                     color: AppDesign.glassmorphicBorder,
-                    width: 1,
+                    width: 1.sp,
                   ),
                 ),
                 child: DropdownButtonFormField<String>(
                   value: _selectedContactType,
                   decoration: InputDecoration(
-                    contentPadding: const EdgeInsets.symmetric(
-                      horizontal: 12,
-                      vertical: 12,
+                    contentPadding: EdgeInsets.symmetric(
+                      horizontal: 12.w,
+                      vertical: 12.w,
                     ),
                     border: InputBorder.none,
                     hintText: 'Type',
                     hintStyle: AppDesign.body.copyWith(
-                      color: Colors.white.withOpacity(0.5),
-                      fontSize: 14,
+                      color: Colors.white.withValues(alpha: 0.5),
+                      fontSize: 16.sp,
                     ),
                   ),
                   dropdownColor: AppDesign.darkSecondaryBackground,
                   style: AppDesign.body.copyWith(
                     color: Colors.white,
-                    fontSize: 14,
+                    fontSize: 14.sp,
                   ),
                   icon: Icon(
                     Icons.keyboard_arrow_down,
-                    color: Colors.white.withOpacity(0.8),
-                    size: 18,
+                    color: Colors.white.withValues(alpha: 0.8),
+                    size: 18.sp,
                   ),
                   items: _contactTypes.map((contactType) {
                     return DropdownMenuItem<String>(
@@ -504,7 +501,7 @@ class _SendMessageOverlayState extends State<SendMessageOverlay>
                 ),
               ),
 
-              const SizedBox(width: 12),
+              SizedBox(width: 12.w),
 
               // Contact Info Field (right side)
               Expanded(
@@ -514,7 +511,7 @@ class _SendMessageOverlayState extends State<SendMessageOverlay>
                   style: AppDesign.body.copyWith(
                     color: _selectedContactType != 'anonymous'
                         ? Colors.white
-                        : Colors.white.withOpacity(0.5),
+                        : Colors.white.withValues(alpha: 0.5),
                   ),
                   decoration: InputDecoration(
                     hintText: _selectedContactType == 'anonymous'
@@ -523,12 +520,12 @@ class _SendMessageOverlayState extends State<SendMessageOverlay>
                             (ct) => ct['value'] == _selectedContactType,
                           )['hint'],
                     hintStyle: AppDesign.body.copyWith(
-                      color: Colors.white.withOpacity(0.5),
+                      color: Colors.white.withValues(alpha: 0.5),
                     ),
                     filled: true,
                     fillColor: _selectedContactType != 'anonymous'
-                        ? Colors.white.withOpacity(0.1)
-                        : Colors.white.withOpacity(0.05),
+                        ? Colors.white.withValues(alpha: 0.1)
+                        : Colors.white.withValues(alpha: 0.05),
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(
                         AppDesign.mediumRadius,
@@ -569,7 +566,7 @@ class _SendMessageOverlayState extends State<SendMessageOverlay>
           Text(
             'Your message',
             style: AppDesign.subhead.copyWith(
-              color: Colors.white.withOpacity(0.9),
+              color: Colors.white.withValues(alpha: 0.9),
               fontWeight: FontWeight.w500,
             ),
           ),
@@ -585,10 +582,10 @@ class _SendMessageOverlayState extends State<SendMessageOverlay>
               decoration: InputDecoration(
                 hintText: 'Type your message here... (max 500 words)',
                 hintStyle: AppDesign.body.copyWith(
-                  color: Colors.white.withOpacity(0.5),
+                  color: Colors.white.withValues(alpha: 0.5),
                 ),
                 filled: true,
-                fillColor: Colors.white.withOpacity(0.1),
+                fillColor: Colors.white.withValues(alpha: 0.1),
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(AppDesign.mediumRadius),
                   borderSide: BorderSide(

@@ -16,7 +16,7 @@ class Portfolio extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ScreenUtilInit(
-      designSize: const Size(1920, 1080), // Base design size for desktop
+      designSize: const Size(1920, 1080), 
       minTextAdapt: true,
       splitScreenMode: true,
       builder: (context, child) {

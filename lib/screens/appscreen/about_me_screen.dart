@@ -214,32 +214,6 @@ class _AboutMeScreenState extends State<AboutMeScreen>
                         );
                       },
                     ),
-
-                    const Spacer(),
-
-                    // Social media icons
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        _buildSocialIcon(
-                          Brands.github,
-                          'GitHub',
-                          'https://github.com/Utsav-J',
-                        ),
-                        const SizedBox(width: 20),
-                        _buildSocialIcon(
-                          Brands.linkedin_circled,
-                          'LinkedIn',
-                          'https://www.linkedin.com/in/iamutsavjaiswal/',
-                        ),
-                        const SizedBox(width: 20),
-                        _buildSocialIcon(
-                          Brands.instagram,
-                          'Instagram',
-                          'https://www.instagram.com/acoolstick_/',
-                        ),
-                      ],
-                    ),
                   ],
                 ),
               ),
@@ -322,25 +296,6 @@ class _AboutMeScreenState extends State<AboutMeScreen>
             ),
           ),
         ],
-      ),
-    );
-  }
-
-  Widget _buildSocialIcon(String brandName, String label, String socialUrl) {
-    return Tooltip(
-      mouseCursor: SystemMouseCursors.click,
-      message: label,
-      child: GestureDetector(
-        onTap: () => UrlLauncherUtils.handleOpenSocials(socialUrl),
-        child: Container(
-          width: 40,
-          height: 40,
-          decoration: BoxDecoration(
-            color: Colors.transparent,
-            borderRadius: BorderRadius.circular(8),
-          ),
-          child: Brand(brandName, size: 20),
-        ),
       ),
     );
   }

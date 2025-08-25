@@ -180,13 +180,15 @@ class PortfolioApp {
 }
 
 class DockApp {
-  final IconData icon;
+  IconData? icon;
+  String? brandName;
   final String title;
   final String description;
   final VoidCallback? onTap;
 
   DockApp({
-    required this.icon,
+    this.icon,
+    this.brandName,
     required this.title,
     required this.description,
     this.onTap,

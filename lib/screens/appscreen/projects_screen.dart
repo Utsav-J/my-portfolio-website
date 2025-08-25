@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:portfolio/config/app_design.dart';
 import 'package:portfolio/models/models.dart';
 import 'package:portfolio/utils/url_launcher_utils.dart';
@@ -108,11 +109,7 @@ class _ProjectsScreenState extends State<ProjectsScreen> {
                   ),
                 ),
                 // Stats in a compact row
-                Row(
-                  children: [
-                    _buildCompactStat('Total', _projects.length.toString()),
-                  ],
-                ),
+                Row(children: [_buildCompactRefreshButton()]),
               ],
             ),
 
@@ -128,44 +125,13 @@ class _ProjectsScreenState extends State<ProjectsScreen> {
               ),
             ),
 
-            const SizedBox(height: 16),
-
-            // Refresh button
-            Align(
-              alignment: Alignment.centerRight,
-              child: _buildCompactRefreshButton(),
-            ),
-
-            const SizedBox(height: 16),
+            SizedBox(height: 16.h),
 
             // Projects content
             Expanded(child: _buildProjectsContent()),
           ],
         ),
       ),
-    );
-  }
-
-  Widget _buildCompactStat(String label, String value) {
-    return Column(
-      children: [
-        Text(
-          value,
-          style: AppDesign.title1.copyWith(
-            color: AppDesign.systemBlue,
-            fontWeight: FontWeight.w700,
-            fontSize: 20,
-          ),
-        ),
-        Text(
-          label,
-          style: AppDesign.body.copyWith(
-            color: Colors.black87,
-            fontSize: 10,
-            fontWeight: FontWeight.w500,
-          ),
-        ),
-      ],
     );
   }
 

@@ -127,7 +127,7 @@ class _WeatherSquareState extends State<WeatherSquare> {
                             width: 32.w,
                             height: 32.h,
                             decoration: BoxDecoration(
-                              color: Colors.white.withOpacity(0.2),
+                              color: Colors.white.withValues(alpha: 0.2),
                               borderRadius: BorderRadius.circular(8),
                             ),
                             child: Icon(
