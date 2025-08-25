@@ -280,7 +280,7 @@ class _LocationWeatherWidgetState extends State<LocationWeatherWidget> {
     );
   }
 
-  Widget _buildWeatherDetailRow(IconData icon, String title, double? value) {
+  Widget _buildWeatherDetailRow(IconData icon, String title, dynamic value) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.center,

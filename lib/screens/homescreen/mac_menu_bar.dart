@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:icons_plus/icons_plus.dart';
 import 'package:intl/intl.dart';
 import 'package:portfolio/models/models.dart';
@@ -7,6 +8,7 @@ import 'package:portfolio/config/app_design.dart';
 import 'package:portfolio/screens/homescreen/mac_dropdown_menu.dart';
 import 'package:portfolio/screens/overlays/battery_status_overlay.dart';
 import 'package:portfolio/screens/overlays/github_stats_overlay.dart';
+import 'package:portfolio/screens/overlays/send_message_overlay.dart';
 import 'package:portfolio/screens/overlays/wifi_connection_overlay.dart';
 
 class MacMenuBar extends StatefulWidget {
@@ -348,6 +350,36 @@ class _MacMenuBarState extends State<MacMenuBar> {
                 ),
               ),
             ),
+            MouseRegion(
+              cursor: SystemMouseCursors.click,
+              child: GestureDetector(
+                onTap: () {
+                  showDialog(
+                    context: context,
+                    barrierDismissible: true,
+                    barrierColor: Colors.transparent,
+                    builder: (context) =>
+                        SendMessageOverlay(title: "Drop a feedback!"),
+                  );
+                },
+                child: Container(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 8,
+                    vertical: 4,
+                  ),
+                  decoration: BoxDecoration(
+                    color: _isFileMenuOpen
+                        ? Colors.white.withValues(alpha: 0.2)
+                        : Colors.transparent,
+                    borderRadius: BorderRadius.circular(4),
+                  ),
+                  child: Text(
+                    'Drop a feedback',
+                    style: AppDesign.menuBarText(),
+                  ),
+                ),
+              ),
+            ),
             const Spacer(),
             // Right side menu items
             Row(
@@ -367,7 +399,7 @@ class _MacMenuBarState extends State<MacMenuBar> {
                       child: Icon(
                         Bootstrap.github,
                         color: Colors.white,
-                        size: 18,
+                        size: 20.sp,
                       ),
                     ),
                   ),
@@ -388,7 +420,7 @@ class _MacMenuBarState extends State<MacMenuBar> {
                       child: Icon(
                         CupertinoIcons.wifi,
                         color: Colors.white,
-                        size: 18,
+                        size: 20.sp,
                       ),
                     ),
                   ),
@@ -409,7 +441,7 @@ class _MacMenuBarState extends State<MacMenuBar> {
                       child: Icon(
                         CupertinoIcons.battery_full,
                         color: Colors.white,
-                        size: 18,
+                        size: 20.sp,
                       ),
                     ),
                   ),

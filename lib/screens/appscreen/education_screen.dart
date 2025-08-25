@@ -1,34 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:portfolio/config/app_design.dart';
-
-class Education {
-  final String course;
-  final String grades;
-  final String image;
-  final String location;
-  final String name;
-
-  Education({
-    required this.course,
-    required this.grades,
-    required this.image,
-    required this.location,
-    required this.name,
-  });
-
-  factory Education.fromFirestore(DocumentSnapshot doc) {
-    Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
-    return Education(
-      course: data['course'] ?? '',
-      grades: data['grades'] ?? '',
-      image: data['image'] ?? '',
-      location: data['location'] ?? '',
-      name: data['name'] ?? '',
-    );
-  }
-}
+import 'package:portfolio/models/models.dart';
 
 class EducationScreen extends StatefulWidget {
   const EducationScreen({super.key});
@@ -41,6 +16,7 @@ class _EducationScreenState extends State<EducationScreen> {
   List<Education> _educationList = [];
   bool _isLoading = true;
   String? _error;
+  final Set<int> _showDescriptions = <int>{};
 
   @override
   void initState() {
@@ -114,8 +90,8 @@ class _EducationScreenState extends State<EducationScreen> {
                         style: AppDesign.largeTitle.copyWith(
                           color: Colors.black,
                           fontWeight: FontWeight.w700,
-                          fontSize: 24,
-                          height: 1.0,
+                          fontSize: 30.sp,
+                          // height: 1.0.,
                         ),
                       ),
                       const SizedBox(height: 2),
@@ -124,79 +100,38 @@ class _EducationScreenState extends State<EducationScreen> {
                         style: AppDesign.body.copyWith(
                           color: Colors.black87,
                           fontWeight: FontWeight.w400,
-                          fontSize: 12,
+                          fontSize: 20.sp,
                         ),
                       ),
                     ],
                   ),
                 ),
-                // Stats in a compact row
-                Row(
-                  children: [
-                    _buildCompactStat(
-                      'Institutions',
-                      _educationList.length.toString(),
-                    ),
-                    const SizedBox(width: 12),
-                    _buildCompactStat(
-                      'Levels',
-                      _educationList.length.toString(),
-                    ),
-                  ],
+
+                // Refresh button
+                Align(
+                  alignment: Alignment.centerRight,
+                  child: _buildCompactRefreshButton(),
                 ),
               ],
             ),
 
-            const SizedBox(height: 12),
+            SizedBox(height: 12.h),
 
-            // Blue separator line
             Container(
-              width: 40,
-              height: 2,
+              width: 40.w,
+              height: 2.h,
               decoration: BoxDecoration(
                 color: AppDesign.systemBlue,
                 borderRadius: BorderRadius.circular(1),
               ),
             ),
 
-            const SizedBox(height: 12),
+            SizedBox(height: 6.h),
 
-            // Refresh button
-            Align(
-              alignment: Alignment.centerRight,
-              child: _buildCompactRefreshButton(),
-            ),
-
-            const SizedBox(height: 12),
-
-            // Education content
             Expanded(child: _buildEducationContent()),
           ],
         ),
       ),
-    );
-  }
-
-  Widget _buildCompactStat(String label, String value) {
-    return Column(
-      children: [
-        Text(
-          value,
-          style: AppDesign.title1.copyWith(
-            color: AppDesign.systemBlue,
-            fontWeight: FontWeight.w700,
-            fontSize: 20,
-          ),
-        ),
-        Text(
-          label,
-          style: AppDesign.body.copyWith(
-            color: Colors.black87,
-            fontSize: 10,
-            fontWeight: FontWeight.w500,
-          ),
-        ),
-      ],
     );
   }
 
@@ -239,8 +174,8 @@ class _EducationScreenState extends State<EducationScreen> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             CircularProgressIndicator(
-              valueColor: AlwaysStoppedAnimation<Color>(AppDesign.systemBlue),
-              strokeWidth: 2,
+              valueColor: AlwaysStoppedAnimation<Color>(Colors.black),
+              strokeWidth: 1,
             ),
             SizedBox(height: 12),
             Text(
@@ -275,8 +210,6 @@ class _EducationScreenState extends State<EducationScreen> {
               ),
               textAlign: TextAlign.center,
             ),
-            const SizedBox(height: 16),
-            _buildCompactRefreshButton(),
           ],
         ),
       );
@@ -296,166 +229,248 @@ class _EducationScreenState extends State<EducationScreen> {
                 fontSize: 16,
               ),
             ),
-            const SizedBox(height: 4),
-            Text(
-              'Add education data to your Firestore collection',
-              style: AppDesign.body.copyWith(
-                color: Colors.black54,
-                fontSize: 12,
-              ),
-              textAlign: TextAlign.center,
-            ),
           ],
         ),
       );
     }
 
     // Horizontal scrolling list
-    return SingleChildScrollView(
-      scrollDirection: Axis.horizontal,
-      child: Row(
-        children: _educationList.map((education) {
-          return _buildEducationCard(education);
-        }).toList(),
-      ),
+    return ListView.builder(
+      itemCount: _educationList.length,
+      itemBuilder: (context, index) =>
+          _buildEducationCard(_educationList[index], index),
+      // scrollDirection: Axis.vertical,
+      // child: Column(
+      //   children: _educationList.map((education) {
+      //     return _buildEducationCard(education);
+      //   }).toList(),
+      // ),
     );
   }
 
-  Widget _buildEducationCard(Education education) {
+  Widget _buildEducationCard(Education education, int index) {
     return Container(
-      width: 240,
-      margin: const EdgeInsets.only(right: 12),
+      width: double.infinity,
+      height: 240.h,
+      margin: EdgeInsets.symmetric(horizontal: 12.w, vertical: 12.h),
       decoration: BoxDecoration(
         color: Colors.white,
-        borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: Colors.grey[200]!, width: 1),
+        borderRadius: BorderRadius.circular(12.r),
+        border: Border.all(color: Colors.grey[200]!, width: 1.w),
         boxShadow: [
           BoxShadow(
             color: Colors.black.withValues(alpha: 0.06),
-            blurRadius: 12,
-            offset: const Offset(0, 4),
+            blurRadius: 12.r,
+            offset: Offset(0, 4.h),
           ),
         ],
       ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+      child: Row(
         children: [
-          // Image section
-          Container(
-            height: 120,
-            width: double.infinity,
-            decoration: BoxDecoration(
-              borderRadius: const BorderRadius.only(
-                topLeft: Radius.circular(12),
-                topRight: Radius.circular(12),
+          Expanded(
+            child: ClipRRect(
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(12.r),
+                bottomLeft: Radius.circular(12.r),
               ),
-              image: DecorationImage(
-                image: NetworkImage(education.image),
-                fit: BoxFit.cover,
-              ),
-            ),
-            child: Container(
-              decoration: BoxDecoration(
-                borderRadius: const BorderRadius.only(
-                  topLeft: Radius.circular(12),
-                  topRight: Radius.circular(12),
-                ),
-                gradient: LinearGradient(
-                  begin: Alignment.topCenter,
-                  end: Alignment.bottomCenter,
-                  colors: [
-                    Colors.transparent,
-                    Colors.black.withValues(alpha: 0.3),
-                  ],
-                ),
+              child: Stack(
+                fit: StackFit.expand,
+                children: [
+                  Image.network(
+                    education.image,
+                    fit: BoxFit.cover,
+                    errorBuilder: (_, __, ___) => Container(
+                      color: Colors.grey[200],
+                      child: Icon(Icons.broken_image, color: Colors.grey[500]),
+                    ),
+                  ),
+                  Container(
+                    decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                        begin: Alignment.topCenter,
+                        end: Alignment.bottomCenter,
+                        colors: [
+                          Colors.transparent,
+                          Colors.black.withValues(alpha: 0.3),
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
               ),
             ),
           ),
 
-          // Content section
-          Padding(
-            padding: const EdgeInsets.all(12),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                // Institution name
-                Text(
-                  education.name,
-                  style: AppDesign.title2.copyWith(
-                    color: Colors.black,
-                    fontWeight: FontWeight.w700,
-                    fontSize: 18,
-                  ),
-                  maxLines: 2,
-                  overflow: TextOverflow.ellipsis,
-                ),
-
-                const SizedBox(height: 6),
-
-                // Course
-                Text(
-                  education.course,
-                  style: AppDesign.headline.copyWith(
-                    color: AppDesign.systemBlue,
-                    fontWeight: FontWeight.w600,
-                    fontSize: 13,
-                  ),
-                  maxLines: 2,
-                  overflow: TextOverflow.ellipsis,
-                ),
-
-                const SizedBox(height: 6),
-
-                // Location
-                Row(
-                  children: [
-                    Icon(
-                      Icons.location_on_outlined,
-                      color: Colors.grey[600],
-                      size: 14,
-                    ),
-                    const SizedBox(width: 4),
-                    Expanded(
-                      child: Text(
-                        education.location,
-                        style: AppDesign.body.copyWith(
-                          color: Colors.grey[600],
-                          fontSize: 12,
-                          fontWeight: FontWeight.w500,
+          Expanded(
+            child: Padding(
+              padding: EdgeInsets.all(12.w),
+              child: _showDescriptions.contains(index)
+                  ? Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'What I did',
+                          style: AppDesign.headline.copyWith(
+                            color: Colors.black,
+                            fontWeight: FontWeight.w700,
+                          ),
                         ),
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                      ),
+                        SizedBox(height: 8.h),
+                        Expanded(
+                          child: Scrollbar(
+                            child: ListView.builder(
+                              itemCount: education.description.length,
+                              itemBuilder: (context, i) {
+                                final line = education.description[i];
+                                return Padding(
+                                  padding: EdgeInsets.symmetric(vertical: 4.h),
+                                  child: Row(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Padding(
+                                        padding: EdgeInsets.only(top: 6.h),
+                                        child: Icon(
+                                          Icons.circle,
+                                          size: 6.sp,
+                                          color: Colors.grey[700],
+                                        ),
+                                      ),
+                                      SizedBox(width: 8.w),
+                                      Expanded(
+                                        child: Text(
+                                          line,
+                                          style: AppDesign.body.copyWith(
+                                            color: Colors.black87,
+                                            fontSize: 15.sp,
+                                            height: 1.4.h,
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                );
+                              },
+                            ),
+                          ),
+                        ),
+                        Align(
+                          alignment: Alignment.bottomRight,
+                          child: MouseRegion(
+                            cursor: SystemMouseCursors.click,
+                            child: GestureDetector(
+                              onTap: () {
+                                setState(() {
+                                  _showDescriptions.remove(index);
+                                });
+                              },
+                              child: Icon(
+                                Icons.close_fullscreen_rounded,
+                                color: Colors.grey[600],
+                                size: 18.sp,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    )
+                  : Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          education.name,
+                          style: AppDesign.title2.copyWith(
+                            color: Colors.black,
+                            fontWeight: FontWeight.w700,
+                            fontSize: 18.sp,
+                          ),
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                        SizedBox(height: 6.h),
+                        Text(
+                          education.course,
+                          style: AppDesign.headline.copyWith(
+                            color: AppDesign.systemBlue,
+                            fontWeight: FontWeight.w600,
+                            fontSize: 16.sp,
+                          ),
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                        const SizedBox(height: 6),
+                        Row(
+                          children: [
+                            Icon(
+                              Icons.location_on_outlined,
+                              color: Colors.grey[600],
+                              size: 14,
+                            ),
+                            const SizedBox(width: 4),
+                            Expanded(
+                              child: Text(
+                                education.location,
+                                style: AppDesign.body.copyWith(
+                                  color: Colors.grey[600],
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.w500,
+                                ),
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                            ),
+                          ],
+                        ),
+                        const SizedBox(height: 10),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Container(
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 10,
+                                vertical: 6,
+                              ),
+                              decoration: BoxDecoration(
+                                color: AppDesign.systemGreen.withValues(
+                                  alpha: 0.1,
+                                ),
+                                borderRadius: BorderRadius.circular(16),
+                                border: Border.all(
+                                  color: AppDesign.systemGreen.withValues(
+                                    alpha: 0.3,
+                                  ),
+                                  width: 1,
+                                ),
+                              ),
+                              child: Text(
+                                education.grades,
+                                style: AppDesign.body.copyWith(
+                                  color: AppDesign.systemGreen,
+                                  fontWeight: FontWeight.w600,
+                                  fontSize: 12,
+                                ),
+                              ),
+                            ),
+                            MouseRegion(
+                              cursor: SystemMouseCursors.click,
+                              child: GestureDetector(
+                                onTap: () {
+                                  setState(() {
+                                    _showDescriptions.add(index);
+                                  });
+                                },
+                                child: Icon(
+                                  Icons.list_alt_rounded,
+                                  color: Colors.grey[600],
+                                  size: 20.sp,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
                     ),
-                  ],
-                ),
-
-                const SizedBox(height: 6),
-
-                // Grades
-                Container(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 10,
-                    vertical: 6,
-                  ),
-                  decoration: BoxDecoration(
-                    color: AppDesign.systemGreen.withValues(alpha: 0.1),
-                    borderRadius: BorderRadius.circular(16),
-                    border: Border.all(
-                      color: AppDesign.systemGreen.withValues(alpha: 0.3),
-                      width: 1,
-                    ),
-                  ),
-                  child: Text(
-                    education.grades,
-                    style: AppDesign.body.copyWith(
-                      color: AppDesign.systemGreen,
-                      fontWeight: FontWeight.w600,
-                      fontSize: 12,
-                    ),
-                  ),
-                ),
-              ],
             ),
           ),
         ],

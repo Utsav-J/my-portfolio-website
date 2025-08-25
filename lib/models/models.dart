@@ -9,6 +9,48 @@ export '../screens/appscreen/certifications_screen.dart';
 export '../screens/appscreen/education_screen.dart';
 export '../screens/appscreen/projects_screen.dart';
 
+class Education {
+  final String course;
+  final String grades;
+  final String image;
+  final String location;
+  final String name;
+  final List<String> description;
+
+  Education({
+    required this.course,
+    required this.grades,
+    required this.image,
+    required this.location,
+    required this.name,
+    required this.description,
+  });
+
+  factory Education.fromFirestore(DocumentSnapshot doc) {
+    Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
+
+    List<String> parsedDescription = [];
+    final dynamic rawDescription = data['description'];
+    if (rawDescription is List) {
+      parsedDescription = rawDescription.whereType<String>().toList();
+    } else if (rawDescription is String) {
+      final String trimmed = rawDescription.trim();
+      if (trimmed.isNotEmpty) {
+        parsedDescription = [trimmed];
+      }
+    }
+
+    return Education(
+      course: data['course'] ?? '',
+      grades: data['grades'] ?? '',
+      image: data['image'] ?? '',
+      location: data['location'] ?? '',
+      name: data['name'] ?? '',
+      description: parsedDescription,
+    );
+  }
+}
+
 class Project {
   final List<String> description;
   final String githubUrl;

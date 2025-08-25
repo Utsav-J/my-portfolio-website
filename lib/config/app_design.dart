@@ -9,14 +9,14 @@ class AppDesign {
   static TextStyle largeTitle = GoogleFonts.quicksand(
     fontSize: 34.sp,
     fontWeight: FontWeight.w700,
-    letterSpacing: 0.37,
+    // letterSpacing: 0.37,
     height: 1.12,
   );
 
   static TextStyle title1 = GoogleFonts.quicksand(
     fontSize: 28.sp,
     fontWeight: FontWeight.w400,
-    letterSpacing: 0.36,
+    // letterSpacing: 0.36,
     height: 1.14,
   );
 
@@ -24,7 +24,7 @@ class AppDesign {
   static TextStyle title2 = GoogleFonts.quicksand(
     fontSize: 22.sp,
     fontWeight: FontWeight.w400,
-    letterSpacing: 0.35,
+    // letterSpacing: 0.35,
     height: 1.18,
   );
 
@@ -32,23 +32,23 @@ class AppDesign {
   static TextStyle title3 = GoogleFonts.quicksand(
     fontSize: 20.sp,
     fontWeight: FontWeight.w400,
-    letterSpacing: 0.38,
+    // letterSpacing: 0.38,
     height: 1.20,
   );
 
   /// Headline text style
   static TextStyle headline = GoogleFonts.quicksand(
-    fontSize: 17.sp,
+    fontSize: 18.sp,
     fontWeight: FontWeight.w600,
-    letterSpacing: -0.41,
-    height: 1.29,
+    // letterSpacing: -0.41.sp,
+    height: 1.29.h,
   );
 
   /// Body text style
   static TextStyle body = GoogleFonts.quicksand(
     fontSize: 17.sp,
     fontWeight: FontWeight.w400,
-    letterSpacing: -0.41,
+    // // letterSpacing: -0.41,
     height: 1.29,
   );
 
@@ -56,7 +56,7 @@ class AppDesign {
   static TextStyle callout = GoogleFonts.quicksand(
     fontSize: 16.sp,
     fontWeight: FontWeight.w400,
-    letterSpacing: -0.32,
+    // letterSpacing: -0.32,
     height: 1.31,
   );
 
@@ -64,7 +64,7 @@ class AppDesign {
   static TextStyle subhead = GoogleFonts.quicksand(
     fontSize: 15.sp,
     fontWeight: FontWeight.w400,
-    letterSpacing: -0.24,
+    // letterSpacing: -0.24,
     height: 1.33,
   );
 
@@ -72,7 +72,7 @@ class AppDesign {
   static TextStyle footnote = GoogleFonts.quicksand(
     fontSize: 13.sp,
     fontWeight: FontWeight.w400,
-    letterSpacing: -0.08,
+    // letterSpacing: -0.08,
     height: 1.38,
   );
 
@@ -80,7 +80,7 @@ class AppDesign {
   static TextStyle caption1 = GoogleFonts.quicksand(
     fontSize: 12.sp,
     fontWeight: FontWeight.w400,
-    letterSpacing: 0.0,
+    // letterSpacing: 0.0,
     height: 1.33,
   );
 
@@ -88,7 +88,7 @@ class AppDesign {
   static TextStyle caption2 = GoogleFonts.quicksand(
     fontSize: 11.sp,
     fontWeight: FontWeight.w400,
-    letterSpacing: 0.07,
+    // letterSpacing: 0.07,
     height: 1.36,
   );
 

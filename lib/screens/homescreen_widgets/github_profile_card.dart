@@ -45,7 +45,7 @@ class GithubProfileCard extends StatelessWidget {
                         overflow: TextOverflow.fade,
                         style: TextStyle(
                           color: Colors.white60,
-                          fontSize: 20.sp,
+                          fontSize: 18.sp,
                           fontWeight: FontWeight.w800,
                         ),
                       ),
@@ -65,7 +65,7 @@ class GithubProfileCard extends StatelessWidget {
                         overflow: TextOverflow.fade,
                         style: TextStyle(
                           color: Colors.white60,
-                          fontSize: 16.sp,
+                          fontSize: 18.sp,
                           fontWeight: FontWeight.w800,
                         ),
                       ),

@@ -1,14 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import '../../config/app_design.dart';
 
 /// A glassmorphic overlay widget that appears in the center of the screen
 /// Contains an avatar section on the left and a contact form on the right
 class SendMessageOverlay extends StatefulWidget {
+  final String title;
   final VoidCallback? onClose;
-  final Function(Map<String, dynamic> messageData)? onSendMessage;
 
-  const SendMessageOverlay({super.key, this.onClose, this.onSendMessage});
+  const SendMessageOverlay({
+    super.key,
+    this.onClose,
+    required this.title,
+  });
 
   @override
   State<SendMessageOverlay> createState() => _SendMessageOverlayState();
@@ -18,10 +23,10 @@ class _SendMessageOverlayState extends State<SendMessageOverlay>
     with SingleTickerProviderStateMixin {
   late AnimationController _animationController;
   late Animation<double> _fadeAnimation;
-
   final TextEditingController _messageController = TextEditingController();
   final TextEditingController _contactController = TextEditingController();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
   bool _isExpanded = false;
   bool _isLoading = false;
   String _selectedContactType = 'email';
@@ -101,59 +106,15 @@ class _SendMessageOverlayState extends State<SendMessageOverlay>
         'timestamp': DateTime.now().toIso8601String(),
       };
 
-      // Print validation results and data to console
-      print('=== MESSAGE VALIDATION RESULTS ===');
-      print('✅ All validations passed successfully!');
-      print('');
-      print('=== MESSAGE DATA ===');
-      print('Message: "${messageData['message']}"');
-      print('Contact Type: ${messageData['contactType']}');
-      print('Contact Info: "${messageData['contactInfo']}"');
-      print('Timestamp: ${messageData['timestamp']}');
-      print('');
-      print('=== VALIDATION DETAILS ===');
-
-      // Contact validation details
-      switch (_selectedContactType) {
-        case 'email':
-          print('✅ Email validation: PASSED');
-          print('   - Format: Valid email address');
-          break;
-        case 'linkedin':
-          print('✅ LinkedIn URL validation: PASSED');
-          print('   - Format: Valid LinkedIn profile URL');
-          break;
-        case 'whatsapp':
-          print('✅ WhatsApp number validation: PASSED');
-          print('   - Format: Valid phone number with country code');
-          break;
-        case 'anonymous':
-          print('✅ Anonymous contact: PASSED');
-          print('   - No contact info required');
-          break;
-      }
-
-      // Message validation details
-      final message = _messageController.text.trim();
-      final wordCount = message.split(RegExp(r'\s+')).length;
-      final charCount = message.length;
-
-      print('✅ Message validation: PASSED');
-      print('   - Character count: $charCount');
-      print('   - Word count: $wordCount');
-      print('   - Length requirement: 10+ characters ✓');
-      print('   - Word limit: 500 words max ✓');
-      print('');
-      print('=== READY TO SEND ===');
-      print('All data validated and ready for transmission!');
-      print('==============================================');
+      // Save message to Firestore
+      await FirebaseFirestore.instance.collection('messages').add(messageData);
 
       // Show success feedback
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: Text(
-              'Validation successful! Check console for details.',
+              'Message sent successfully!',
               style: AppDesign.body.copyWith(color: Colors.white),
             ),
             backgroundColor: AppDesign.systemGreen,
@@ -461,7 +422,7 @@ class _SendMessageOverlayState extends State<SendMessageOverlay>
         children: [
           // Header
           Text(
-            'Send a Message!',
+            widget.title,
             style: AppDesign.title1.copyWith(
               color: Colors.white,
               fontWeight: FontWeight.w700,
@@ -695,15 +656,15 @@ extension SendMessageOverlayExtension on BuildContext {
   /// Shows the SendMessageOverlay as a full-screen overlay
   void showSendMessageOverlay({
     VoidCallback? onClose,
-    Function(Map<String, dynamic> messageData)? onSendMessage,
+    String title = "Send a Message!",
   }) {
     showDialog(
       context: this,
       barrierDismissible: true,
       barrierColor: Colors.transparent,
       builder: (context) => SendMessageOverlay(
+        title: title,
         onClose: onClose ?? () => Navigator.of(context).pop(),
-        onSendMessage: onSendMessage,
       ),
     );
   }
