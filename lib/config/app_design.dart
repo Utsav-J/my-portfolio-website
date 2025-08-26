@@ -7,9 +7,9 @@ import 'package:google_fonts/google_fonts.dart';
 class AppDesign {
   AppDesign._();
   static TextStyle largeTitle = GoogleFonts.quicksand(
-    fontSize: 34.sp,
+    fontSize: 30.sp,
     fontWeight: FontWeight.w700,
-    // letterSpacing: 0.37,
+    color: Colors.black,
     height: 1.12,
   );
 

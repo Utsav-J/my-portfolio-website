@@ -1,6 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:icons_plus/icons_plus.dart';
 import 'package:portfolio/config/app_design.dart';
 import 'package:portfolio/models/models.dart';
 
@@ -97,22 +99,14 @@ class _ExperienceScreenState extends State<ExperienceScreen> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                        'Experience',
-                        style: AppDesign.largeTitle.copyWith(
-                          color: Colors.black,
-                          fontWeight: FontWeight.w700,
-                          fontSize: 28,
-                          height: 1.0,
-                        ),
-                      ),
-                      const SizedBox(height: 4),
+                      Text('Experience', style: AppDesign.largeTitle),
+                      SizedBox(height: 4.h),
                       Text(
                         'My professional journey',
                         style: AppDesign.body.copyWith(
                           color: Colors.black87,
                           fontWeight: FontWeight.w400,
-                          fontSize: 14,
+                          fontSize: 16.sp,
                         ),
                       ),
                     ],
@@ -124,7 +118,7 @@ class _ExperienceScreenState extends State<ExperienceScreen> {
                   style: AppDesign.title1.copyWith(
                     color: AppDesign.systemBlue,
                     fontWeight: FontWeight.w400,
-                    fontSize: 16,
+                    fontSize: 16.sp,
                   ),
                 ),
               ],
@@ -235,9 +229,18 @@ class _ExperienceScreenState extends State<ExperienceScreen> {
     );
   }
 
+  Widget _getCompanyIcon(String companyName) {
+    if (companyName == "Wells Fargo") {
+      return Brand(Brands.wellsfargo);
+    } else if (companyName == "Samsung PRISM") {
+      return Brand(Brands.samsung);
+    }
+    return Icon(Icons.business_rounded);
+  }
+
   Widget _buildCompactExperienceCard(Experience experience) {
     return Container(
-      margin: const EdgeInsets.only(bottom: 12),
+      margin: EdgeInsets.only(bottom: 12.h),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(8),
@@ -251,28 +254,22 @@ class _ExperienceScreenState extends State<ExperienceScreen> {
         ],
       ),
       child: Padding(
-        padding: const EdgeInsets.all(12),
+        padding: EdgeInsets.all(12.w),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Header row
             Row(
               children: [
                 // Company icon
                 Container(
-                  width: 32,
-                  height: 32,
+                  width: 50.h,
+                  height: 50.h,
                   decoration: BoxDecoration(
-                    color: AppDesign.systemBlue.withValues(alpha: 0.1),
-                    borderRadius: BorderRadius.circular(6),
+                    borderRadius: BorderRadius.circular(6.r),
                   ),
-                  child: Icon(
-                    Icons.business,
-                    color: AppDesign.systemBlue,
-                    size: 16,
-                  ),
+                  child: _getCompanyIcon(experience.companyName),
                 ),
-                const SizedBox(width: 8),
+                SizedBox(width: 8.w),
 
                 // Company and role info
                 Expanded(
@@ -284,18 +281,18 @@ class _ExperienceScreenState extends State<ExperienceScreen> {
                         style: AppDesign.title1.copyWith(
                           color: Colors.black,
                           fontWeight: FontWeight.w700,
-                          fontSize: 14,
+                          fontSize: 18.sp,
                         ),
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                       ),
-                      const SizedBox(height: 2),
+                      SizedBox(height: 2.h),
                       Text(
                         experience.role,
                         style: AppDesign.body.copyWith(
                           color: AppDesign.systemBlue,
                           fontWeight: FontWeight.w600,
-                          fontSize: 12,
+                          fontSize: 14.sp,
                         ),
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
@@ -306,10 +303,7 @@ class _ExperienceScreenState extends State<ExperienceScreen> {
 
                 // Duration badge
                 Container(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 8,
-                    vertical: 4,
-                  ),
+                  padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 4.h),
                   decoration: BoxDecoration(
                     color: AppDesign.systemBlue.withValues(alpha: 0.1),
                     borderRadius: BorderRadius.circular(12),
@@ -323,7 +317,7 @@ class _ExperienceScreenState extends State<ExperienceScreen> {
                     style: AppDesign.body.copyWith(
                       color: AppDesign.systemBlue,
                       fontWeight: FontWeight.w600,
-                      fontSize: 10,
+                      fontSize: 15.sp,
                     ),
                   ),
                 ),

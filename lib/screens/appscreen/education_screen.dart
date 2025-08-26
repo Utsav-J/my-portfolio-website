@@ -85,15 +85,7 @@ class _EducationScreenState extends State<EducationScreen> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                        'Education',
-                        style: AppDesign.largeTitle.copyWith(
-                          color: Colors.black,
-                          fontWeight: FontWeight.w700,
-                          fontSize: 30.sp,
-                          // height: 1.0.,
-                        ),
-                      ),
+                      Text('Education', style: AppDesign.largeTitle),
                       const SizedBox(height: 2),
                       Text(
                         'My academic journey',

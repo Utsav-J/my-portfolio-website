@@ -44,8 +44,8 @@ class _MacDesktopAppsState extends State<MacDesktopApps> {
           icon: CupertinoIcons.person_circle,
           color: const Color(0xFF34C759),
           onTap: () {},
-          height: 560,
-          width: 768,
+          height: 760,
+          width: 900,
         ),
       );
 
@@ -55,8 +55,8 @@ class _MacDesktopAppsState extends State<MacDesktopApps> {
           icon: CupertinoIcons.briefcase,
           color: const Color(0xFF007AFF),
           onTap: () {},
-          height: 400,
-          width: 600,
+          height: 600,
+          width: 760,
         ),
       );
     });
@@ -108,10 +108,10 @@ class _MacDesktopAppsState extends State<MacDesktopApps> {
       return const Offset(200, 200);
     }
     // const menuBarHeight = 30.0;
-    const baseX = 80.0;
-    const baseY = 80.0; // Below menu bar
-    const spacingX = 40.0;
-    const spacingY = 30.0;
+    final baseX = 80.0.w;
+    final baseY = 80.0.h; // Below menu bar
+    final spacingX = 40.0.w;
+    final spacingY = 30.0.h;
 
     // Start with base position
     double x = baseX + (openWindows.length * spacingX);
@@ -125,10 +125,10 @@ class _MacDesktopAppsState extends State<MacDesktopApps> {
 
       final existingPos = windowPositions[title]!;
       final existingApp = openWindows.firstWhere((w) => w.title == title);
-      final existingWidth = existingApp.width ?? 400;
-      final existingHeight = existingApp.height ?? 300;
-      final appWidth = app.width ?? 400;
-      final appHeight = app.height ?? 300;
+      final existingWidth = (existingApp.width ?? 400).w;
+      final existingHeight = (existingApp.height ?? 300).h;
+      final appWidth = (app.width ?? 400).w;
+      final appHeight = (app.height ?? 300).h;
 
       // Check if windows overlap
       if (x < existingPos.dx + existingWidth &&
@@ -144,14 +144,14 @@ class _MacDesktopAppsState extends State<MacDesktopApps> {
     // Ensure position is within screen bounds (basic check)
     final screenWidth = _lastScreenSize?.width ?? 1920.0;
     final screenHeight = _lastScreenSize?.height ?? 1080.0;
-    final dockHeight = 60.0;
-    const dockBottomPadding = 20.0;
+    final dockHeight = 60.0.h;
+    final dockBottomPadding = 20.0.h;
 
-    if (x + (app.width ?? 400) > screenWidth) {
+    if (x + (app.width ?? 400).w > screenWidth) {
       x = baseX;
     }
 
-    if (y + (app.height ?? 300) >
+    if (y + (app.height ?? 300).h >
         screenHeight - dockHeight - dockBottomPadding) {
       y = baseY;
     }
@@ -228,8 +228,8 @@ class _MacDesktopAppsState extends State<MacDesktopApps> {
 
         final currentPos = windowPositions[title]!;
         final app = openWindows.firstWhere((w) => w.title == title);
-        final appWidth = app.width ?? 400;
-        final appHeight = app.height ?? 300;
+        final appWidth = (app.width ?? 400).w;
+        final appHeight = (app.height ?? 300).h;
 
         // Check if window is outside new screen bounds
         bool needsReposition = false;
@@ -249,13 +249,13 @@ class _MacDesktopAppsState extends State<MacDesktopApps> {
         }
 
         // Top boundary (menu bar)
-        if (newY < 30) {
-          newY = 30;
+        if (newY < 30.h) {
+          newY = 30.h;
           needsReposition = true;
         }
 
         // Bottom boundary (dock area)
-        final bottomBoundary = newSize.height - 60 - 20 - appHeight;
+        final bottomBoundary = newSize.height - 60.h - 20.h - appHeight;
         if (newY > bottomBoundary) {
           newY = bottomBoundary;
           needsReposition = true;
@@ -284,8 +284,8 @@ class _MacDesktopAppsState extends State<MacDesktopApps> {
             icon: CupertinoIcons.person_circle,
             color: const Color(0xFF34C759),
             onTap: () {},
-            height: 560,
-            width: 768,
+            height: 700,
+            width: 900,
           ),
         ),
       ),
@@ -329,8 +329,8 @@ class _MacDesktopAppsState extends State<MacDesktopApps> {
             icon: CupertinoIcons.hammer,
             color: const Color(0xFFFF9500),
             onTap: () {},
-            height: 500,
-            width: 800,
+            height: 550,
+            width: 760,
           ),
         ),
       ),
@@ -344,8 +344,8 @@ class _MacDesktopAppsState extends State<MacDesktopApps> {
             icon: CupertinoIcons.book,
             color: const Color(0xFFAF52DE),
             onTap: () {},
-            height: 350,
-            width: 500,
+            height: 500,
+            width: 700,
           ),
         ),
       ),
@@ -360,8 +360,8 @@ class _MacDesktopAppsState extends State<MacDesktopApps> {
             icon: CupertinoIcons.book,
             color: const Color(0xFFAF52DE),
             onTap: () {},
-            height: 500,
-            width: 500,
+            height: 600,
+            width: 600,
           ),
         ),
       ),
@@ -384,7 +384,7 @@ class _MacDesktopAppsState extends State<MacDesktopApps> {
       children: [
         // Desktop Apps Grid
         Padding(
-          padding: const EdgeInsets.all(40),
+          padding: EdgeInsets.all(40.w),
           child: SingleChildScrollView(
             child: Builder(
               builder: (context) {

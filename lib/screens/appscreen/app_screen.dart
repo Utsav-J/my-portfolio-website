@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class AppScreen extends StatefulWidget {
   final String title;
@@ -67,13 +68,13 @@ class _AppScreenState extends State<AppScreen> {
     }
 
     final screenSize = mediaQuery.size;
-    final windowWidth = widget.windowWidth ?? 400;
-    final windowHeight = widget.windowHeight ?? 300;
+    final windowWidth = (widget.windowWidth ?? 400).w;
+    final windowHeight = (widget.windowHeight ?? 300).h;
 
     // Define boundaries
-    const menuBarHeight = 30.0; // Menu bar height
-    const dockHeight = 60.0; // Dock height
-    const dockBottomPadding = 20.0; // Bottom padding for dock
+    final menuBarHeight = 30.0.h; // Menu bar height
+    final dockHeight = 60.0.h; // Dock height
+    final dockBottomPadding = 20.0.h; // Bottom padding for dock
 
     // Apply constraints
     double constrainedX = position.dx;
@@ -118,13 +119,13 @@ class _AppScreenState extends State<AppScreen> {
     }
 
     final screenSize = mediaQuery.size;
-    final windowWidth = widget.windowWidth ?? 400;
-    final windowHeight = widget.windowHeight ?? 300;
+    final windowWidth = (widget.windowWidth ?? 400).w;
+    final windowHeight = (widget.windowHeight ?? 300).h;
 
     // Define boundaries
-    const menuBarHeight = 30.0; // Menu bar height
-    const dockHeight = 60.0; // Dock height
-    const dockBottomPadding = 20.0; // Bottom padding for dock
+    final menuBarHeight = 30.0.h; // Menu bar height
+    final dockHeight = 60.0.h; // Dock height
+    final dockBottomPadding = 20.0.h; // Bottom padding for dock
 
     // Calculate new position
     Offset newPosition = position + details.delta;
@@ -172,8 +173,8 @@ class _AppScreenState extends State<AppScreen> {
       child: GestureDetector(
         onTap: widget.onBringToFront, // Bring window to front when tapped
         child: Container(
-          width: widget.windowWidth ?? 400,
-          height: widget.windowHeight ?? 300,
+          width: (widget.windowWidth ?? 600).w,
+          height: (widget.windowHeight ?? 400).h,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(10),
             boxShadow: [
@@ -185,7 +186,7 @@ class _AppScreenState extends State<AppScreen> {
             ],
           ),
           child: ClipRRect(
-            borderRadius: BorderRadius.circular(10),
+            borderRadius: BorderRadius.circular(10.r),
             child: Column(
               children: [
                 // App Bar (Dark Grey Header) - Draggable Area

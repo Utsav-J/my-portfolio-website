@@ -19,7 +19,7 @@ class NoteItem extends StatelessWidget {
           center: Alignment.topLeft,
           radius: AppDesign.largeRadius,
         ),
-        borderRadius: BorderRadius.circular(12),
+        borderRadius: BorderRadius.circular(12.r),
       ),
       child: Column(
         children: [
@@ -56,21 +56,21 @@ class ThoughtNoteItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.fromLTRB(10.w, 10.h, 10.w, 0),
-      padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 12.h),
+      margin: EdgeInsets.fromLTRB(12.w, 10.h, 12.w, 0),
+      padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 12.h),
       decoration: BoxDecoration(
         gradient: RadialGradient(
           colors: [const Color.fromARGB(8, 255, 255, 255), Colors.white24],
           center: Alignment.topLeft,
           radius: AppDesign.largeRadius,
         ),
-        borderRadius: BorderRadius.circular(12),
+        borderRadius: BorderRadius.circular(12.r),
       ),
       child: Align(
         alignment: Alignment.center,
         child: Text(
           content,
-          style: GoogleFonts.shantellSans(color: Colors.white, fontSize: 14.sp),
+          style: GoogleFonts.shantellSans(color: Colors.white, fontSize: 18.sp),
         ),
       ),
     );

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:glassmorphic_ui_kit/glassmorphic_ui_kit.dart';
 import 'package:icons_plus/icons_plus.dart';
 import 'package:portfolio/screens/homescreen/dock_icon.dart';
 import 'package:portfolio/models/models.dart';
@@ -61,31 +63,10 @@ class MacDock extends StatelessWidget {
     ];
 
     return Center(
-      child: Container(
-        height: 60,
-        padding: const EdgeInsets.symmetric(horizontal: 12),
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(16.0),
-          gradient: LinearGradient(
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-            colors: [
-              Colors.grey.withValues(alpha: 0.3),
-              Colors.grey.withValues(alpha: 0.2),
-            ],
-          ),
-          border: Border.all(
-            color: Colors.white.withValues(alpha: 0.3),
-            width: 0.5,
-          ),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black.withValues(alpha: 0.2),
-              blurRadius: 20,
-              offset: const Offset(0, 8),
-            ),
-          ],
-        ),
+      child: GlassContainer(
+        padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 8.h),
+        color: Colors.white10,
+        borderRadius: BorderRadius.circular(12.r),
         child: Row(
           mainAxisSize: MainAxisSize.min,
           children: dockApps.map((app) => DockIcon(app: app)).toList(),

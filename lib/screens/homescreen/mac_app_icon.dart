@@ -30,8 +30,8 @@ class _MacAppIconState extends State<MacAppIcon> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Container(
-                width: 72.h,
-                height: 72.h,
+                width: 68.sp,
+                height: 68.sp,
                 decoration: BoxDecoration(
                   gradient: LinearGradient(
                     begin: Alignment.topLeft,
@@ -50,7 +50,7 @@ class _MacAppIconState extends State<MacAppIcon> {
                     ),
                   ],
                 ),
-                child: Icon(widget.app.icon, color: Colors.white, size: 32.sp),
+                child: Icon(widget.app.icon, color: Colors.white, size: 38.sp),
               ),
               SizedBox(height: 6.h),
               Text(
