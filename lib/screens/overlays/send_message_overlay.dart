@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../config/app_design.dart';
+import '../../utils/firebase_utils.dart';
 
 /// A glassmorphic overlay widget that appears in the center of the screen
 /// Contains an avatar section on the left and a contact form on the right
@@ -104,7 +104,7 @@ class _SendMessageOverlayState extends State<SendMessageOverlay>
       };
 
       // Save message to Firestore
-      await FirebaseFirestore.instance.collection('messages').add(messageData);
+      await FirebaseUtils.sendMessage(messageData);
 
       // Show success feedback
       if (mounted) {

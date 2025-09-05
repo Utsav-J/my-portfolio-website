@@ -1,5 +1,4 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:icons_plus/icons_plus.dart';
@@ -32,22 +31,7 @@ class _AboutMeScreenState extends State<AboutMeScreen>
   ];
 
   Future<String> _getProfileImageUrl() async {
-    try {
-      final DocumentSnapshot profileImage = await FirebaseFirestore.instance
-          .collection('images')
-          .doc('aboutme')
-          .get();
-      if (profileImage.exists && profileImage.data() != null) {
-        final Map<String, dynamic> data =
-            profileImage.data() as Map<String, dynamic>;
-        final String? imageUrl = data['url'] as String?;
-        return imageUrl ?? "";
-      }
-      return "";
-    } catch (e) {
-      print('Error fetching profile image: $e');
-      return "";
-    }
+    return await FirebaseUtils.getProfileImageUrl();
   }
 
   Future<void> _loadProfileImage() async {

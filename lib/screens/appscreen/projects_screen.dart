@@ -1,9 +1,9 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:portfolio/config/app_design.dart';
 import 'package:portfolio/models/models.dart';
+import 'package:portfolio/utils/firebase_utils.dart';
 import 'package:portfolio/utils/url_launcher_utils.dart';
 
 class ProjectsScreen extends StatefulWidget {
@@ -32,16 +32,7 @@ class _ProjectsScreenState extends State<ProjectsScreen> {
         _error = null;
       });
 
-      final QuerySnapshot querySnapshot = await FirebaseFirestore.instance
-          .collection('projects')
-          .get();
-
-      List<Project> projects = querySnapshot.docs
-          .map((doc) => Project.fromFirestore(doc))
-          .toList();
-
-      // Sort by rank (ascending)
-      projects.sort((a, b) => a.rank.compareTo(b.rank));
+      final List<Project> projects = await FirebaseUtils.getProjects();
 
       if (mounted) {
         setState(() {

@@ -1,10 +1,10 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:icons_plus/icons_plus.dart';
 import 'package:portfolio/config/app_design.dart';
 import 'package:portfolio/models/models.dart';
+import 'package:portfolio/utils/firebase_utils.dart';
 
 class ExperienceScreen extends StatefulWidget {
   const ExperienceScreen({super.key});
@@ -45,25 +45,7 @@ class _ExperienceScreenState extends State<ExperienceScreen> {
         _error = null;
       });
 
-      final QuerySnapshot querySnapshot = await FirebaseFirestore.instance
-          .collection('experience')
-          .get();
-
-      List<Experience> experiences = querySnapshot.docs
-          .map((doc) => Experience.fromFirestore(doc))
-          .toList();
-
-      // Sort by start date (newest first)
-      experiences.sort((a, b) {
-        final aDate = a.startDateTime;
-        final bDate = b.startDateTime;
-
-        if (aDate == null && bDate == null) return 0;
-        if (aDate == null) return 1;
-        if (bDate == null) return -1;
-
-        return bDate.compareTo(aDate); // Newest first
-      });
+      final List<Experience> experiences = await FirebaseUtils.getExperiences();
 
       if (mounted) {
         setState(() {

@@ -1,10 +1,9 @@
 import 'dart:convert';
-import 'dart:math';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:http/http.dart' as http;
+import 'package:portfolio/utils/firebase_utils.dart';
 import 'spotify_iframe_stub.dart'
     if (dart.library.html) 'spotify_iframe_web.dart'
     as iframe;
@@ -25,19 +24,7 @@ class _SpotifyMusicFrameState extends State<SpotifyMusicFrame> {
   Widget? _embed;
 
   Future<String?> _getRandomTrackUrlFromFirestore() async {
-    try {
-      final snapshot = await FirebaseFirestore.instance
-          .collection('spotify')
-          .get();
-      if (snapshot.docs.isEmpty) return null;
-      final randomIndex = Random().nextInt(snapshot.docs.length);
-      final data = snapshot.docs[randomIndex].data();
-      final trackUrl = data['track_url'];
-      if (trackUrl is String && trackUrl.isNotEmpty) return trackUrl;
-      return null;
-    } catch (e) {
-      return null;
-    }
+    return await FirebaseUtils.getRandomSpotifyTrack();
   }
 
   @override

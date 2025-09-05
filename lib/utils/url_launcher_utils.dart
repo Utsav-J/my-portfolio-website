@@ -1,5 +1,5 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:portfolio/utils/firebase_utils.dart';
 
 class UrlLauncherUtils {
   static Future<void> handleOpenSocials(String socialUrl) async {
@@ -35,30 +35,19 @@ class UrlLauncherUtils {
 
   static Future<void> handleDownloadCV() async {
     try {
-      final DocumentSnapshot resumeDoc = await FirebaseFirestore.instance
-          .collection('data')
-          .doc('resume')
-          .get();
+      final String? resumeUrl = await FirebaseUtils.getResumeUrl();
 
-      if (resumeDoc.exists && resumeDoc.data() != null) {
-        final Map<String, dynamic> data =
-            resumeDoc.data() as Map<String, dynamic>;
-        final String? resumeUrl = data['url'] as String?;
-
-        if (resumeUrl != null && resumeUrl.isNotEmpty) {
-          // Launch the URL to download the resume
-          final Uri url = Uri.parse(resumeUrl);
-          if (await canLaunchUrl(url)) {
-            await launchUrl(url, mode: LaunchMode.externalApplication);
-          } else {
-            // Show error if URL can't be launched
-            _showErrorSnackBar('Could not open resume link');
-          }
+      if (resumeUrl != null && resumeUrl.isNotEmpty) {
+        // Launch the URL to download the resume
+        final Uri url = Uri.parse(resumeUrl);
+        if (await canLaunchUrl(url)) {
+          await launchUrl(url, mode: LaunchMode.externalApplication);
         } else {
-          _showErrorSnackBar('Resume URL not found');
+          // Show error if URL can't be launched
+          _showErrorSnackBar('Could not open resume link');
         }
       } else {
-        _showErrorSnackBar('Resume document not found');
+        _showErrorSnackBar('Resume URL not found');
       }
     } catch (e) {
       _showErrorSnackBar('Error downloading resume: $e');

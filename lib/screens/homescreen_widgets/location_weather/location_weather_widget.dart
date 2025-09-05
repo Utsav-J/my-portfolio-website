@@ -1,9 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import 'package:portfolio/utils/firebase_utils.dart';
 
 class LocationWeatherWidget extends StatefulWidget {
   const LocationWeatherWidget({super.key});
@@ -24,16 +24,7 @@ class _LocationWeatherWidgetState extends State<LocationWeatherWidget> {
   }
 
   Future<String> _retrieveImageUrl() async {
-    final FirebaseFirestore firestore = FirebaseFirestore.instance;
-    final DocumentSnapshot documentSnapshot = await firestore
-        .collection('data')
-        .doc('location')
-        .get();
-    if (documentSnapshot.exists) {
-      final data = documentSnapshot.data() as Map<String, dynamic>;
-      return data['mapImageUrl'] as String;
-    }
-    return "";
+    return await FirebaseUtils.getLocationImageUrl();
   }
 
   Future<Map<String, dynamic>> _fetchWeatherData() async {

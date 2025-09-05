@@ -1,10 +1,10 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:glassmorphic_ui_kit/glassmorphic_ui_kit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:portfolio/screens/homescreen_widgets/notes/note_items.dart';
+import 'package:portfolio/utils/firebase_utils.dart';
 
 class Notes extends StatefulWidget {
   const Notes({super.key});
@@ -30,10 +30,7 @@ class _NotesState extends State<Notes> {
   Future<List<Map<String, dynamic>>> _fetchNotesFromFirebase(
     String collectionName,
   ) async {
-    final notes = await FirebaseFirestore.instance
-        .collection(collectionName)
-        .get();
-    return notes.docs.map((doc) => doc.data()).toList();
+    return await FirebaseUtils.getNotes(collectionName);
   }
 
   Widget _renderNoteItems(

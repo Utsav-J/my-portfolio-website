@@ -1,9 +1,9 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:icons_plus/icons_plus.dart';
 import 'package:portfolio/config/app_design.dart';
 import 'package:portfolio/models/models.dart';
+import 'package:portfolio/utils/firebase_utils.dart';
 
 class CertificationsScreen extends StatefulWidget {
   const CertificationsScreen({super.key});
@@ -29,14 +29,9 @@ class _CertificationsScreenState extends State<CertificationsScreen> {
       _errorMessage = null;
     });
     try {
-      final QuerySnapshot snapshot = await FirebaseFirestore.instance
-          .collection('certifications')
-          .limit(4) // 2x2 grid
-          .get();
-
-      final List<Certification> items = snapshot.docs
-          .map((doc) => Certification.fromFirestore(doc))
-          .toList();
+      final List<Certification> items = await FirebaseUtils.getCertifications(
+        limit: 4,
+      );
 
       if (!mounted) return;
       setState(() {

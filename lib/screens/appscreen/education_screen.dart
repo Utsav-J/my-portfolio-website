@@ -1,9 +1,9 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:portfolio/config/app_design.dart';
 import 'package:portfolio/models/models.dart';
+import 'package:portfolio/utils/firebase_utils.dart';
 
 class EducationScreen extends StatefulWidget {
   const EducationScreen({super.key});
@@ -31,25 +31,7 @@ class _EducationScreenState extends State<EducationScreen> {
         _error = null;
       });
 
-      // Define the order we want to display
-      final List<String> order = ['university', 'highschool', 'school'];
-      List<Education> educationData = [];
-
-      // Fetch documents in the specified order
-      for (String docId in order) {
-        try {
-          final DocumentSnapshot doc = await FirebaseFirestore.instance
-              .collection('education')
-              .doc(docId)
-              .get();
-
-          if (doc.exists) {
-            educationData.add(Education.fromFirestore(doc));
-          }
-        } catch (e) {
-          print('Error fetching document $docId: $e');
-        }
-      }
+      final List<Education> educationData = await FirebaseUtils.getEducation();
 
       if (mounted) {
         setState(() {
