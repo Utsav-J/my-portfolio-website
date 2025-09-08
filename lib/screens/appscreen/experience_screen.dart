@@ -110,15 +110,15 @@ class _ExperienceScreenState extends State<ExperienceScreen> {
 
             // Blue separator line
             Container(
-              width: 40,
-              height: 2,
+              width: 50.w,
+              height: 2.h,
               decoration: BoxDecoration(
                 color: AppDesign.systemBlue,
-                borderRadius: BorderRadius.circular(1),
+                borderRadius: BorderRadius.circular(1.r),
               ),
             ),
 
-            const SizedBox(height: 16),
+            SizedBox(height: 16.h),
             // Experience list
             Expanded(child: _buildExperienceContent()),
           ],
@@ -135,7 +135,7 @@ class _ExperienceScreenState extends State<ExperienceScreen> {
           children: [
             CircularProgressIndicator(
               valueColor: AlwaysStoppedAnimation<Color>(AppDesign.systemBlue),
-              strokeWidth: 2,
+              strokeWidth: 1,
             ),
             SizedBox(height: 12),
             Text(
@@ -230,7 +230,7 @@ class _ExperienceScreenState extends State<ExperienceScreen> {
         boxShadow: [
           BoxShadow(
             color: Colors.black.withValues(alpha: 0.03),
-            blurRadius: 6,
+            blurRadius: 6.r,
             offset: const Offset(0, 1),
           ),
         ],
@@ -311,13 +311,17 @@ class _ExperienceScreenState extends State<ExperienceScreen> {
             // Date range
             Row(
               children: [
-                Icon(Icons.calendar_today, color: Colors.grey[600], size: 12),
-                const SizedBox(width: 4),
+                Icon(
+                  Icons.calendar_today,
+                  color: Colors.grey[600],
+                  size: 14.sp,
+                ),
+                SizedBox(width: 4.w),
                 Text(
                   '${experience.startDate} - ${experience.endDate}',
                   style: AppDesign.body.copyWith(
                     color: Colors.grey[600],
-                    fontSize: 11,
+                    fontSize: 14.sp,
                     fontWeight: FontWeight.w500,
                   ),
                 ),
@@ -326,19 +330,18 @@ class _ExperienceScreenState extends State<ExperienceScreen> {
 
             // Description paragraphs
             if (experience.description.isNotEmpty) ...[
-              const SizedBox(height: 8),
+              SizedBox(height: 8.h),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: experience.description
                     .map(
                       (String item) => Padding(
-                        padding: const EdgeInsets.only(bottom: 6),
+                        padding: EdgeInsets.only(bottom: 6.h),
                         child: Text(
                           item,
                           style: AppDesign.body.copyWith(
                             color: Colors.black87,
-                            fontSize: 12,
-                            height: 1.4,
+                            fontSize: 15.sp,
                           ),
                         ),
                       ),

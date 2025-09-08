@@ -198,47 +198,47 @@ class _AppScreenState extends State<AppScreen> {
                     height: 40,
                     decoration: BoxDecoration(
                       color: const Color(0xFF2C2C2C),
-                      borderRadius: const BorderRadius.only(
-                        topLeft: Radius.circular(10),
-                        topRight: Radius.circular(10),
+                      borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(10.r),
+                        topRight: Radius.circular(10.r),
                       ),
                     ),
                     child: Row(
                       children: [
                         // Left Side - Window Controls
                         Padding(
-                          padding: const EdgeInsets.only(left: 12),
+                          padding: EdgeInsets.only(left: 12.w),
                           child: Row(
                             children: [
                               // Red Close Button
                               GestureDetector(
                                 onTap: widget.onClose ?? () {},
                                 child: Container(
-                                  width: 12,
-                                  height: 12,
+                                  width: 14.w,
+                                  height: 14.w,
                                   decoration: const BoxDecoration(
                                     color: Color(0xFFFF5F56),
                                     shape: BoxShape.circle,
                                   ),
                                 ),
                               ),
-                              const SizedBox(width: 8),
+                              SizedBox(width: 8.w),
                               // Yellow Minimize Button
                               Container(
-                                width: 12,
-                                height: 12,
+                                width: 14.w,
+                                height: 14.w,
                                 decoration: const BoxDecoration(
                                   color: Color(0xFFFFBD2E),
                                   shape: BoxShape.circle,
                                 ),
                               ),
-                              const SizedBox(width: 8),
+                              SizedBox(width: 8.w),
                               // Green Maximize Button
                               GestureDetector(
                                 onTap: widget.onClose ?? () {},
                                 child: Container(
-                                  width: 12,
-                                  height: 12,
+                                  width: 14.w,
+                                  height: 14.w,
                                   decoration: const BoxDecoration(
                                     color: Color(0xFF27C93F),
                                     shape: BoxShape.circle,
@@ -253,24 +253,24 @@ class _AppScreenState extends State<AppScreen> {
                         Expanded(
                           child: Center(
                             child: Container(
-                              width: 200,
-                              height: 24,
+                              width: 300.w,
+                              height: 30.h,
                               decoration: BoxDecoration(
                                 color: Colors.white,
-                                borderRadius: BorderRadius.circular(12),
+                                borderRadius: BorderRadius.circular(16.r),
                               ),
                               child: Row(
                                 children: [
                                   Expanded(
                                     child: Padding(
-                                      padding: const EdgeInsets.symmetric(
-                                        horizontal: 12,
+                                      padding: EdgeInsets.symmetric(
+                                        horizontal: 12.w,
                                       ),
                                       child: Text(
                                         widget.title,
-                                        style: const TextStyle(
+                                        style: TextStyle(
                                           color: Color(0xFF2C2C2C),
-                                          fontSize: 12,
+                                          fontSize: 14.sp,
                                           fontWeight: FontWeight.w600,
                                         ),
                                         overflow: TextOverflow.ellipsis,
@@ -283,7 +283,7 @@ class _AppScreenState extends State<AppScreen> {
                                     child: Icon(
                                       CupertinoIcons.search,
                                       color: const Color(0xFF2C2C2C),
-                                      size: 14,
+                                      size: 16.sp,
                                     ),
                                   ),
                                 ],

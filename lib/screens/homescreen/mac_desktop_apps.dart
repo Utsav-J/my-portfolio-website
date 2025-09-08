@@ -44,8 +44,8 @@ class _MacDesktopAppsState extends State<MacDesktopApps> {
           icon: CupertinoIcons.person_circle,
           color: const Color(0xFF34C759),
           onTap: () {},
-          height: 760,
-          width: 900,
+          height: 1000.h,
+          width: 1050.w,
         ),
       );
 
@@ -55,8 +55,8 @@ class _MacDesktopAppsState extends State<MacDesktopApps> {
           icon: CupertinoIcons.briefcase,
           color: const Color(0xFF007AFF),
           onTap: () {},
-          height: 600,
-          width: 760,
+          height: 760.h,
+          width: 900.w,
         ),
       );
     });
@@ -93,19 +93,19 @@ class _MacDesktopAppsState extends State<MacDesktopApps> {
   Offset _calculateSmartInitialPosition(PortfolioApp app) {
     // never change this offset position
     if (app.title == 'About Me') {
-      return const Offset(50, 60);
+      return Offset(60.w, 60.h);
     }
     // never change this offset position
     if (app.title == "Experience") {
-      return const Offset(850, 50);
+      return Offset(1100.w, 50.h);
     }
     // never change this offset position
     if (app.title == "Education") {
-      return const Offset(500, 120);
+      return Offset(500.w, 120.h);
     }
     // never change this offset position
     if (app.title == "Projects") {
-      return const Offset(200, 200);
+      return Offset(200.w, 200.h);
     }
     // const menuBarHeight = 30.0;
     final baseX = 80.0.w;
@@ -284,8 +284,8 @@ class _MacDesktopAppsState extends State<MacDesktopApps> {
             icon: CupertinoIcons.person_circle,
             color: const Color(0xFF34C759),
             onTap: () {},
-            height: 700,
-            width: 900,
+            height: 1000.h,
+            width: 1150.w,
           ),
         ),
       ),
@@ -299,8 +299,8 @@ class _MacDesktopAppsState extends State<MacDesktopApps> {
             icon: CupertinoIcons.briefcase,
             color: const Color(0xFF007AFF),
             onTap: () {},
-            height: 400,
-            width: 600,
+            height: 760.h,
+            width: 900.w,
           ),
         ),
       ),
@@ -314,8 +314,8 @@ class _MacDesktopAppsState extends State<MacDesktopApps> {
             icon: CupertinoIcons.checkmark_seal,
             color: const Color(0xFF0A84FF),
             onTap: () {},
-            height: 400,
-            width: 600,
+            height: 650.h,
+            width: 900.w,
           ),
         ),
       ),
@@ -329,8 +329,8 @@ class _MacDesktopAppsState extends State<MacDesktopApps> {
             icon: CupertinoIcons.hammer,
             color: const Color(0xFFFF9500),
             onTap: () {},
-            height: 550,
-            width: 760,
+            height: 800.h,
+            width: 900.w,
           ),
         ),
       ),
@@ -344,8 +344,8 @@ class _MacDesktopAppsState extends State<MacDesktopApps> {
             icon: CupertinoIcons.book,
             color: const Color(0xFFAF52DE),
             onTap: () {},
-            height: 500,
-            width: 700,
+            height: 650.h,
+            width: 800.w,
           ),
         ),
       ),
@@ -360,8 +360,8 @@ class _MacDesktopAppsState extends State<MacDesktopApps> {
             icon: CupertinoIcons.book,
             color: const Color(0xFFAF52DE),
             onTap: () {},
-            height: 600,
-            width: 600,
+            height: 760.h,
+            width: 760.h,
           ),
         ),
       ),

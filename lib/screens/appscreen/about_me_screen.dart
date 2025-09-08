@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:icons_plus/icons_plus.dart';
 import 'package:portfolio/config/app_design.dart';
 import 'package:portfolio/utils/firebase_utils.dart';
@@ -123,12 +124,12 @@ class _AboutMeScreenState extends State<AboutMeScreen>
             child: Container(
               color: const Color(0xFFF8F6F3), // Light beige background
               child: Padding(
-                padding: const EdgeInsets.all(40.0),
+                padding: EdgeInsets.all(40.w),
                 child: Column(
                   children: [
                     // Profile picture placeholder
                     CircleAvatar(
-                      radius: 80,
+                      radius: 100.r,
                       backgroundColor: Colors.grey[300],
                       foregroundImage:
                           _isLoadingImage ||
@@ -148,12 +149,12 @@ class _AboutMeScreenState extends State<AboutMeScreen>
                                 _profileImageUrl!.isEmpty)
                           ? Icon(
                               CupertinoIcons.person_fill,
-                              size: 60,
+                              size: 60.w,
                               color: Colors.grey[600],
                             )
                           : null,
                     ),
-                    const SizedBox(height: 24),
+                    SizedBox(height: 24.h),
 
                     // Name
                     Text(
@@ -162,22 +163,21 @@ class _AboutMeScreenState extends State<AboutMeScreen>
                       style: AppDesign.largeTitle.copyWith(
                         color: Colors.black,
                         fontWeight: FontWeight.w700,
-                        fontSize: 32,
-                        height: 1.1,
+                        fontSize: 32.sp,
                       ),
                     ),
-                    const SizedBox(height: 16),
+                    SizedBox(height: 20.h),
 
                     // Blue separator line
                     Container(
-                      width: 40,
-                      height: 3,
+                      width: 50.w,
+                      height: 3.h,
                       decoration: BoxDecoration(
                         color: AppDesign.systemBlue,
-                        borderRadius: BorderRadius.circular(2),
+                        borderRadius: BorderRadius.circular(2.r),
                       ),
                     ),
-                    const SizedBox(height: 16),
+                    SizedBox(height: 16.h),
 
                     // Animated job title
                     AnimatedBuilder(
@@ -191,8 +191,7 @@ class _AboutMeScreenState extends State<AboutMeScreen>
                             style: AppDesign.headline.copyWith(
                               color: Colors.black,
                               fontWeight: FontWeight.w600,
-                              letterSpacing: 2.0,
-                              fontSize: 14,
+                              fontSize: 18.sp,
                             ),
                           ),
                         );
@@ -210,7 +209,7 @@ class _AboutMeScreenState extends State<AboutMeScreen>
             child: Container(
               color: Colors.white,
               child: Padding(
-                padding: const EdgeInsets.all(60.0),
+                padding: EdgeInsets.all(50.w),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -220,11 +219,10 @@ class _AboutMeScreenState extends State<AboutMeScreen>
                       style: AppDesign.largeTitle.copyWith(
                         color: Colors.black,
                         fontWeight: FontWeight.w700,
-                        fontSize: 48,
-                        height: 1.0,
+                        fontSize: 48.sp,
                       ),
                     ),
-                    const SizedBox(height: 16),
+                    SizedBox(height: 18.h),
 
                     // Sub-headline
                     Text(
@@ -232,17 +230,17 @@ class _AboutMeScreenState extends State<AboutMeScreen>
                       style: AppDesign.title1.copyWith(
                         color: Colors.black87,
                         fontWeight: FontWeight.w300,
-                        fontSize: 20,
+                        fontSize: 22.sp,
                       ),
                     ),
-                    const SizedBox(height: 28),
+                    SizedBox(height: 28.h),
 
                     // Call-to-action buttons
                     Row(
                       children: [
                         _buildButton(
                           'Resume',
-                          Brand(Brands.google_drive, size: 20),
+                          Brand(Brands.google_drive, size: 20.w),
                           UrlLauncherUtils.handleDownloadCV,
                           const Color.fromARGB(255, 93, 171, 255),
                           Colors.white,
@@ -251,7 +249,7 @@ class _AboutMeScreenState extends State<AboutMeScreen>
                         const SizedBox(width: 20),
                         _buildButton(
                           'GitHub',
-                          Brand(Brands.github, size: 20),
+                          Brand(Brands.github, size: 20.w),
                           () => UrlLauncherUtils.handleOpenSocials(
                             'https://github.com/Utsav-J',
                           ),
@@ -261,19 +259,23 @@ class _AboutMeScreenState extends State<AboutMeScreen>
                         ),
                       ],
                     ),
-                    const SizedBox(height: 28),
-
-                    if (_isLoadingSummary)
-                      const Center(child: CircularProgressIndicator())
-                    else
-                      Text(
-                        _aboutMeSummary!,
-                        style: AppDesign.body.copyWith(
-                          color: Colors.black87,
-                          fontSize: 15,
-                          height: 1.6,
-                        ),
-                      ),
+                    SizedBox(height: 38.h),
+                    SingleChildScrollView(
+                      child: _isLoadingSummary
+                          ? Center(
+                              child: CircularProgressIndicator(
+                                color: Colors.black,
+                                strokeWidth: 1.h,
+                              ),
+                            )
+                          : Text(
+                              _aboutMeSummary!,
+                              style: AppDesign.body.copyWith(
+                                color: Colors.black87,
+                                fontSize: 20.sp,
+                              ),
+                            ),
+                    ),
                   ],
                 ),
               ),
@@ -295,29 +297,27 @@ class _AboutMeScreenState extends State<AboutMeScreen>
     return Container(
       decoration: BoxDecoration(
         color: backgroundColor,
-        borderRadius: BorderRadius.circular(8),
-        border: Border.all(color: borderColor, width: 1.5),
+        borderRadius: BorderRadius.circular(8.r),
+        border: Border.all(color: borderColor, width: 1.5.w),
       ),
       child: Material(
         color: Colors.transparent,
         child: InkWell(
-          borderRadius: BorderRadius.circular(8),
+          borderRadius: BorderRadius.circular(8.r),
           onTap: () {
             onTap();
           },
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+            padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 10.h),
             child: Row(
               children: [
                 brandIcon,
-                SizedBox(width: 5),
+                SizedBox(width: 5.w),
                 Text(
                   text,
-                  style: AppDesign.buttonText(color: textColor).copyWith(
-                    fontSize: 14,
-                    fontWeight: FontWeight.w600,
-                    letterSpacing: 0.5,
-                  ),
+                  style: AppDesign.buttonText(
+                    color: textColor,
+                  ).copyWith(fontSize: 18.sp, fontWeight: FontWeight.w600),
                 ),
               ],
             ),
