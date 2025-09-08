@@ -4,8 +4,8 @@ import 'package:portfolio/screens/homescreen/mac_desktop_apps.dart';
 import 'package:portfolio/screens/homescreen/mac_dock.dart';
 import 'package:portfolio/screens/homescreen/mac_menu_bar.dart';
 
-class DummyScreen extends StatelessWidget {
-  const DummyScreen({super.key});
+class HomeScreen extends StatelessWidget {
+  const HomeScreen({super.key});
 
   @override
   Widget build(BuildContext context) {

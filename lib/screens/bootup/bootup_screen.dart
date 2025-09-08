@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'dart:async';
 import 'package:lottie/lottie.dart';
 
@@ -104,8 +105,8 @@ class _BootupScreenState extends State<BootupScreen>
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       // "hello" text
-                      Lottie.asset("assets/lottie/welcome.json"),
-                      const SizedBox(height: 60),
+                      Lottie.asset("assets/lottie/welcome.json", width: 1000.w),
+                      SizedBox(height: 60.h),
 
                       // Progress bar area
                       AnimatedOpacity(
@@ -116,15 +117,15 @@ class _BootupScreenState extends State<BootupScreen>
                             Text(
                               'Booting Up...',
                               style: TextStyle(
-                                fontSize: 24,
+                                fontSize: 38.sp,
                                 color: Colors.white.withValues(alpha: 0.7),
                                 fontWeight: FontWeight.w300,
                               ),
                             ),
-                            const SizedBox(height: 20),
+                            SizedBox(height: 20.h),
                             Container(
-                              width: 200,
-                              height: 4,
+                              width: 200.w,
+                              height: 4.h,
                               decoration: BoxDecoration(
                                 color: Colors.white.withValues(alpha: 0.2),
                                 borderRadius: BorderRadius.circular(2),
@@ -135,8 +136,8 @@ class _BootupScreenState extends State<BootupScreen>
                                   return Align(
                                     alignment: Alignment.centerLeft,
                                     child: Container(
-                                      width: 200 * _progressAnimation.value,
-                                      height: 4,
+                                      width: 200.w * _progressAnimation.value,
+                                      height: 4.h,
                                       decoration: BoxDecoration(
                                         color: Colors.white,
                                         borderRadius: BorderRadius.circular(2),
@@ -159,23 +160,6 @@ class _BootupScreenState extends State<BootupScreen>
                         ),
                       ),
                     ],
-                  ),
-                ),
-              ),
-            ),
-
-            // Bottom area - you can add a "Get Started" button here if needed
-            Padding(
-              padding: const EdgeInsets.only(bottom: 50),
-              child: AnimatedOpacity(
-                opacity: _showProgress ? 0.0 : 1.0,
-                duration: const Duration(milliseconds: 300),
-                child: Text(
-                  'Get Started',
-                  style: TextStyle(
-                    fontSize: 16,
-                    color: Colors.white.withValues(alpha: 0.6),
-                    fontWeight: FontWeight.w300,
                   ),
                 ),
               ),
