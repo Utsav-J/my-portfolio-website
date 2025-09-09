@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:portfolio/screens/bootup/bootup_screen.dart';
 import 'package:portfolio/screens/homescreen/homescreen.dart';
-import 'package:portfolio/screens/homepage/alt_landing_screen.dart';
+import 'package:portfolio/screens/homepage/alternate/alt_landing_screen.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
