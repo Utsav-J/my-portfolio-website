@@ -130,6 +130,7 @@ class AppDesign {
 
   // MARK: - Color Palette (Apple-inspired)
   static const Color systemBlue = Color(0xFF007AFF);
+  static const Color amoled = Colors.black;
   static const Color systemGreen = Color(0xFF34C759);
   static const Color systemIndigo = Color(0xFF5856D6);
   static const Color systemOrange = Color(0xFFFF9500);

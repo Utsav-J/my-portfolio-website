@@ -50,6 +50,7 @@ dependencies:
   glassmorphic_ui_kit: ^1.1.5
   google_fonts: ^6.3.0
   flutter_screenutil: ^5.9.3
+  snapping_page_scroll: ^3.1.0
 
 dev_dependencies:
   flutter_test:
@@ -76,9 +77,11 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
     - assets/lottie/welcome.json
+    - assets/lottie/scrolldown.json
     - assets/snake_head.png
     - assets/game_over.png
     - assets/images/wallpaper.jpg
+    - assets/images/geminiUtsav.png
     - assets/images/memoji-removebg.png
     - assets/images/memoji-private-message.png
     - assets/images/memoji-message.png
