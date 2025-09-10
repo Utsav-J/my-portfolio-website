@@ -1,10 +1,51 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:portfolio/config/app_design.dart';
+import 'package:portfolio/models/models.dart';
+import 'package:portfolio/utils/firebase_utils.dart';
 
-class Section3 extends StatelessWidget {
+class Section3 extends StatefulWidget {
   const Section3({super.key});
+
+  @override
+  State<Section3> createState() => _Section3State();
+}
+
+class _Section3State extends State<Section3> {
+  List<Education> _educationList = [];
+  bool _isLoading = true;
+  String? _error;
+
+  @override
+  void initState() {
+    super.initState();
+    _loadEducation();
+  }
+
+  Future<void> _loadEducation() async {
+    try {
+      setState(() {
+        _isLoading = true;
+        _error = null;
+      });
+
+      final List<Education> educationData = await FirebaseUtils.getEducation();
+
+      if (mounted) {
+        setState(() {
+          _educationList = educationData;
+          _isLoading = false;
+        });
+      }
+    } catch (e) {
+      if (mounted) {
+        setState(() {
+          _error = 'Failed to load education: $e';
+          _isLoading = false;
+        });
+      }
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -18,106 +59,279 @@ class Section3 extends StatelessWidget {
           SizedBox(height: 24.h),
           Text(
             'Education',
-            style: TextStyle(
+            style: AppDesign.largeTitle.copyWith(
               color: Colors.white,
               fontSize: 32.sp,
               fontWeight: FontWeight.bold,
             ),
           ),
           SizedBox(height: 16.h),
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 32.w),
-            child: Column(
-              children: [
-                _buildEducationItem(
-                  'Bachelor of Computer Science',
-                  'University of Technology',
-                  '2015 - 2019',
-                  'GPA: 3.8/4.0\nRelevant Coursework: Data Structures, Algorithms, Software Engineering, Database Systems, Mobile Development',
-                ),
-                SizedBox(height: 16.h),
-                _buildEducationItem(
-                  'High School Diploma',
-                  'Tech High School',
-                  '2013 - 2015',
-                  'Graduated with honors\nFocus: Mathematics, Physics, Computer Science',
-                ),
-                SizedBox(height: 20.h),
-                _buildEducationItem(
-                  'Online Certifications',
-                  'Various Platforms',
-                  '2019 - Present',
-                  'Flutter Development, Firebase, UI/UX Design, Project Management, Agile Methodologies',
-                ),
-              ],
-            ),
-          ),
-          SizedBox(height: 40.h),
-          Container(
-            padding: EdgeInsets.symmetric(horizontal: 24.w, vertical: 12.h),
-            decoration: BoxDecoration(
-              color: Colors.green.withOpacity(0.2),
-              borderRadius: BorderRadius.circular(20.r),
-              border: Border.all(color: Colors.green, width: 1),
-            ),
-            child: Text(
-              'Swipe up to continue',
-              style: TextStyle(
-                color: Colors.green,
-                fontSize: 14.sp,
-                fontWeight: FontWeight.w500,
-              ),
-            ),
-          ),
+
+          // Horizontal scrolling education carousel
+          Expanded(child: _buildEducationContent()),
+
           SizedBox(height: 40.h),
         ],
       ),
     );
   }
 
-  Widget _buildEducationItem(
-    String degree,
-    String institution,
-    String period,
-    String description,
-  ) {
+  Widget _buildEducationContent() {
+    if (_isLoading) {
+      return Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            CircularProgressIndicator(
+              valueColor: AlwaysStoppedAnimation<Color>(Colors.green),
+              strokeWidth: 2,
+            ),
+            SizedBox(height: 16.h),
+            Text(
+              'Loading education...',
+              style: AppDesign.body.copyWith(
+                color: Colors.white70,
+                fontSize: 14.sp,
+              ),
+            ),
+          ],
+        ),
+      );
+    }
+
+    if (_error != null) {
+      return Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(Icons.error_outline, color: Colors.red[400], size: 32.sp),
+            SizedBox(height: 8.h),
+            Text(
+              'Error loading education',
+              style: AppDesign.title1.copyWith(
+                color: Colors.white,
+                fontSize: 16.sp,
+              ),
+            ),
+            SizedBox(height: 4.h),
+            Text(
+              _error!,
+              style: AppDesign.body.copyWith(
+                color: Colors.white60,
+                fontSize: 12.sp,
+              ),
+              textAlign: TextAlign.center,
+            ),
+          ],
+        ),
+      );
+    }
+
+    if (_educationList.isEmpty) {
+      return Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(Icons.school_outlined, color: Colors.grey[400], size: 32.sp),
+            SizedBox(height: 8.h),
+            Text(
+              'No education data found',
+              style: AppDesign.title1.copyWith(
+                color: Colors.white,
+                fontSize: 16.sp,
+              ),
+            ),
+          ],
+        ),
+      );
+    }
+
+    return ListView.builder(
+      scrollDirection: Axis.horizontal,
+      padding: EdgeInsets.symmetric(horizontal: 16.w),
+      itemCount: _educationList.length,
+      itemBuilder: (context, index) {
+        return _buildEducationCard(_educationList[index]);
+      },
+    );
+  }
+
+  Widget _buildEducationCard(Education education) {
     return Container(
-      padding: EdgeInsets.all(16.w),
+      width: 380.w,
+      margin: EdgeInsets.only(right: 16.w),
       decoration: BoxDecoration(
-        color: Colors.white.withOpacity(0.1),
-        borderRadius: BorderRadius.circular(12.r),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            degree,
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 18.sp,
-              fontWeight: FontWeight.w600,
-            ),
-          ),
-          SizedBox(height: 4.h),
-          Text(
-            institution,
-            style: TextStyle(color: Colors.white70, fontSize: 14.sp),
-          ),
-          SizedBox(height: 4.h),
-          Text(
-            period,
-            style: TextStyle(color: Colors.white60, fontSize: 12.sp),
-          ),
-          SizedBox(height: 8.h),
-          Text(
-            description,
-            style: TextStyle(
-              color: Colors.white60,
-              fontSize: 13.sp,
-              height: 1.4,
-            ),
+        color: Colors.white.withValues(alpha: 0.06),
+        borderRadius: BorderRadius.circular(16.r),
+        border: Border.all(
+          color: Colors.white.withValues(alpha: 0.12),
+          width: 1,
+        ),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withValues(alpha: 0.35),
+            blurRadius: 10.r,
+            offset: Offset(0, 6.h),
           ),
         ],
+      ),
+      child: Padding(
+        padding: EdgeInsets.all(16.w),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(10.r),
+                  child: Container(
+                    width: 64.w,
+                    height: 64.w,
+                    color: Colors.grey[800],
+                    child: education.image.isNotEmpty
+                        ? Image.network(
+                            education.image,
+                            fit: BoxFit.cover,
+                            errorBuilder: (_, __, ___) =>
+                                Icon(Icons.school, color: Colors.white60),
+                          )
+                        : Icon(Icons.school, color: Colors.white60),
+                  ),
+                ),
+                SizedBox(width: 12.w),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        education.name,
+                        style: AppDesign.title1.copyWith(
+                          color: Colors.white,
+                          fontWeight: FontWeight.w700,
+                          fontSize: 18.sp,
+                        ),
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                      SizedBox(height: 6.h),
+                      Row(
+                        children: [
+                          Icon(
+                            Icons.location_on_outlined,
+                            color: Colors.white60,
+                            size: 14.sp,
+                          ),
+                          SizedBox(width: 4.w),
+                          Expanded(
+                            child: Text(
+                              education.location,
+                              style: AppDesign.body.copyWith(
+                                color: Colors.white60,
+                                fontSize: 12.sp,
+                              ),
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                          ),
+                          SizedBox(width: 8.w),
+                          Icon(
+                            Icons.star_border_rounded,
+                            color: Colors.white70,
+                            size: 14.sp,
+                          ),
+                          SizedBox(width: 4.w),
+                          Text(
+                            education.grades,
+                            style: AppDesign.body.copyWith(
+                              color: Colors.white70,
+                              fontSize: 12.sp,
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+
+            SizedBox(height: 12.h),
+            Text(
+              education.course,
+              style: AppDesign.body.copyWith(
+                color: Colors.white,
+                fontSize: 14.sp,
+                fontWeight: FontWeight.w600,
+              ),
+              maxLines: 2,
+              overflow: TextOverflow.ellipsis,
+            ),
+
+            SizedBox(height: 14.h),
+            Divider(color: Colors.white.withValues(alpha: 0.12), height: 1.h),
+            SizedBox(height: 14.h),
+
+            if (education.description.isNotEmpty) ...[
+              Container(
+                width: double.infinity,
+                decoration: BoxDecoration(
+                  color: Colors.white.withValues(alpha: 0.06),
+                  borderRadius: BorderRadius.circular(12.r),
+                  border: Border.all(
+                    color: Colors.white.withValues(alpha: 0.1),
+                    width: 1,
+                  ),
+                ),
+                padding: EdgeInsets.all(12.w),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'Highlights',
+                      style: AppDesign.headline.copyWith(
+                        color: Colors.white,
+                        fontWeight: FontWeight.w700,
+                        fontSize: 14.sp,
+                      ),
+                    ),
+                    SizedBox(height: 8.h),
+                    ...education.description.map(
+                      (item) => Padding(
+                        padding: EdgeInsets.only(bottom: 8.h),
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Padding(
+                              padding: EdgeInsets.only(top: 2.h),
+                              child: Icon(
+                                Icons.check_circle_outline,
+                                color: Colors.green[300],
+                                size: 14.sp,
+                              ),
+                            ),
+                            SizedBox(width: 8.w),
+                            Expanded(
+                              child: Text(
+                                item,
+                                style: AppDesign.body.copyWith(
+                                  color: Colors.white70,
+                                  fontSize: 12.sp,
+                                  height: 1.4,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ],
+        ),
       ),
     );
   }

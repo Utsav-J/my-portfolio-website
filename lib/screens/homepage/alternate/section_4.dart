@@ -1,9 +1,51 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:portfolio/config/app_design.dart';
+import 'package:portfolio/models/models.dart';
+import 'package:portfolio/utils/firebase_utils.dart';
 
-class Section4 extends StatelessWidget {
+class Section4 extends StatefulWidget {
   const Section4({super.key});
+
+  @override
+  State<Section4> createState() => _Section4State();
+}
+
+class _Section4State extends State<Section4> {
+  List<Project> _projects = [];
+  bool _isLoading = true;
+  String? _error;
+
+  @override
+  void initState() {
+    super.initState();
+    _loadProjects();
+  }
+
+  Future<void> _loadProjects() async {
+    try {
+      setState(() {
+        _isLoading = true;
+        _error = null;
+      });
+
+      final List<Project> projects = await FirebaseUtils.getProjects();
+
+      if (mounted) {
+        setState(() {
+          _projects = projects;
+          _isLoading = false;
+        });
+      }
+    } catch (e) {
+      if (mounted) {
+        setState(() {
+          _error = 'Failed to load projects: $e';
+          _isLoading = false;
+        });
+      }
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -17,105 +59,208 @@ class Section4 extends StatelessWidget {
           SizedBox(height: 24.h),
           Text(
             'Projects',
-            style: TextStyle(
+            style: AppDesign.largeTitle.copyWith(
               color: Colors.white,
               fontSize: 32.sp,
               fontWeight: FontWeight.bold,
             ),
           ),
           SizedBox(height: 16.h),
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 32.w),
-            child: Column(
-              children: [
-                _buildProjectItem(
-                  'Portfolio App',
-                  'Flutter, Firebase',
-                  'A beautiful portfolio app with snap-scroll sections, Firebase integration, and responsive design. Features include dynamic content loading, smooth animations, and mobile-optimized UI.',
-                ),
-                SizedBox(height: 16.h),
-                _buildProjectItem(
-                  'E-commerce App',
-                  'Flutter, Node.js, MongoDB',
-                  'Full-stack shopping application with user authentication, product catalog, shopping cart, payment integration, and admin dashboard. Supports real-time updates and notifications.',
-                ),
-                SizedBox(height: 16.h),
-                _buildProjectItem(
-                  'Weather App',
-                  'Flutter, OpenWeather API',
-                  'Real-time weather application with location-based forecasts, interactive maps, weather alerts, and customizable widgets. Includes offline caching and background updates.',
-                ),
-                SizedBox(height: 16.h),
-                _buildProjectItem(
-                  'Task Management App',
-                  'Flutter, SQLite, Provider',
-                  'Productivity app with task organization, team collaboration features, deadline tracking, and progress analytics. Supports multiple project views and team management.',
-                ),
-                SizedBox(height: 16.h),
-                _buildProjectItem(
-                  'Social Media App',
-                  'Flutter, Firebase, Cloud Functions',
-                  'Social platform with real-time messaging, photo sharing, story features, and community building tools. Includes advanced privacy controls and content moderation.',
-                ),
-              ],
-            ),
-          ),
-          SizedBox(height: 40.h),
-          Container(
-            padding: EdgeInsets.symmetric(horizontal: 24.w, vertical: 12.h),
-            decoration: BoxDecoration(
-              color: Colors.orange.withOpacity(0.2),
-              borderRadius: BorderRadius.circular(20.r),
-              border: Border.all(color: Colors.orange, width: 1),
-            ),
-            child: Text(
-              'Swipe up to continue',
-              style: TextStyle(
-                color: Colors.orange,
-                fontSize: 14.sp,
-                fontWeight: FontWeight.w500,
-              ),
-            ),
-          ),
+
+          Expanded(child: _buildProjectsContent()),
+
           SizedBox(height: 40.h),
         ],
       ),
     );
   }
 
-  Widget _buildProjectItem(String title, String tech, String description) {
+  Widget _buildProjectsContent() {
+    if (_isLoading) {
+      return Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            CircularProgressIndicator(
+              valueColor: AlwaysStoppedAnimation<Color>(Colors.orange),
+              strokeWidth: 2,
+            ),
+            SizedBox(height: 16.h),
+            Text(
+              'Loading projects...',
+              style: AppDesign.body.copyWith(
+                color: Colors.white70,
+                fontSize: 14.sp,
+              ),
+            ),
+          ],
+        ),
+      );
+    }
+
+    if (_error != null) {
+      return Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(Icons.error_outline, color: Colors.red[400], size: 32.sp),
+            SizedBox(height: 8.h),
+            Text(
+              'Error loading projects',
+              style: AppDesign.title1.copyWith(
+                color: Colors.white,
+                fontSize: 16.sp,
+              ),
+            ),
+          ],
+        ),
+      );
+    }
+
+    if (_projects.isEmpty) {
+      return Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(Icons.code_outlined, color: Colors.grey[400], size: 32.sp),
+            SizedBox(height: 8.h),
+            Text(
+              'No projects found',
+              style: AppDesign.title1.copyWith(
+                color: Colors.white,
+                fontSize: 16.sp,
+              ),
+            ),
+          ],
+        ),
+      );
+    }
+
+    return ListView.builder(
+      scrollDirection: Axis.horizontal,
+      padding: EdgeInsets.symmetric(horizontal: 16.w),
+      itemCount: _projects.length,
+      itemBuilder: (context, index) => _buildProjectCard(_projects[index]),
+    );
+  }
+
+  Widget _buildProjectCard(Project project) {
     return Container(
-      padding: EdgeInsets.all(16.w),
+      width: 380.w,
+      margin: EdgeInsets.only(right: 16.w),
       decoration: BoxDecoration(
-        color: Colors.white.withOpacity(0.1),
-        borderRadius: BorderRadius.circular(12.r),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            title,
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 18.sp,
-              fontWeight: FontWeight.w600,
-            ),
-          ),
-          SizedBox(height: 4.h),
-          Text(
-            tech,
-            style: TextStyle(color: Colors.white70, fontSize: 14.sp),
-          ),
-          SizedBox(height: 8.h),
-          Text(
-            description,
-            style: TextStyle(
-              color: Colors.white60,
-              fontSize: 13.sp,
-              height: 1.4,
-            ),
+        color: Colors.white.withValues(alpha: 0.06),
+        borderRadius: BorderRadius.circular(16.r),
+        border: Border.all(
+          color: Colors.white.withValues(alpha: 0.12),
+          width: 1,
+        ),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withValues(alpha: 0.35),
+            blurRadius: 10.r,
+            offset: Offset(0, 6.h),
           ),
         ],
+      ),
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(16.r),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            // Image header with title overlay (like the reference)
+            Container(
+              height: 180.h,
+              width: double.infinity,
+              decoration: BoxDecoration(color: Colors.grey[800]),
+              child: Stack(
+                fit: StackFit.expand,
+                children: [
+                  if (project.imageUrl.isNotEmpty)
+                    Image.network(
+                      project.imageUrl,
+                      fit: BoxFit.cover,
+                      errorBuilder: (_, __, ___) =>
+                          Container(color: Colors.grey[800]),
+                    ),
+                  // gradient fade bottom
+                  Positioned.fill(
+                    child: DecoratedBox(
+                      decoration: BoxDecoration(
+                        gradient: LinearGradient(
+                          begin: Alignment.topCenter,
+                          end: Alignment.bottomCenter,
+                          colors: [
+                            Colors.transparent,
+                            Colors.black.withValues(alpha: 0.6),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                  Positioned(
+                    left: 16.w,
+                    bottom: 12.h,
+                    right: 16.w,
+                    child: Text(
+                      project.name,
+                      style: AppDesign.title2.copyWith(
+                        color: Colors.white,
+                        fontWeight: FontWeight.w700,
+                        fontSize: 18.sp,
+                      ),
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+
+            // Details panel
+            Container(
+              width: double.infinity,
+              padding: EdgeInsets.all(16.w),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  if (project.description.isNotEmpty)
+                    ...project.description
+                        .take(3)
+                        .map(
+                          (line) => Padding(
+                            padding: EdgeInsets.only(bottom: 10.h),
+                            child: Row(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Padding(
+                                  padding: EdgeInsets.only(top: 3.h),
+                                  child: Icon(
+                                    Icons.check_circle_outline,
+                                    color: Colors.green[600],
+                                    size: 16.sp,
+                                  ),
+                                ),
+                                SizedBox(width: 8.w),
+                                Expanded(
+                                  child: Text(
+                                    line,
+                                    style: AppDesign.body.copyWith(
+                                      color: Colors.white,
+                                      fontSize: 13.sp,
+                                      height: 1.4,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                ],
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:glassmorphic_ui_kit/glassmorphic_ui_kit.dart';
 import 'package:lottie/lottie.dart';
 import 'package:portfolio/config/app_design.dart';
 
@@ -10,83 +11,76 @@ class Section1 extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: 1.sw,
+      height: 1.sh,
       color: AppDesign.amoled,
       child: Column(
         children: [
-          Lottie.asset("assets/lottie/scrolldown.json", width: 48.w),
-          SizedBox(height: 24.h),
-          Text(
-            'About Me',
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 32.sp,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-          SizedBox(height: 16.h),
           Padding(
-            padding: EdgeInsets.symmetric(horizontal: 32.w),
-            child: Text(
-              'I am a passionate developer with expertise in Flutter, mobile development, and creating innovative solutions. I love building beautiful and functional applications that make a difference.',
-              style: TextStyle(
-                color: Colors.white70,
-                fontSize: 16.sp,
-                height: 1.5,
-              ),
-              textAlign: TextAlign.center,
-            ),
+            padding: EdgeInsets.only(top: 40.h),
+            child: Lottie.asset("assets/lottie/scrolldown.json", width: 48.w),
           ),
+
           SizedBox(height: 40.h),
 
-          // Additional scrollable content
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 32.w),
-            child: Column(
-              children: [
-                _buildInfoCard('Skills', [
-                  'Flutter',
-                  'Dart',
-                  'Firebase',
-                  'UI/UX Design',
-                ]),
-              ],
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildInfoCard(String title, List<String> items) {
-    return Container(
-      padding: EdgeInsets.all(16.w),
-      decoration: BoxDecoration(
-        color: Colors.white.withOpacity(0.1),
-        borderRadius: BorderRadius.circular(12.r),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
+          // Greeting text
           Text(
-            title,
-            style: TextStyle(
+            'hi, i\'m',
+            style: AppDesign.largeTitle.copyWith(
               color: Colors.white,
-              fontSize: 18.sp,
-              fontWeight: FontWeight.w600,
+              fontSize: 36.sp,
+              fontWeight: FontWeight.w700,
             ),
           ),
-          SizedBox(height: 8.h),
-          ...items
-              .map(
-                (item) => Padding(
-                  padding: EdgeInsets.only(bottom: 4.h),
-                  child: Text(
-                    '• $item',
-                    style: TextStyle(color: Colors.white70, fontSize: 14.sp),
+          Text(
+            'utsav',
+            style: AppDesign.largeTitle.copyWith(
+              color: Colors.white,
+              fontSize: 36.sp,
+              fontWeight: FontWeight.w700,
+            ),
+          ),
+
+          Spacer(),
+
+          Stack(
+            alignment: Alignment.center,
+            children: [
+              Expanded(
+                child: Center(
+                  child: Container(
+                    constraints: BoxConstraints(maxHeight: 0.5.sh),
+                    child: Image.asset(
+                      'assets/images/geminiUtsav.png',
+                      fit: BoxFit.cover,
+                    ),
                   ),
                 ),
-              )
-              .toList(),
+              ),
+
+              // Download resume button
+              Positioned(
+                bottom: 5.h,
+                child: GlassContainer(
+                  borderRadius: BorderRadius.circular(12.r),
+                  color: Colors.black12,
+                  width: 0.8.sw,
+                  height: 50.h,
+                  padding: EdgeInsets.symmetric(horizontal: 5.w, vertical: 8.h),
+                  child: Center(
+                    child: Text(
+                      "Download my Resume",
+                      style: AppDesign.largeTitle.copyWith(
+                        fontSize: 16.sp,
+                        color: Colors.white,
+                        fontWeight: FontWeight.w500,
+                      ),
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
         ],
       ),
     );
