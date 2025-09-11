@@ -5,14 +5,14 @@ import 'package:portfolio/config/app_design.dart';
 import 'package:portfolio/models/models.dart';
 import 'package:portfolio/utils/firebase_utils.dart';
 
-class Section2 extends StatefulWidget {
-  const Section2({super.key});
+class ExperienceScreen extends StatefulWidget {
+  const ExperienceScreen({super.key});
 
   @override
-  State<Section2> createState() => _Section2State();
+  State<ExperienceScreen> createState() => _ExperienceScreenState();
 }
 
-class _Section2State extends State<Section2> {
+class _ExperienceScreenState extends State<ExperienceScreen> {
   List<Experience> _experiences = [];
   bool _isLoading = true;
   String? _error;

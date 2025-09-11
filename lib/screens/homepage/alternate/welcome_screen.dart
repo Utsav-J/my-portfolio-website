@@ -4,8 +4,8 @@ import 'package:glassmorphic_ui_kit/glassmorphic_ui_kit.dart';
 import 'package:lottie/lottie.dart';
 import 'package:portfolio/config/app_design.dart';
 
-class Section1 extends StatelessWidget {
-  const Section1({super.key});
+class WelcomeScreen extends StatelessWidget {
+  const WelcomeScreen({super.key});
 
   @override
   Widget build(BuildContext context) {

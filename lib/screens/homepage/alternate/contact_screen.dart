@@ -3,14 +3,14 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:portfolio/config/app_design.dart';
 import 'package:portfolio/utils/firebase_utils.dart';
 
-class Section5 extends StatefulWidget {
-  const Section5({super.key});
+class ContactScreen extends StatefulWidget {
+  const ContactScreen({super.key});
 
   @override
-  State<Section5> createState() => _Section5State();
+  State<ContactScreen> createState() => _ContactScreenState();
 }
 
-class _Section5State extends State<Section5> {
+class _ContactScreenState extends State<ContactScreen> {
   final TextEditingController _messageController = TextEditingController();
   final TextEditingController _contactController = TextEditingController();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();

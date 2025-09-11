@@ -1,12 +1,11 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:portfolio/screens/homepage/alternate/section_1.dart';
-import 'package:portfolio/screens/homepage/alternate/section_2.dart';
-import 'package:portfolio/screens/homepage/alternate/section_3.dart';
-import 'package:portfolio/screens/homepage/alternate/section_4.dart';
+import 'package:glassmorphic_ui_kit/glassmorphic_ui_kit.dart';
+import 'package:portfolio/config/app_design.dart';
+import 'package:portfolio/screens/homepage/alternate/phone_app_grid.dart';
 import 'package:portfolio/screens/homepage/alternate/snap_scroll_controller.dart';
-import 'package:portfolio/screens/homepage/alternate/section_5.dart';
-import 'package:snapping_page_scroll/snapping_page_scroll.dart';
+import 'package:portfolio/screens/homepage/alternate/status_bar.dart';
 
 class AltUnlockDestination extends StatefulWidget {
   const AltUnlockDestination({super.key});
@@ -39,24 +38,51 @@ class _AltUnlockDestinationState extends State<AltUnlockDestination> {
       minTextAdapt: true,
       splitScreenMode: false,
       builder: (_, __) {
-        return Scaffold(
-          backgroundColor: Colors.black,
-          body: SafeArea(
-            child: SizedBox(
-              width: 1.sw,
-              height: 1.sh,
-              child: SnappingPageScroll(
-                controller: controller,
-                scrollDirection: Axis.vertical,
-                children: [
-                  Section1(),
-                  Section2(),
-                  Section3(),
-                  Section4(),
-                  Section5(),
-                ],
-              ),
+        return Container(
+          width: 1.sw,
+          height: 1.sh,
+          decoration: const BoxDecoration(
+            image: DecorationImage(
+              fit: BoxFit.cover,
+              image: AssetImage("assets/images/phoneWallpaper.jpg"),
             ),
+          ),
+          child: Stack(
+            children: [
+              const StatusBar(),
+
+              // Desktop Apps Grid
+              Positioned.fill(top: 30.h, child: PhoneAppGrid()),
+
+              //bottom bar
+              Positioned(
+                bottom: 10.w,
+                left: 10.w,
+                right: 10.w,
+                child: Center(
+                  child: GlassContainer(
+                    padding: EdgeInsets.symmetric(
+                      horizontal: 12.w,
+                      vertical: 12.h,
+                    ),
+                    borderRadius: BorderRadius.circular(16.r),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(
+                          CupertinoIcons.download_circle_fill,
+                          color: Colors.white,
+                        ),
+                        Text(
+                          "Download My CV",
+                          style: AppDesign.largeTitle.copyWith(fontSize: 16.sp),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+            ],
           ),
         );
       },

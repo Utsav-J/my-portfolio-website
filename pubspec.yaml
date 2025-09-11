@@ -81,6 +81,7 @@ flutter:
     - assets/snake_head.png
     - assets/game_over.png
     - assets/images/wallpaper.jpg
+    - assets/images/phoneWallpaper.jpg
     - assets/images/geminiUtsav.png
     - assets/images/memoji-removebg.png
     - assets/images/memoji-private-message.png
