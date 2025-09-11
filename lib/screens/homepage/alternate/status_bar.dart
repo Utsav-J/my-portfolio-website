@@ -12,18 +12,10 @@ class StatusBar extends StatelessWidget {
     DateTime now = DateTime.now();
     String formattedTime = DateFormat('HH:mm').format(now);
 
-    return Container(
+    return SizedBox(
       height: 30.h,
       width: double.infinity,
-      decoration: BoxDecoration(
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withValues(alpha: 0.2),
-            blurRadius: 4.r,
-            offset: Offset(0, 1.h),
-          ),
-        ],
-      ),
+
       child: Padding(
         padding: EdgeInsets.symmetric(horizontal: 4.w),
         child: Row(

@@ -33,59 +33,66 @@ class _AltUnlockDestinationState extends State<AltUnlockDestination> {
 
   @override
   Widget build(BuildContext context) {
-    return ScreenUtilInit(
-      designSize: const Size(375, 812), // iPhone X/11/12 baseline
-      minTextAdapt: true,
-      splitScreenMode: false,
-      builder: (_, __) {
-        return Container(
-          width: 1.sw,
-          height: 1.sh,
-          decoration: const BoxDecoration(
-            image: DecorationImage(
-              fit: BoxFit.cover,
-              image: AssetImage("assets/images/phoneWallpaper.jpg"),
+    return Material(
+      child: ScreenUtilInit(
+        designSize: const Size(375, 812), // iPhone X/11/12 baseline
+        minTextAdapt: true,
+        splitScreenMode: false,
+        builder: (_, __) {
+          return Container(
+            width: 1.sw,
+            height: 1.sh,
+            decoration: const BoxDecoration(
+              image: DecorationImage(
+                fit: BoxFit.cover,
+                image: AssetImage("assets/images/phoneWallpaper.jpg"),
+              ),
             ),
-          ),
-          child: Stack(
-            children: [
-              const StatusBar(),
+            child: Stack(
+              children: [
+                const StatusBar(),
 
-              // Desktop Apps Grid
-              Positioned.fill(top: 30.h, child: PhoneAppGrid()),
+                // Desktop Apps Grid
+                Positioned.fill(top: 30.h, child: PhoneAppGrid()),
 
-              //bottom bar
-              Positioned(
-                bottom: 10.w,
-                left: 10.w,
-                right: 10.w,
-                child: Center(
-                  child: GlassContainer(
-                    padding: EdgeInsets.symmetric(
-                      horizontal: 12.w,
-                      vertical: 12.h,
-                    ),
-                    borderRadius: BorderRadius.circular(16.r),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Icon(
-                          CupertinoIcons.download_circle_fill,
-                          color: Colors.white,
-                        ),
-                        Text(
-                          "Download My CV",
-                          style: AppDesign.largeTitle.copyWith(fontSize: 16.sp),
-                        ),
-                      ],
+                //bottom bar
+                Positioned(
+                  bottom: 10.w,
+                  left: 10.w,
+                  right: 10.w,
+                  child: Center(
+                    child: GlassContainer(
+                      height: 64.w,
+                      color: const Color.fromARGB(13, 186, 186, 186),
+                      padding: EdgeInsets.symmetric(
+                        horizontal: 12.w,
+                        vertical: 12.h,
+                      ),
+                      borderRadius: BorderRadius.circular(16.r),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(
+                            CupertinoIcons.download_circle_fill,
+                            color: Colors.white,
+                          ),
+                          Text(
+                            "Download My CV",
+                            style: AppDesign.largeTitle.copyWith(
+                              fontSize: 16.sp,
+                              color: Colors.white,
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ),
-              ),
-            ],
-          ),
-        );
-      },
+              ],
+            ),
+          );
+        },
+      ),
     );
   }
 }
