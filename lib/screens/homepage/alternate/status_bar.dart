@@ -17,7 +17,7 @@ class StatusBar extends StatelessWidget {
       width: double.infinity,
 
       child: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 4.w),
+        padding: EdgeInsets.symmetric(horizontal: 10.w),
         child: Row(
           children: [
             Text(formattedTime, style: AppDesign.menuBarTime()),
@@ -28,8 +28,8 @@ class StatusBar extends StatelessWidget {
                 Icon(CupertinoIcons.wifi, color: Colors.white, size: 20.sp),
                 SizedBox(width: 8.w),
                 Icon(
-                  CupertinoIcons.battery_full,
-                  color: Colors.white,
+                  CupertinoIcons.battery_charging,
+                  // color: Colors.white,
                   size: 20.sp,
                 ),
               ],

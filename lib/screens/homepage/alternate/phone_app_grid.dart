@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:portfolio/screens/homepage/alternate/glow_tile.dart';
+import 'package:portfolio/utils/url_launcher_utils.dart';
 
 class PhoneAppGrid extends StatelessWidget {
   const PhoneAppGrid({super.key});
@@ -23,8 +24,8 @@ class PhoneAppGrid extends StatelessWidget {
               imageAsset: "assets/images/memoji-removebg.png",
               isApp: false,
               radius: 24.r,
-              label: 'About Me',
-              onTap: () => _showPlaceholderDialog(context, 'About Me'),
+              label: 'Say Hi!',
+              onTap: () => _showPlaceholderDialog(context, 'Say Hi'),
             ),
           ),
           // four small squares on the right (top two)
@@ -91,7 +92,11 @@ class PhoneAppGrid extends StatelessWidget {
               isApp: true,
               label: "Gmail",
               imageAsset: "assets/icons/phone-gmail.png",
-              onTap: () => _showPlaceholderDialog(context, 'Gmail'),
+              onTap: () => UrlLauncherUtils.handleMailtoLink(
+                'utsavjaiswal2004@gmail.com',
+                subject: 'Hello Utsav',
+                body: 'I just visited your website and ...',
+              ),
             ),
           ),
           StaggeredGridTile.count(
@@ -101,7 +106,9 @@ class PhoneAppGrid extends StatelessWidget {
               isApp: true,
               label: "Instagram",
               imageAsset: "assets/icons/phone-instagram.png",
-              onTap: () => _showPlaceholderDialog(context, 'Instagram'),
+              onTap: () => UrlLauncherUtils.handleOpenSocials(
+                'https://www.instagram.com/acoolstick_/',
+              ),
             ),
           ),
           StaggeredGridTile.count(
@@ -111,7 +118,9 @@ class PhoneAppGrid extends StatelessWidget {
               isApp: true,
               label: "GitHub",
               imageAsset: "assets/icons/phone-github.png",
-              onTap: () => _showPlaceholderDialog(context, 'GitHub'),
+              onTap: () => UrlLauncherUtils.handleOpenSocials(
+                'https://github.com/Utsav-J',
+              ),
             ),
           ),
           StaggeredGridTile.count(
@@ -121,10 +130,11 @@ class PhoneAppGrid extends StatelessWidget {
               isApp: true,
               label: 'LinkedIn',
               imageAsset: "assets/icons/phone-linkedin.png",
-              onTap: () => _showPlaceholderDialog(context, 'LinkedIn'),
+              onTap: () => UrlLauncherUtils.handleOpenSocials(
+                'https://www.linkedin.com/in/iamutsavjaiswal/',
+              ),
             ),
           ),
-
         ],
       ),
     );

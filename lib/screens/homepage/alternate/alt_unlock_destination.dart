@@ -6,6 +6,7 @@ import 'package:portfolio/config/app_design.dart';
 import 'package:portfolio/screens/homepage/alternate/phone_app_grid.dart';
 import 'package:portfolio/screens/homepage/alternate/snap_scroll_controller.dart';
 import 'package:portfolio/screens/homepage/alternate/status_bar.dart';
+import 'package:portfolio/utils/url_launcher_utils.dart';
 
 class AltUnlockDestination extends StatefulWidget {
   const AltUnlockDestination({super.key});
@@ -45,7 +46,7 @@ class _AltUnlockDestinationState extends State<AltUnlockDestination> {
             decoration: const BoxDecoration(
               image: DecorationImage(
                 fit: BoxFit.cover,
-                image: AssetImage("assets/images/phoneWallpaper.jpg"),
+                image: AssetImage("assets/images/phonehomescreen.jpg"),
               ),
             ),
             child: Stack(
@@ -60,10 +61,15 @@ class _AltUnlockDestinationState extends State<AltUnlockDestination> {
                   bottom: 10.w,
                   left: 10.w,
                   right: 10.w,
-                  child: Center(
+                  child: InkWell(
+                    onTap: () => UrlLauncherUtils.handleDownloadCV(),
                     child: GlassContainer(
                       height: 64.w,
-                      color: const Color.fromARGB(13, 186, 186, 186),
+                      border: Border(
+                        top: BorderSide(color: Colors.white30, width: 0.5.sp),
+                        left: BorderSide(color: Colors.white30, width: 0.5.sp),
+                      ),
+                      // color: const Color.fromARGB(13, 186, 186, 186),
                       padding: EdgeInsets.symmetric(
                         horizontal: 12.w,
                         vertical: 12.h,
