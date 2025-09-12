@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:glassmorphic_ui_kit/glassmorphic_ui_kit.dart';
 import 'package:icons_plus/icons_plus.dart';
 import 'package:portfolio/config/app_design.dart';
 import 'package:portfolio/models/models.dart';
 import 'package:portfolio/utils/firebase_utils.dart';
+import 'package:portfolio/screens/homepage/alternate/alt_unlock_destination.dart';
 
 class ExperienceScreen extends StatefulWidget {
   const ExperienceScreen({super.key});
@@ -50,27 +52,50 @@ class _ExperienceScreenState extends State<ExperienceScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: 1.sw,
-      color: AppDesign.amoled,
-      child: Column(
-        children: [
-          SizedBox(height: 60.h),
-          Text(
-            'Experience',
-            style: AppDesign.largeTitle.copyWith(
-              color: Colors.white,
-              fontSize: 32.sp,
-              fontWeight: FontWeight.bold,
+    return Material(
+      child: Container(
+        width: 1.sw,
+        color: AppDesign.amoled,
+        child: Stack(
+          children: [
+            Column(
+              children: [
+                SizedBox(height: 60.h),
+                Text(
+                  'Experience',
+                  style: AppDesign.largeTitle.copyWith(
+                    color: Colors.white,
+                    fontSize: 32.sp,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                SizedBox(height: 16.h),
+      
+                // Horizontal scrolling experience carousel
+                Expanded(child: _buildExperienceContent()),
+      
+                SizedBox(height: 40.h),
+              ],
             ),
-          ),
-          SizedBox(height: 16.h),
-
-          // Horizontal scrolling experience carousel
-          Expanded(child: _buildExperienceContent()),
-
-          SizedBox(height: 40.h),
-        ],
+            // Exit button
+            Positioned(
+              top: 40.h,
+              right: 20.w,
+              child: GestureDetector(
+                onTap: () => Navigator.of(context).pushReplacement(
+                  MaterialPageRoute(builder: (_) => const AltUnlockDestination()),
+                ),
+                child: GlassContainer(
+                  width: 40.w,
+                  height: 40.w,
+                  borderRadius: BorderRadius.circular(20.r),
+                  border: Border.all(color: Colors.white30, width: 1.sp),
+                  child: Icon(Icons.close, color: Colors.white, size: 20.sp),
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

@@ -2,6 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:portfolio/screens/homepage/alternate/glow_tile.dart';
+import 'package:portfolio/screens/homepage/alternate/welcome_screen.dart';
+import 'package:portfolio/screens/homepage/alternate/education_screen.dart';
+import 'package:portfolio/screens/homepage/alternate/projects_screen.dart';
+import 'package:portfolio/screens/homepage/alternate/experience_screen.dart';
+import 'package:portfolio/screens/homepage/alternate/contact_screen.dart';
 import 'package:portfolio/utils/url_launcher_utils.dart';
 
 class PhoneAppGrid extends StatelessWidget {
@@ -25,7 +30,9 @@ class PhoneAppGrid extends StatelessWidget {
               isApp: false,
               radius: 24.r,
               label: 'Say Hi!',
-              onTap: () => _showPlaceholderDialog(context, 'Say Hi'),
+              onTap: () => Navigator.of(
+                context,
+              ).push(MaterialPageRoute(builder: (_) => const ContactScreen())),
             ),
           ),
           // four small squares on the right (top two)
@@ -36,7 +43,9 @@ class PhoneAppGrid extends StatelessWidget {
               isApp: true,
               label: 'Profile',
               imageAsset: "assets/icons/phone-profile.png",
-              onTap: () => _showPlaceholderDialog(context, 'Profile'),
+              onTap: () => Navigator.of(
+                context,
+              ).push(MaterialPageRoute(builder: (_) => const WelcomeScreen())),
             ),
           ),
           StaggeredGridTile.count(
@@ -46,7 +55,9 @@ class PhoneAppGrid extends StatelessWidget {
               isApp: true,
               imageAsset: "assets/icons/phone-education.png",
               label: 'Education',
-              onTap: () => _showPlaceholderDialog(context, 'Education'),
+              onTap: () => Navigator.of(context).push(
+                MaterialPageRoute(builder: (_) => const EducationScreen()),
+              ),
             ),
           ),
           // next two small squares under them
@@ -57,7 +68,9 @@ class PhoneAppGrid extends StatelessWidget {
               isApp: true,
               label: 'Projects',
               imageAsset: "assets/icons/phone-projects.png",
-              onTap: () => _showPlaceholderDialog(context, 'Projects'),
+              onTap: () => Navigator.of(
+                context,
+              ).push(MaterialPageRoute(builder: (_) => const ProjectsScreen())),
             ),
           ),
           StaggeredGridTile.count(
@@ -67,7 +80,9 @@ class PhoneAppGrid extends StatelessWidget {
               isApp: true,
               imageAsset: "assets/icons/phone-workexp.png",
               label: 'Experience',
-              onTap: () => _showPlaceholderDialog(context, 'Certifications'),
+              onTap: () => Navigator.of(context).push(
+                MaterialPageRoute(builder: (_) => const ExperienceScreen()),
+              ),
             ),
           ),
 
@@ -80,7 +95,7 @@ class PhoneAppGrid extends StatelessWidget {
               imageAsset: "assets/images/wallpaper.jpg",
               isApp: false,
               label: 'Download Resume',
-              onTap: () => _showPlaceholderDialog(context, 'Download Resume'),
+              onTap: () {},
             ),
           ),
 
@@ -134,22 +149,6 @@ class PhoneAppGrid extends StatelessWidget {
                 'https://www.linkedin.com/in/iamutsavjaiswal/',
               ),
             ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  void _showPlaceholderDialog(BuildContext context, String title) {
-    showDialog(
-      context: context,
-      builder: (context) => AlertDialog(
-        title: Text(title),
-        content: Text('This will open the $title section'),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.of(context).pop(),
-            child: const Text('Close'),
           ),
         ],
       ),

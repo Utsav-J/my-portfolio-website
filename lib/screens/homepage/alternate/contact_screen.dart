@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:glassmorphic_ui_kit/glassmorphic_ui_kit.dart';
 import 'package:portfolio/config/app_design.dart';
 import 'package:portfolio/utils/firebase_utils.dart';
+import 'package:portfolio/screens/homepage/alternate/alt_unlock_destination.dart';
 
 class ContactScreen extends StatefulWidget {
   const ContactScreen({super.key});
@@ -141,280 +143,309 @@ class _ContactScreenState extends State<ContactScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: 1.sw,
-      color: AppDesign.amoled,
-      child: SingleChildScrollView(
-        padding: EdgeInsets.symmetric(horizontal: 20.w),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+    return Material(
+      child: Container(
+        width: 1.sw,
+        color: AppDesign.amoled,
+        child: Stack(
           children: [
-            SizedBox(height: 32.h),
-            Center(
-              child: _selectedContactType == "anonymous"
-                  ? Image.asset(
-                      'assets/images/memoji-private-message.png',
-                      width: 160.w,
-                    )
-                  : Image.asset(
-                      'assets/images/memoji-message.png',
-                      width: 160.w,
-                    ),
-            ),
-            SizedBox(height: 16.h),
-            Center(
-              child: Text(
-                'Send a Message!',
-                style: AppDesign.title1.copyWith(
-                  color: Colors.white,
-                  fontSize: 24.sp,
-                  fontWeight: FontWeight.w700,
-                ),
-              ),
-            ),
-            SizedBox(height: 6.h),
-            Center(
-              child: Text(
-                "I'd love to hear from you. Send me a message and I'll get back to you soon.",
-                style: AppDesign.body.copyWith(
-                  fontSize: 12.sp,
-                  color: Colors.white.withValues(alpha: 0.8),
-                ),
-                textAlign: TextAlign.center,
-              ),
-            ),
-
-            SizedBox(height: 20.h),
-
-            Form(
-              key: _formKey,
+            SingleChildScrollView(
+              padding: EdgeInsets.symmetric(horizontal: 20.w),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    'How should I contact you back?',
-                    style: AppDesign.subhead.copyWith(
-                      color: Colors.white.withValues(alpha: 0.9),
-                      fontWeight: FontWeight.w500,
-                      fontSize: 14.sp,
-                    ),
+                  SizedBox(height: 32.h),
+                  Center(
+                    child: _selectedContactType == "anonymous"
+                        ? Image.asset(
+                            'assets/images/memoji-private-message.png',
+                            width: 160.w,
+                          )
+                        : Image.asset(
+                            'assets/images/memoji-message.png',
+                            width: 160.w,
+                          ),
                   ),
-                  SizedBox(height: 8.h),
-                  Row(
-                    children: [
-                      Container(
-                        width: 150.w,
-                        decoration: BoxDecoration(
-                          color: Colors.white.withValues(alpha: 0.1),
-                          borderRadius: BorderRadius.circular(
-                            AppDesign.mediumRadius,
-                          ),
-                          border: Border.all(
-                            color: AppDesign.glassmorphicBorder,
-                            width: 1.sp,
-                          ),
-                        ),
-                        child: DropdownButtonFormField<String>(
-                          value: _selectedContactType,
-                          decoration: InputDecoration(
-                            contentPadding: EdgeInsets.symmetric(
-                              horizontal: 12.w,
-                              vertical: 12.w,
-                            ),
-                            border: InputBorder.none,
-                          ),
-                          dropdownColor: AppDesign.darkSecondaryBackground,
-                          style: AppDesign.body.copyWith(
-                            color: Colors.white,
-                            fontSize: 14.sp,
-                          ),
-                          icon: Icon(
-                            Icons.keyboard_arrow_down,
-                            color: Colors.white.withValues(alpha: 0.8),
-                            size: 18.sp,
-                          ),
-                          items: _contactTypes
-                              .map(
-                                (ct) => DropdownMenuItem<String>(
-                                  value: ct['value'],
-                                  child: Text(ct['label']!),
-                                ),
-                              )
-                              .toList(),
-                          onChanged: (value) {
-                            setState(() {
-                              _selectedContactType = value!;
-                              if (value == 'anonymous')
-                                _contactController.clear();
-                            });
-                          },
-                        ),
-                      ),
-                      SizedBox(width: 12.w),
-                      Expanded(
-                        child: TextFormField(
-                          controller: _contactController,
-                          enabled: _selectedContactType != 'anonymous',
-                          style: AppDesign.body.copyWith(
-                            fontSize: 14.sp,
-                            color: _selectedContactType != 'anonymous'
-                                ? Colors.white
-                                : Colors.white.withValues(alpha: 0.5),
-                          ),
-                          decoration: InputDecoration(
-                            hintText: _selectedContactType == 'anonymous'
-                                ? 'No contact info needed'
-                                : _contactTypes.firstWhere(
-                                    (ct) => ct['value'] == _selectedContactType,
-                                  )['hint'],
-                            hintStyle: AppDesign.body.copyWith(
-                              fontSize: 12.sp,
-                              color: Colors.white.withValues(alpha: 0.5),
-                            ),
-                            filled: true,
-                            fillColor: _selectedContactType != 'anonymous'
-                                ? Colors.white.withValues(alpha: 0.1)
-                                : Colors.white.withValues(alpha: 0.05),
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(
-                                AppDesign.mediumRadius,
-                              ),
-                              borderSide: BorderSide(
-                                color: AppDesign.glassmorphicBorder,
-                                width: 1,
-                              ),
-                            ),
-                            enabledBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(
-                                AppDesign.mediumRadius,
-                              ),
-                              borderSide: BorderSide(
-                                color: AppDesign.glassmorphicBorder,
-                                width: 1,
-                              ),
-                            ),
-                            focusedBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(
-                                AppDesign.mediumRadius,
-                              ),
-                              borderSide: BorderSide(
-                                color: AppDesign.systemBlue,
-                                width: 2,
-                              ),
-                            ),
-                            contentPadding: EdgeInsets.all(16.w),
-                          ),
-                          validator: _validateContactInfo,
-                        ),
-                      ),
-                    ],
-                  ),
-
                   SizedBox(height: 16.h),
-
-                  Text(
-                    'Your message',
-                    style: AppDesign.subhead.copyWith(
-                      fontSize: 12.sp,
-                      color: Colors.white.withValues(alpha: 0.9),
-                      fontWeight: FontWeight.w500,
+                  Center(
+                    child: Text(
+                      'Send a Message!',
+                      style: AppDesign.title1.copyWith(
+                        color: Colors.white,
+                        fontSize: 24.sp,
+                        fontWeight: FontWeight.w700,
+                      ),
                     ),
                   ),
-                  SizedBox(height: 8.h),
-                  Container(
-                    height: 150.h,
-                    child: TextFormField(
-                      controller: _messageController,
-                      maxLines: null,
-                      expands: true,
-                      textAlignVertical: TextAlignVertical.top,
+                  SizedBox(height: 6.h),
+                  Center(
+                    child: Text(
+                      "I'd love to hear from you. Send me a message and I'll get back to you soon.",
                       style: AppDesign.body.copyWith(
-                        color: Colors.white,
-                        fontSize: 14.sp,
+                        fontSize: 12.sp,
+                        color: Colors.white.withValues(alpha: 0.8),
                       ),
-                      decoration: InputDecoration(
-                        hintText: 'Type your message here... (max 500 words)',
-                        hintStyle: AppDesign.body.copyWith(
-                          fontSize: 14.sp,
-                          color: Colors.white.withValues(alpha: 0.5),
-                        ),
-                        filled: true,
-                        fillColor: Colors.white.withValues(alpha: 0.1),
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(
-                            AppDesign.mediumRadius,
-                          ),
-                          borderSide: BorderSide(
-                            color: AppDesign.glassmorphicBorder,
-                            width: 1,
-                          ),
-                        ),
-                        enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(
-                            AppDesign.mediumRadius,
-                          ),
-                          borderSide: BorderSide(
-                            color: AppDesign.glassmorphicBorder,
-                            width: 1,
-                          ),
-                        ),
-                        focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(
-                            AppDesign.mediumRadius,
-                          ),
-                          borderSide: BorderSide(
-                            color: AppDesign.systemBlue,
-                            width: 2,
-                          ),
-                        ),
-                        contentPadding: EdgeInsets.all(16.w),
-                      ),
-                      validator: _validateMessage,
+                      textAlign: TextAlign.center,
                     ),
                   ),
 
                   SizedBox(height: 20.h),
 
-                  SizedBox(
-                    width: double.infinity,
-                    height: 48.h,
-                    child: ElevatedButton(
-                      onPressed: _isLoading ? null : _handleSend,
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: AppDesign.systemBlue,
-                        foregroundColor: Colors.white,
-                        elevation: 0,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(
-                            AppDesign.mediumRadius,
+                  Form(
+                    key: _formKey,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'How should I contact you back?',
+                          style: AppDesign.subhead.copyWith(
+                            color: Colors.white.withValues(alpha: 0.9),
+                            fontWeight: FontWeight.w500,
+                            fontSize: 14.sp,
                           ),
                         ),
-                      ),
-                      child: _isLoading
-                          ? SizedBox(
-                              width: 20.w,
-                              height: 20.w,
-                              child: CircularProgressIndicator(
-                                strokeWidth: 2,
-                                valueColor: AlwaysStoppedAnimation<Color>(
-                                  Colors.white,
+                        SizedBox(height: 8.h),
+                        Row(
+                          children: [
+                            Container(
+                              width: 150.w,
+                              decoration: BoxDecoration(
+                                color: Colors.white.withValues(alpha: 0.1),
+                                borderRadius: BorderRadius.circular(
+                                  AppDesign.mediumRadius,
+                                ),
+                                border: Border.all(
+                                  color: AppDesign.glassmorphicBorder,
+                                  width: 1.sp,
                                 ),
                               ),
-                            )
-                          : Text(
-                              'Send',
-                              style: AppDesign.body.copyWith(
-                                fontSize: 14.sp,
-                                color: Colors.white,
+                              child: DropdownButtonFormField<String>(
+                                value: _selectedContactType,
+                                decoration: InputDecoration(
+                                  contentPadding: EdgeInsets.symmetric(
+                                    horizontal: 12.w,
+                                    vertical: 12.w,
+                                  ),
+                                  border: InputBorder.none,
+                                ),
+                                dropdownColor:
+                                    AppDesign.darkSecondaryBackground,
+                                style: AppDesign.body.copyWith(
+                                  color: Colors.white,
+                                  fontSize: 14.sp,
+                                ),
+                                icon: Icon(
+                                  Icons.keyboard_arrow_down,
+                                  color: Colors.white.withValues(alpha: 0.8),
+                                  size: 18.sp,
+                                ),
+                                items: _contactTypes
+                                    .map(
+                                      (ct) => DropdownMenuItem<String>(
+                                        value: ct['value'],
+                                        child: Text(ct['label']!),
+                                      ),
+                                    )
+                                    .toList(),
+                                onChanged: (value) {
+                                  setState(() {
+                                    _selectedContactType = value!;
+                                    if (value == 'anonymous')
+                                      _contactController.clear();
+                                  });
+                                },
                               ),
                             ),
+                            SizedBox(width: 12.w),
+                            Expanded(
+                              child: TextFormField(
+                                controller: _contactController,
+                                enabled: _selectedContactType != 'anonymous',
+                                style: AppDesign.body.copyWith(
+                                  fontSize: 14.sp,
+                                  color: _selectedContactType != 'anonymous'
+                                      ? Colors.white
+                                      : Colors.white.withValues(alpha: 0.5),
+                                ),
+                                decoration: InputDecoration(
+                                  hintText: _selectedContactType == 'anonymous'
+                                      ? 'No contact info needed'
+                                      : _contactTypes.firstWhere(
+                                          (ct) =>
+                                              ct['value'] ==
+                                              _selectedContactType,
+                                        )['hint'],
+                                  hintStyle: AppDesign.body.copyWith(
+                                    fontSize: 12.sp,
+                                    color: Colors.white.withValues(alpha: 0.5),
+                                  ),
+                                  filled: true,
+                                  fillColor: _selectedContactType != 'anonymous'
+                                      ? Colors.white.withValues(alpha: 0.1)
+                                      : Colors.white.withValues(alpha: 0.05),
+                                  border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(
+                                      AppDesign.mediumRadius,
+                                    ),
+                                    borderSide: BorderSide(
+                                      color: AppDesign.glassmorphicBorder,
+                                      width: 1,
+                                    ),
+                                  ),
+                                  enabledBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(
+                                      AppDesign.mediumRadius,
+                                    ),
+                                    borderSide: BorderSide(
+                                      color: AppDesign.glassmorphicBorder,
+                                      width: 1,
+                                    ),
+                                  ),
+                                  focusedBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(
+                                      AppDesign.mediumRadius,
+                                    ),
+                                    borderSide: BorderSide(
+                                      color: AppDesign.systemBlue,
+                                      width: 2,
+                                    ),
+                                  ),
+                                  contentPadding: EdgeInsets.all(16.w),
+                                ),
+                                validator: _validateContactInfo,
+                              ),
+                            ),
+                          ],
+                        ),
+
+                        SizedBox(height: 16.h),
+
+                        Text(
+                          'Your message',
+                          style: AppDesign.subhead.copyWith(
+                            fontSize: 12.sp,
+                            color: Colors.white.withValues(alpha: 0.9),
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                        SizedBox(height: 8.h),
+                        Container(
+                          height: 150.h,
+                          child: TextFormField(
+                            controller: _messageController,
+                            maxLines: null,
+                            expands: true,
+                            textAlignVertical: TextAlignVertical.top,
+                            style: AppDesign.body.copyWith(
+                              color: Colors.white,
+                              fontSize: 14.sp,
+                            ),
+                            decoration: InputDecoration(
+                              hintText:
+                                  'Type your message here... (max 500 words)',
+                              hintStyle: AppDesign.body.copyWith(
+                                fontSize: 14.sp,
+                                color: Colors.white.withValues(alpha: 0.5),
+                              ),
+                              filled: true,
+                              fillColor: Colors.white.withValues(alpha: 0.1),
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(
+                                  AppDesign.mediumRadius,
+                                ),
+                                borderSide: BorderSide(
+                                  color: AppDesign.glassmorphicBorder,
+                                  width: 1,
+                                ),
+                              ),
+                              enabledBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(
+                                  AppDesign.mediumRadius,
+                                ),
+                                borderSide: BorderSide(
+                                  color: AppDesign.glassmorphicBorder,
+                                  width: 1,
+                                ),
+                              ),
+                              focusedBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(
+                                  AppDesign.mediumRadius,
+                                ),
+                                borderSide: BorderSide(
+                                  color: AppDesign.systemBlue,
+                                  width: 2,
+                                ),
+                              ),
+                              contentPadding: EdgeInsets.all(16.w),
+                            ),
+                            validator: _validateMessage,
+                          ),
+                        ),
+
+                        SizedBox(height: 20.h),
+
+                        SizedBox(
+                          width: double.infinity,
+                          height: 48.h,
+                          child: ElevatedButton(
+                            onPressed: _isLoading ? null : _handleSend,
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: AppDesign.systemBlue,
+                              foregroundColor: Colors.white,
+                              elevation: 0,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(
+                                  AppDesign.mediumRadius,
+                                ),
+                              ),
+                            ),
+                            child: _isLoading
+                                ? SizedBox(
+                                    width: 20.w,
+                                    height: 20.w,
+                                    child: CircularProgressIndicator(
+                                      strokeWidth: 2,
+                                      valueColor: AlwaysStoppedAnimation<Color>(
+                                        Colors.white,
+                                      ),
+                                    ),
+                                  )
+                                : Text(
+                                    'Send',
+                                    style: AppDesign.body.copyWith(
+                                      fontSize: 14.sp,
+                                      color: Colors.white,
+                                    ),
+                                  ),
+                          ),
+                        ),
+                      ],
                     ),
                   ),
+
+                  SizedBox(height: 28.h),
                 ],
               ),
             ),
-
-            SizedBox(height: 28.h),
+            // Exit button
+            Positioned(
+              top: 40.h,
+              right: 20.w,
+              child: GestureDetector(
+                onTap: () => Navigator.of(context).pushReplacement(
+                  MaterialPageRoute(
+                    builder: (_) => const AltUnlockDestination(),
+                  ),
+                ),
+                child: GlassContainer(
+                  width: 40.w,
+                  height: 40.w,
+                  borderRadius: BorderRadius.circular(20.r),
+                  border: Border.all(color: Colors.white30, width: 1.sp),
+                  child: Icon(Icons.close, color: Colors.white, size: 20.sp),
+                ),
+              ),
+            ),
           ],
         ),
       ),

@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:glassmorphic_ui_kit/glassmorphic_ui_kit.dart';
+import 'package:icons_plus/icons_plus.dart';
 import 'package:portfolio/config/app_design.dart';
 import 'package:portfolio/screens/homepage/alternate/phone_app_grid.dart';
 import 'package:portfolio/screens/homepage/alternate/snap_scroll_controller.dart';
@@ -78,10 +79,11 @@ class _AltUnlockDestinationState extends State<AltUnlockDestination> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Icon(
-                            CupertinoIcons.download_circle_fill,
-                            color: Colors.white,
+                          Brand(
+                            Brands.google_drive,
+                            // color: Colors.white,
                           ),
+                          SizedBox(width: 10.w),
                           Text(
                             "Download My CV",
                             style: AppDesign.largeTitle.copyWith(
