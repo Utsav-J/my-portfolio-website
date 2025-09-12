@@ -53,14 +53,21 @@ class _ProjectsScreenState extends State<ProjectsScreen> {
     return Material(
       child: Container(
         width: 1.sw,
-        color: AppDesign.amoled,
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage("assets/images/phonehomescreen.jpg"),
+            fit: BoxFit.cover,
+            colorFilter: ColorFilter.mode(
+              Colors.black.withValues(alpha: 0.5),
+              BlendMode.darken,
+            ),
+          ),
+        ),
         child: Stack(
           children: [
             Column(
               children: [
                 SizedBox(height: 60.h),
-                Icon(Icons.code, size: 80.sp, color: Colors.white),
-                SizedBox(height: 24.h),
                 Text(
                   'Projects',
                   style: AppDesign.largeTitle.copyWith(
@@ -73,7 +80,7 @@ class _ProjectsScreenState extends State<ProjectsScreen> {
 
                 Expanded(child: _buildProjectsContent()),
 
-                SizedBox(height: 40.h),
+                SizedBox(height: 36.h),
               ],
             ),
             // Exit button
@@ -158,129 +165,157 @@ class _ProjectsScreenState extends State<ProjectsScreen> {
       );
     }
 
+    final int total = _projects.length;
     return ListView.builder(
-      scrollDirection: Axis.horizontal,
-      padding: EdgeInsets.symmetric(horizontal: 16.w),
-      itemCount: _projects.length,
-      itemBuilder: (context, index) => _buildProjectCard(_projects[index]),
+      padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 8.h),
+      itemCount: total,
+      itemBuilder: (context, index) {
+        final project = _projects[index];
+        final bool isFirst = index == 0;
+        final bool isLast = index == total - 1;
+
+        return Padding(
+          padding: EdgeInsets.symmetric(vertical: 10.h),
+          child: IntrinsicHeight(
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                SizedBox(
+                  width: 36.w,
+                  child: Column(
+                    children: [
+                      // Top connector
+                      Expanded(
+                        child: Container(
+                          width: 2.w,
+                          color: isFirst ? Colors.transparent : Colors.white24,
+                        ),
+                      ),
+                      // Dot
+                      Container(
+                        width: 10.w,
+                        height: 10.w,
+                        decoration: BoxDecoration(
+                          color: Colors.white70,
+                          shape: BoxShape.circle,
+                        ),
+                      ),
+                      // Bottom connector
+                      Expanded(
+                        child: Container(
+                          width: 2.w,
+                          color: isLast ? Colors.transparent : Colors.white24,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                SizedBox(width: 8.w),
+                Expanded(child: _buildProjectCard(project)),
+              ],
+            ),
+          ),
+        );
+      },
     );
   }
 
   Widget _buildProjectCard(Project project) {
     return Container(
-      width: 380.w,
+      width: 0.75.sw,
       margin: EdgeInsets.only(right: 16.w),
       decoration: BoxDecoration(
-        color: Colors.white.withValues(alpha: 0.06),
+        color: Colors.white.withValues(alpha: 0.1),
         borderRadius: BorderRadius.circular(16.r),
         border: Border.all(
-          color: Colors.white.withValues(alpha: 0.12),
+          color: Colors.white.withValues(alpha: 0.2),
           width: 1,
         ),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withValues(alpha: 0.35),
-            blurRadius: 10.r,
-            offset: Offset(0, 6.h),
+            color: Colors.black.withValues(alpha: 0.3),
+            blurRadius: 8.r,
+            offset: Offset(0, 4.h),
           ),
         ],
       ),
-      child: ClipRRect(
-        borderRadius: BorderRadius.circular(16.r),
+      child: Padding(
+        padding: EdgeInsets.all(20.w),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Image header with title overlay (like the reference)
-            Container(
-              height: 180.h,
-              width: double.infinity,
-              decoration: BoxDecoration(color: Colors.grey[800]),
-              child: Stack(
-                fit: StackFit.expand,
-                children: [
-                  if (project.imageUrl.isNotEmpty)
-                    Image.network(
-                      project.imageUrl,
-                      fit: BoxFit.cover,
-                      errorBuilder: (_, __, ___) =>
-                          Container(color: Colors.grey[800]),
-                    ),
-                  // gradient fade bottom
-                  Positioned.fill(
-                    child: DecoratedBox(
-                      decoration: BoxDecoration(
-                        gradient: LinearGradient(
-                          begin: Alignment.topCenter,
-                          end: Alignment.bottomCenter,
-                          colors: [
-                            Colors.transparent,
-                            Colors.black.withValues(alpha: 0.6),
-                          ],
+            // Project icon and name
+            Row(
+              children: [
+                Container(
+                  width: 50.h,
+                  height: 50.h,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(8.r),
+                    color: Colors.white.withValues(alpha: 0.05),
+                  ),
+                  child: project.imageUrl.isNotEmpty
+                      ? ClipRRect(
+                          borderRadius: BorderRadius.circular(8.r),
+                          child: Image.network(
+                            project.imageUrl,
+                            fit: BoxFit.cover,
+                            errorBuilder: (_, __, ___) =>
+                                Icon(Icons.code, color: Colors.white60),
+                          ),
+                        )
+                      : Icon(Icons.code, color: Colors.white60),
+                ),
+                SizedBox(width: 12.w),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        project.name,
+                        style: AppDesign.title1.copyWith(
+                          color: Colors.white,
+                          fontWeight: FontWeight.w700,
+                          fontSize: 16.sp,
                         ),
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
                       ),
-                    ),
+                      SizedBox(height: 2.h),
+                    ],
                   ),
-                  Positioned(
-                    left: 16.w,
-                    bottom: 12.h,
-                    right: 16.w,
-                    child: Text(
-                      project.name,
-                      style: AppDesign.title2.copyWith(
-                        color: Colors.white,
-                        fontWeight: FontWeight.w700,
-                        fontSize: 18.sp,
-                      ),
-                      maxLines: 2,
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                  ),
-                ],
-              ),
+                ),
+              ],
             ),
 
-            // Details panel
-            Container(
-              width: double.infinity,
-              padding: EdgeInsets.all(16.w),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  if (project.description.isNotEmpty)
-                    ...project.description
-                        .take(3)
+            SizedBox(height: 16.h),
+
+            // Description
+            if (project.description.isNotEmpty) ...[
+              ConstrainedBox(
+                constraints: BoxConstraints(maxHeight: 200.h),
+                child: SingleChildScrollView(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: project.description
                         .map(
-                          (line) => Padding(
-                            padding: EdgeInsets.only(bottom: 10.h),
-                            child: Row(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Padding(
-                                  padding: EdgeInsets.only(top: 3.h),
-                                  child: Icon(
-                                    Icons.check_circle_outline,
-                                    color: Colors.green[600],
-                                    size: 16.sp,
-                                  ),
-                                ),
-                                SizedBox(width: 8.w),
-                                Expanded(
-                                  child: Text(
-                                    line,
-                                    style: AppDesign.body.copyWith(
-                                      color: Colors.white,
-                                      fontSize: 13.sp,
-                                      height: 1.4,
-                                    ),
-                                  ),
-                                ),
-                              ],
+                          (String item) => Padding(
+                            padding: EdgeInsets.only(bottom: 8.h),
+                            child: Text(
+                              '• $item',
+                              style: AppDesign.body.copyWith(
+                                color: Colors.white70,
+                                fontSize: 13.sp,
+                                height: 1.4,
+                              ),
                             ),
                           ),
-                        ),
-                ],
+                        )
+                        .toList(),
+                  ),
+                ),
               ),
-            ),
+            ],
           ],
         ),
       ),

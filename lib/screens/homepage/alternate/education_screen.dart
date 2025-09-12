@@ -53,14 +53,21 @@ class _EducationScreenState extends State<EducationScreen> {
     return Material(
       child: Container(
         width: 1.sw,
-        color: AppDesign.amoled,
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage("assets/images/phonehomescreen.jpg"),
+            fit: BoxFit.cover,
+            colorFilter: ColorFilter.mode(
+              Colors.black.withValues(alpha: 0.5),
+              BlendMode.darken,
+            ),
+          ),
+        ),
         child: Stack(
           children: [
             Column(
               children: [
                 SizedBox(height: 60.h),
-                Icon(Icons.school, size: 80.sp, color: Colors.white),
-                SizedBox(height: 24.h),
                 Text(
                   'Education',
                   style: AppDesign.largeTitle.copyWith(
@@ -71,10 +78,9 @@ class _EducationScreenState extends State<EducationScreen> {
                 ),
                 SizedBox(height: 16.h),
 
-                // Horizontal scrolling education carousel
                 Expanded(child: _buildEducationContent()),
 
-                SizedBox(height: 40.h),
+                SizedBox(height: 36.h),
               ],
             ),
             // Exit button
@@ -149,77 +155,106 @@ class _EducationScreenState extends State<EducationScreen> {
       );
     }
 
-    if (_educationList.isEmpty) {
-      return Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Icon(Icons.school_outlined, color: Colors.grey[400], size: 32.sp),
-            SizedBox(height: 8.h),
-            Text(
-              'No education data found',
-              style: AppDesign.title1.copyWith(
-                color: Colors.white,
-                fontSize: 16.sp,
-              ),
-            ),
-          ],
-        ),
-      );
-    }
-
+    final int total = _educationList.length;
     return ListView.builder(
-      scrollDirection: Axis.horizontal,
-      padding: EdgeInsets.symmetric(horizontal: 16.w),
-      itemCount: _educationList.length,
+      padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 8.h),
+      itemCount: total,
       itemBuilder: (context, index) {
-        return _buildEducationCard(_educationList[index]);
+        final education = _educationList[index];
+        final bool isFirst = index == 0;
+        final bool isLast = index == total - 1;
+
+        return Padding(
+          padding: EdgeInsets.symmetric(vertical: 10.h),
+          child: IntrinsicHeight(
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                SizedBox(
+                  width: 36.w,
+                  child: Column(
+                    children: [
+                      // Top connector
+                      Expanded(
+                        child: Container(
+                          width: 2.w,
+                          color: isFirst ? Colors.transparent : Colors.white24,
+                        ),
+                      ),
+                      // Dot
+                      Container(
+                        width: 10.w,
+                        height: 10.w,
+                        decoration: BoxDecoration(
+                          color: Colors.white70,
+                          shape: BoxShape.circle,
+                        ),
+                      ),
+                      // Bottom connector
+                      Expanded(
+                        child: Container(
+                          width: 2.w,
+                          color: isLast ? Colors.transparent : Colors.white24,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                SizedBox(width: 8.w),
+                Expanded(child: _buildEducationCard(education)),
+              ],
+            ),
+          ),
+        );
       },
     );
   }
 
   Widget _buildEducationCard(Education education) {
     return Container(
-      width: 380.w,
+      width: 0.75.sw,
       margin: EdgeInsets.only(right: 16.w),
       decoration: BoxDecoration(
-        color: Colors.white.withValues(alpha: 0.06),
+        color: Colors.white.withValues(alpha: 0.1),
         borderRadius: BorderRadius.circular(16.r),
         border: Border.all(
-          color: Colors.white.withValues(alpha: 0.12),
+          color: Colors.white.withValues(alpha: 0.2),
           width: 1,
         ),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withValues(alpha: 0.35),
-            blurRadius: 10.r,
-            offset: Offset(0, 6.h),
+            color: Colors.black.withValues(alpha: 0.3),
+            blurRadius: 8.r,
+            offset: Offset(0, 4.h),
           ),
         ],
       ),
       child: Padding(
-        padding: EdgeInsets.all(16.w),
+        padding: EdgeInsets.all(20.w),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            // Institution icon and name
             Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                ClipRRect(
-                  borderRadius: BorderRadius.circular(10.r),
-                  child: Container(
-                    width: 64.w,
-                    height: 64.w,
-                    color: Colors.grey[800],
-                    child: education.image.isNotEmpty
-                        ? Image.network(
+                Container(
+                  width: 50.h,
+                  height: 50.h,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(8.r),
+                    color: Colors.white.withValues(alpha: 0.05),
+                  ),
+                  child: education.image.isNotEmpty
+                      ? ClipRRect(
+                          borderRadius: BorderRadius.circular(8.r),
+                          child: Image.network(
                             education.image,
                             fit: BoxFit.cover,
                             errorBuilder: (_, __, ___) =>
                                 Icon(Icons.school, color: Colors.white60),
-                          )
-                        : Icon(Icons.school, color: Colors.white60),
-                  ),
+                          ),
+                        )
+                      : Icon(Icons.school, color: Colors.white60),
                 ),
                 SizedBox(width: 12.w),
                 Expanded(
@@ -236,42 +271,16 @@ class _EducationScreenState extends State<EducationScreen> {
                         maxLines: 2,
                         overflow: TextOverflow.ellipsis,
                       ),
-                      SizedBox(height: 6.h),
-                      Row(
-                        children: [
-                          Icon(
-                            Icons.location_on_outlined,
-                            color: Colors.white60,
-                            size: 14.sp,
-                          ),
-                          SizedBox(width: 4.w),
-                          Expanded(
-                            child: Text(
-                              education.location,
-                              style: AppDesign.body.copyWith(
-                                color: Colors.white60,
-                                fontSize: 12.sp,
-                              ),
-                              maxLines: 1,
-                              overflow: TextOverflow.ellipsis,
-                            ),
-                          ),
-                          SizedBox(width: 8.w),
-                          Icon(
-                            Icons.star_border_rounded,
-                            color: Colors.white70,
-                            size: 14.sp,
-                          ),
-                          SizedBox(width: 4.w),
-                          Text(
-                            education.grades,
-                            style: AppDesign.body.copyWith(
-                              color: Colors.white70,
-                              fontSize: 12.sp,
-                              fontWeight: FontWeight.w600,
-                            ),
-                          ),
-                        ],
+                      SizedBox(height: 2.h),
+                      Text(
+                        education.course,
+                        style: AppDesign.body.copyWith(
+                          color: Colors.blue[300],
+                          fontWeight: FontWeight.w600,
+                          fontSize: 14.sp,
+                        ),
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
                       ),
                     ],
                   ),
@@ -279,76 +288,74 @@ class _EducationScreenState extends State<EducationScreen> {
               ],
             ),
 
-            SizedBox(height: 12.h),
-            Text(
-              education.course,
-              style: AppDesign.body.copyWith(
-                color: Colors.white,
-                fontSize: 14.sp,
-                fontWeight: FontWeight.w600,
-              ),
-              maxLines: 2,
-              overflow: TextOverflow.ellipsis,
-            ),
+            SizedBox(height: 16.h),
 
-            SizedBox(height: 14.h),
-            Divider(color: Colors.white.withValues(alpha: 0.12), height: 1.h),
-            SizedBox(height: 14.h),
-
-            if (education.description.isNotEmpty) ...[
-              Container(
-                width: double.infinity,
-                decoration: BoxDecoration(
-                  color: Colors.white.withValues(alpha: 0.06),
-                  borderRadius: BorderRadius.circular(12.r),
-                  border: Border.all(
-                    color: Colors.white.withValues(alpha: 0.1),
-                    width: 1,
-                  ),
-                ),
-                padding: EdgeInsets.all(12.w),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
                   children: [
-                    Text(
-                      'Highlights',
-                      style: AppDesign.headline.copyWith(
-                        color: Colors.white,
-                        fontWeight: FontWeight.w700,
-                        fontSize: 14.sp,
-                      ),
+                    Icon(
+                      Icons.location_on_outlined,
+                      color: Colors.white60,
+                      size: 14.sp,
                     ),
-                    SizedBox(height: 8.h),
-                    ...education.description.map(
-                      (item) => Padding(
-                        padding: EdgeInsets.only(bottom: 8.h),
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Padding(
-                              padding: EdgeInsets.only(top: 2.h),
-                              child: Icon(
-                                Icons.check_circle_outline,
-                                color: Colors.green[300],
-                                size: 14.sp,
-                              ),
-                            ),
-                            SizedBox(width: 8.w),
-                            Expanded(
-                              child: Text(
-                                item,
-                                style: AppDesign.body.copyWith(
-                                  color: Colors.white70,
-                                  fontSize: 12.sp,
-                                  height: 1.4,
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
+                    SizedBox(width: 6.w),
+                    Text(
+                      education.location,
+                      style: AppDesign.body.copyWith(
+                        color: Colors.white60,
+                        fontSize: 12.sp,
+                        fontWeight: FontWeight.w500,
                       ),
                     ),
                   ],
+                ),
+                SizedBox(height: 8.h),
+                Container(
+                  padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 6.h),
+                  decoration: BoxDecoration(
+                    color: Colors.black12,
+                    borderRadius: BorderRadius.circular(12.r),
+                    border: Border.all(color: Colors.white24, width: 1),
+                  ),
+                  child: Text(
+                    education.grades,
+                    style: AppDesign.body.copyWith(
+                      color: Colors.white,
+                      fontWeight: FontWeight.w600,
+                      fontSize: 12.sp,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+
+            SizedBox(height: 16.h),
+
+            // Description
+            if (education.description.isNotEmpty) ...[
+              ConstrainedBox(
+                constraints: BoxConstraints(maxHeight: 200.h),
+                child: SingleChildScrollView(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: education.description
+                        .map(
+                          (String item) => Padding(
+                            padding: EdgeInsets.only(bottom: 8.h),
+                            child: Text(
+                              '• $item',
+                              style: AppDesign.body.copyWith(
+                                color: Colors.white70,
+                                fontSize: 13.sp,
+                                height: 1.4,
+                              ),
+                            ),
+                          ),
+                        )
+                        .toList(),
+                  ),
                 ),
               ),
             ],

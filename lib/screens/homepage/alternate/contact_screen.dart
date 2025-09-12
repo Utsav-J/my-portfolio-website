@@ -146,7 +146,16 @@ class _ContactScreenState extends State<ContactScreen> {
     return Material(
       child: Container(
         width: 1.sw,
-        color: AppDesign.amoled,
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage("assets/images/phonehomescreen.jpg"),
+            fit: BoxFit.cover,
+            colorFilter: ColorFilter.mode(
+              Colors.black.withValues(alpha: 0.5),
+              BlendMode.darken,
+            ),
+          ),
+        ),
         child: Stack(
           children: [
             SingleChildScrollView(
@@ -390,7 +399,7 @@ class _ContactScreenState extends State<ContactScreen> {
                           child: ElevatedButton(
                             onPressed: _isLoading ? null : _handleSend,
                             style: ElevatedButton.styleFrom(
-                              backgroundColor: AppDesign.systemBlue,
+                              backgroundColor: Colors.white24,
                               foregroundColor: Colors.white,
                               elevation: 0,
                               shape: RoundedRectangleBorder(
