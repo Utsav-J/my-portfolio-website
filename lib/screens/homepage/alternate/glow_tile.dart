@@ -76,6 +76,20 @@ class GlowTile extends StatelessWidget {
                   ),
                 ],
               ),
+              child: Align(
+                alignment: Alignment.bottomCenter,
+                child: Padding(
+                  padding: EdgeInsets.only(bottom: 5.h),
+                  child: Text(
+                    label ?? "Test",
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 12.sp,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                ),
+              ),
             ),
     );
   }

@@ -80,13 +80,7 @@ flutter:
     - assets/lottie/scrolldown.json
     - assets/snake_head.png
     - assets/game_over.png
-    - assets/images/wallpaper.jpg
-    - assets/images/phoneWallpaper.jpg
-    - assets/images/geminiUtsav.png
-    - assets/images/memoji-removebg.png
-    - assets/images/memoji-private-message.png
-    - assets/images/memoji-message.png
-    - assets/images/utsav_github.png
+    - assets/images/
     - assets/icons/
 
   # An image asset can refer to one or more resolution-specific "variants", see

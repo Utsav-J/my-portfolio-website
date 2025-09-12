@@ -125,18 +125,6 @@ class PhoneAppGrid extends StatelessWidget {
             ),
           ),
 
-          // // Big square on right (2x2)
-          // StaggeredGridTile.count(
-          //   crossAxisCellCount: 2,
-          //   mainAxisCellCount: 2,
-          //   child: GlowTile(
-          //     isApp: false,
-          //     imageAsset: "assets/images/geminiUtsav.png",
-          //     radius: 24.r,
-          //     label: 'Snake Game',
-          //     onTap: () => _showPlaceholderDialog(context, 'Snake Game'),
-          //   ),
-          // ),
         ],
       ),
     );
