@@ -14,6 +14,24 @@ class PhoneAppGrid extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Route slideRoute(Widget page) {
+      return PageRouteBuilder(
+        pageBuilder: (context, animation, secondaryAnimation) => page,
+        transitionDuration: const Duration(milliseconds: 350),
+        reverseTransitionDuration: const Duration(milliseconds: 300),
+        transitionsBuilder: (context, animation, secondaryAnimation, child) {
+          final tween = Tween<Offset>(
+            begin: const Offset(1.0, 0.0),
+            end: Offset.zero,
+          ).chain(CurveTween(curve: Curves.easeInOut));
+          return SlideTransition(
+            position: animation.drive(tween),
+            child: child,
+          );
+        },
+      );
+    }
+
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 16.h),
       color: Colors.transparent,
@@ -32,7 +50,7 @@ class PhoneAppGrid extends StatelessWidget {
               label: 'Say Hi!',
               onTap: () => Navigator.of(
                 context,
-              ).push(MaterialPageRoute(builder: (_) => const ContactScreen())),
+              ).push(slideRoute(const ContactScreen())),
             ),
           ),
           // four small squares on the right (top two)
@@ -45,7 +63,7 @@ class PhoneAppGrid extends StatelessWidget {
               imageAsset: "assets/icons/phone-profile.png",
               onTap: () => Navigator.of(
                 context,
-              ).push(MaterialPageRoute(builder: (_) => const WelcomeScreen())),
+              ).push(slideRoute(const WelcomeScreen())),
             ),
           ),
           StaggeredGridTile.count(
@@ -55,9 +73,9 @@ class PhoneAppGrid extends StatelessWidget {
               isApp: true,
               imageAsset: "assets/icons/phone-education.png",
               label: 'Education',
-              onTap: () => Navigator.of(context).push(
-                MaterialPageRoute(builder: (_) => const EducationScreen()),
-              ),
+              onTap: () => Navigator.of(
+                context,
+              ).push(slideRoute(const EducationScreen())),
             ),
           ),
           // next two small squares under them
@@ -70,7 +88,7 @@ class PhoneAppGrid extends StatelessWidget {
               imageAsset: "assets/icons/phone-projects.png",
               onTap: () => Navigator.of(
                 context,
-              ).push(MaterialPageRoute(builder: (_) => const ProjectsScreen())),
+              ).push(slideRoute(const ProjectsScreen())),
             ),
           ),
           StaggeredGridTile.count(
@@ -80,9 +98,9 @@ class PhoneAppGrid extends StatelessWidget {
               isApp: true,
               imageAsset: "assets/icons/phone-workexp.png",
               label: 'Experience',
-              onTap: () => Navigator.of(context).push(
-                MaterialPageRoute(builder: (_) => const ExperienceScreen()),
-              ),
+              onTap: () => Navigator.of(
+                context,
+              ).push(slideRoute(const ExperienceScreen())),
             ),
           ),
 

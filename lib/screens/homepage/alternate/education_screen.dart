@@ -4,7 +4,6 @@ import 'package:glassmorphic_ui_kit/glassmorphic_ui_kit.dart';
 import 'package:portfolio/config/app_design.dart';
 import 'package:portfolio/models/models.dart';
 import 'package:portfolio/utils/firebase_utils.dart';
-import 'package:portfolio/screens/homepage/alternate/alt_unlock_destination.dart';
 
 class EducationScreen extends StatefulWidget {
   const EducationScreen({super.key});
@@ -71,10 +70,10 @@ class _EducationScreenState extends State<EducationScreen> {
                   ),
                 ),
                 SizedBox(height: 16.h),
-      
+
                 // Horizontal scrolling education carousel
                 Expanded(child: _buildEducationContent()),
-      
+
                 SizedBox(height: 40.h),
               ],
             ),
@@ -83,9 +82,7 @@ class _EducationScreenState extends State<EducationScreen> {
               top: 40.h,
               right: 20.w,
               child: GestureDetector(
-                onTap: () => Navigator.of(context).pushReplacement(
-                  MaterialPageRoute(builder: (_) => const AltUnlockDestination()),
-                ),
+                onTap: () => Navigator.of(context).pop(),
                 child: GlassContainer(
                   width: 40.w,
                   height: 40.w,

@@ -3,7 +3,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:glassmorphic_ui_kit/glassmorphic_ui_kit.dart';
 import 'package:lottie/lottie.dart';
 import 'package:portfolio/config/app_design.dart';
-import 'package:portfolio/screens/homepage/alternate/alt_unlock_destination.dart';
 
 class WelcomeScreen extends StatelessWidget {
   const WelcomeScreen({super.key});
@@ -98,11 +97,7 @@ class WelcomeScreen extends StatelessWidget {
               top: 40.h,
               right: 20.w,
               child: GestureDetector(
-                onTap: () => Navigator.of(context).pushReplacement(
-                  MaterialPageRoute(
-                    builder: (_) => const AltUnlockDestination(),
-                  ),
-                ),
+                onTap: () => Navigator.of(context).pop(),
                 child: GlassContainer(
                   width: 40.w,
                   height: 40.w,

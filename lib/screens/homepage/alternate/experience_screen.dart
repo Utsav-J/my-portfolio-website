@@ -5,7 +5,6 @@ import 'package:icons_plus/icons_plus.dart';
 import 'package:portfolio/config/app_design.dart';
 import 'package:portfolio/models/models.dart';
 import 'package:portfolio/utils/firebase_utils.dart';
-import 'package:portfolio/screens/homepage/alternate/alt_unlock_destination.dart';
 
 class ExperienceScreen extends StatefulWidget {
   const ExperienceScreen({super.key});
@@ -70,10 +69,10 @@ class _ExperienceScreenState extends State<ExperienceScreen> {
                   ),
                 ),
                 SizedBox(height: 16.h),
-      
+
                 // Horizontal scrolling experience carousel
                 Expanded(child: _buildExperienceContent()),
-      
+
                 SizedBox(height: 40.h),
               ],
             ),
@@ -82,9 +81,7 @@ class _ExperienceScreenState extends State<ExperienceScreen> {
               top: 40.h,
               right: 20.w,
               child: GestureDetector(
-                onTap: () => Navigator.of(context).pushReplacement(
-                  MaterialPageRoute(builder: (_) => const AltUnlockDestination()),
-                ),
+                onTap: () => Navigator.of(context).pop(),
                 child: GlassContainer(
                   width: 40.w,
                   height: 40.w,

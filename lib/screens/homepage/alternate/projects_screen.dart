@@ -4,7 +4,6 @@ import 'package:glassmorphic_ui_kit/glassmorphic_ui_kit.dart';
 import 'package:portfolio/config/app_design.dart';
 import 'package:portfolio/models/models.dart';
 import 'package:portfolio/utils/firebase_utils.dart';
-import 'package:portfolio/screens/homepage/alternate/alt_unlock_destination.dart';
 
 class ProjectsScreen extends StatefulWidget {
   const ProjectsScreen({super.key});
@@ -71,9 +70,9 @@ class _ProjectsScreenState extends State<ProjectsScreen> {
                   ),
                 ),
                 SizedBox(height: 16.h),
-      
+
                 Expanded(child: _buildProjectsContent()),
-      
+
                 SizedBox(height: 40.h),
               ],
             ),
@@ -82,9 +81,7 @@ class _ProjectsScreenState extends State<ProjectsScreen> {
               top: 40.h,
               right: 20.w,
               child: GestureDetector(
-                onTap: () => Navigator.of(context).pushReplacement(
-                  MaterialPageRoute(builder: (_) => const AltUnlockDestination()),
-                ),
+                onTap: () => Navigator.of(context).pop(),
                 child: GlassContainer(
                   width: 40.w,
                   height: 40.w,

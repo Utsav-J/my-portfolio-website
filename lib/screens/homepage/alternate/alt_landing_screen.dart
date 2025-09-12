@@ -92,6 +92,24 @@ class _SlideToUnlockState extends State<SlideToUnlock> {
 
   @override
   Widget build(BuildContext context) {
+    Route slideRoute(Widget page) {
+      return PageRouteBuilder(
+        pageBuilder: (context, animation, secondaryAnimation) => page,
+        transitionDuration: const Duration(milliseconds: 350),
+        reverseTransitionDuration: const Duration(milliseconds: 300),
+        transitionsBuilder: (context, animation, secondaryAnimation, child) {
+          final tween = Tween<Offset>(
+            begin: const Offset(1.0, 0.0),
+            end: Offset.zero,
+          ).chain(CurveTween(curve: Curves.easeInOut));
+          return SlideTransition(
+            position: animation.drive(tween),
+            child: child,
+          );
+        },
+      );
+    }
+
     final double knobSize = 32.r;
     final double maxDrag =
         (0.85.sw - 32.w - knobSize); // Account for padding and knob size
@@ -145,11 +163,9 @@ class _SlideToUnlockState extends State<SlideToUnlock> {
                     });
                     await Future.delayed(const Duration(milliseconds: 120));
                     if (!mounted) return;
-                    Navigator.of(context).pushReplacement(
-                      MaterialPageRoute(
-                        builder: (_) => const AltUnlockDestination(),
-                      ),
-                    );
+                    Navigator.of(
+                      context,
+                    ).pushReplacement(slideRoute(const AltUnlockDestination()));
                   } else {
                     setState(() {
                       _dragX = 0.0;

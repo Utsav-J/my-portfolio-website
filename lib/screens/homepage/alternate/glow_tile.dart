@@ -35,13 +35,6 @@ class GlowTile extends StatelessWidget {
                     ),
                     color: Colors.black38,
                     borderRadius: BorderRadius.circular(radius ?? 16.r),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.white.withValues(alpha: 0.12),
-                        blurRadius: 24.r,
-                        spreadRadius: 2.r,
-                      ),
-                    ],
                   ),
                 ),
                 SizedBox(height: 2.h),
@@ -68,13 +61,6 @@ class GlowTile extends StatelessWidget {
                 ),
                 color: Colors.black38,
                 borderRadius: BorderRadius.circular(radius ?? 16.r),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.white.withValues(alpha: 0.12),
-                    blurRadius: 24.r,
-                    spreadRadius: 2.r,
-                  ),
-                ],
               ),
               child: Align(
                 alignment: Alignment.bottomCenter,
