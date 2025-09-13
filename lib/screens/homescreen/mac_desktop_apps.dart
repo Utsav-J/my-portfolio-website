@@ -8,6 +8,7 @@ import 'package:portfolio/models/models.dart';
 import 'package:portfolio/screens/homescreen_widgets/github_profile_card.dart';
 import 'package:portfolio/screens/homescreen_widgets/location_weather/location_weather_widget.dart';
 import 'package:portfolio/screens/homescreen_widgets/notes/notes_widget.dart';
+import 'package:portfolio/screens/homescreen_widgets/tips_widget.dart';
 import 'package:portfolio/screens/homescreen_widgets/utsav_memoji.dart';
 import 'package:portfolio/screens/homescreen_widgets/spotify/spotify_music_frame.dart';
 import 'package:portfolio/screens/homescreen_widgets/calendar_widget.dart';
@@ -463,18 +464,19 @@ class _MacDesktopAppsState extends State<MacDesktopApps> {
                     mainAxisCellCount: 1,
                     child: const SpotifyMusicFrame(),
                   ),
+                  StaggeredGridTile.count(
+                    crossAxisCellCount: 1,
+                    mainAxisCellCount: 1,
+                    child: buildIcon(),
+                    // child: MacAppIcon(app: portfolioApps[appIndex++]),
+                  ),
+                  StaggeredGridTile.count(
+                    crossAxisCellCount: 2,
+                    mainAxisCellCount: 1,
+                    child: TipsWidget(),
+                    // child: MacAppIcon(app: portfolioApps[appIndex++]),
+                  ),
                 ];
-
-                // Ensure any remaining apps are added as 1x1 tiles
-                while (appIndex < portfolioApps.length) {
-                  children.add(
-                    StaggeredGridTile.count(
-                      crossAxisCellCount: 1,
-                      mainAxisCellCount: 1,
-                      child: MacAppIcon(app: portfolioApps[appIndex++]),
-                    ),
-                  );
-                }
 
                 return StaggeredGrid.count(
                   crossAxisCount: 7,

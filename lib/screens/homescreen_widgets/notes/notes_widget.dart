@@ -75,7 +75,7 @@ class _NotesState extends State<Notes> {
   @override
   Widget build(BuildContext context) {
     return GlassContainer(
-      borderRadius: BorderRadius.circular(12),
+      borderRadius: BorderRadius.circular(12.r),
       gradient: LinearGradient(
         colors: [Colors.black87, Colors.black],
         begin: Alignment.topCenter,

@@ -208,44 +208,23 @@ class _AppScreenState extends State<AppScreen> {
                         // Left Side - Window Controls
                         Padding(
                           padding: EdgeInsets.only(left: 12.w),
-                          child: Row(
-                            children: [
-                              // Red Close Button
-                              GestureDetector(
-                                onTap: widget.onClose ?? () {},
-                                child: Container(
-                                  width: 14.w,
-                                  height: 14.w,
-                                  decoration: const BoxDecoration(
-                                    color: Color(0xFFFF5F56),
-                                    shape: BoxShape.circle,
-                                  ),
-                                ),
+                          child: GestureDetector(
+                            onTap: widget.onClose ?? () {},
+                            child: CircleAvatar(
+                              radius: 14.r,
+                              backgroundColor: Color.fromARGB(
+                                255,
+                                104,
+                                104,
+                                104,
                               ),
-                              SizedBox(width: 8.w),
-                              // Yellow Minimize Button
-                              Container(
-                                width: 14.w,
-                                height: 14.w,
-                                decoration: const BoxDecoration(
-                                  color: Color(0xFFFFBD2E),
-                                  shape: BoxShape.circle,
-                                ),
+
+                              child: Icon(
+                                CupertinoIcons.multiply,
+                                color: Colors.white,
+                                size: 16.sp,
                               ),
-                              SizedBox(width: 8.w),
-                              // Green Maximize Button
-                              GestureDetector(
-                                onTap: widget.onClose ?? () {},
-                                child: Container(
-                                  width: 14.w,
-                                  height: 14.w,
-                                  decoration: const BoxDecoration(
-                                    color: Color(0xFF27C93F),
-                                    shape: BoxShape.circle,
-                                  ),
-                                ),
-                              ),
-                            ],
+                            ),
                           ),
                         ),
 

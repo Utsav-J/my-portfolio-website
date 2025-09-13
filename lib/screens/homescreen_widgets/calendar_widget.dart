@@ -20,7 +20,7 @@ class CalendarWidget extends StatelessWidget {
     final daysInMonth = lastDayOfMonth.day;
 
     return GlassContainer(
-      borderRadius: BorderRadius.circular(12),
+      borderRadius: BorderRadius.circular(12.r),
       gradient: LinearGradient(
         colors: [Colors.black87, Colors.black],
         begin: Alignment.topCenter,
