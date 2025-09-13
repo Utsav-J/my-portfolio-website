@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:portfolio/screens/homepage/alternate/glow_tile.dart';
+import 'package:portfolio/screens/homepage/alternate/staggered_glow_tile.dart';
 import 'package:portfolio/screens/homepage/alternate/welcome_screen.dart';
 import 'package:portfolio/screens/homepage/alternate/education_screen.dart';
 import 'package:portfolio/screens/homepage/alternate/projects_screen.dart';
@@ -48,9 +49,8 @@ class PhoneAppGrid extends StatelessWidget {
               isApp: false,
               radius: 24.r,
               label: 'Say Hi!',
-              onTap: () => Navigator.of(
-                context,
-              ).push(slideRoute(const ContactScreen())),
+              onTap: () =>
+                  Navigator.of(context).push(slideRoute(const ContactScreen())),
             ),
           ),
           // four small squares on the right (top two)
@@ -61,9 +61,8 @@ class PhoneAppGrid extends StatelessWidget {
               isApp: true,
               label: 'Profile',
               imageAsset: "assets/icons/phone-profile.png",
-              onTap: () => Navigator.of(
-                context,
-              ).push(slideRoute(const WelcomeScreen())),
+              onTap: () =>
+                  Navigator.of(context).push(slideRoute(const WelcomeScreen())),
             ),
           ),
           StaggeredGridTile.count(
@@ -108,12 +107,9 @@ class PhoneAppGrid extends StatelessWidget {
           StaggeredGridTile.count(
             crossAxisCellCount: 4,
             mainAxisCellCount: 2,
-            child: GlowTile(
-              radius: 28.r,
-              imageAsset: "assets/images/wallpaper.jpg",
-              isApp: false,
-              label: 'Download Resume',
-              onTap: () {},
+            child: StaggeredGlowTile(
+              collectionName: "images",
+              documentId: "coolPhoto",
             ),
           ),
 

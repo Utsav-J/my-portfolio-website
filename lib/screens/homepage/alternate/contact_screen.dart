@@ -92,15 +92,36 @@ class _ContactScreenState extends State<ContactScreen> {
   }
 
   Future<void> _handleSend() async {
+    print('Send button pressed!'); // Debug print
     final contactError = _validateContactInfo(_contactController.text);
     final messageError = _validateMessage(_messageController.text);
     if (contactError != null || messageError != null) {
       final errorText = contactError ?? messageError!;
+      print('Validation error: $errorText'); // Debug print
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: Text(errorText),
+          content: Row(
+            children: [
+              Icon(Icons.warning_outlined, color: Colors.white, size: 20.sp),
+              SizedBox(width: 12.w),
+              Expanded(
+                child: Text(
+                  errorText,
+                  style: AppDesign.body.copyWith(
+                    color: Colors.white,
+                    fontWeight: FontWeight.w600,
+                    fontSize: 14.sp,
+                  ),
+                ),
+              ),
+            ],
+          ),
           backgroundColor: AppDesign.systemRed,
           behavior: SnackBarBehavior.floating,
+          duration: const Duration(seconds: 3),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(12.r),
+          ),
         ),
       );
       return;
@@ -116,23 +137,62 @@ class _ContactScreenState extends State<ContactScreen> {
       });
 
       if (!mounted) return;
+      print('Message sent successfully!'); // Debug print
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: Text(
-            'Message sent successfully!',
-            style: AppDesign.body.copyWith(color: Colors.white),
+          content: Row(
+            children: [
+              Icon(Icons.check_circle, color: Colors.white, size: 20.sp),
+              SizedBox(width: 12.w),
+              Expanded(
+                child: Text(
+                  'Message sent successfully! I\'ll get back to you soon.',
+                  style: AppDesign.body.copyWith(
+                    color: Colors.white,
+                    fontWeight: FontWeight.w600,
+                    fontSize: 14.sp,
+                  ),
+                ),
+              ),
+            ],
           ),
           backgroundColor: AppDesign.systemGreen,
+          behavior: SnackBarBehavior.floating,
+          duration: const Duration(seconds: 4),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(12.r),
+          ),
         ),
       );
       _messageController.clear();
       _contactController.clear();
     } catch (e) {
       if (!mounted) return;
+      print('Error sending message: $e'); // Debug print
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: Text('Failed to send message'),
+          content: Row(
+            children: [
+              Icon(Icons.error_outline, color: Colors.white, size: 20.sp),
+              SizedBox(width: 12.w),
+              Expanded(
+                child: Text(
+                  'Failed to send message. Please try again.',
+                  style: AppDesign.body.copyWith(
+                    color: Colors.white,
+                    fontWeight: FontWeight.w600,
+                    fontSize: 14.sp,
+                  ),
+                ),
+              ),
+            ],
+          ),
           backgroundColor: AppDesign.systemRed,
+          behavior: SnackBarBehavior.floating,
+          duration: const Duration(seconds: 4),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(12.r),
+          ),
         ),
       );
     } finally {
@@ -142,9 +202,11 @@ class _ContactScreenState extends State<ContactScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Material(
-      child: Container(
+    return Scaffold(
+      backgroundColor: Colors.transparent,
+      body: Container(
         width: 1.sw,
+        height: 1.sh,
         decoration: BoxDecoration(
           image: DecorationImage(
             image: AssetImage("assets/images/phonehomescreen.jpg"),
@@ -337,7 +399,7 @@ class _ContactScreenState extends State<ContactScreen> {
                           ),
                         ),
                         SizedBox(height: 8.h),
-                        Container(
+                        SizedBox(
                           height: 150.h,
                           child: TextFormField(
                             controller: _messageController,

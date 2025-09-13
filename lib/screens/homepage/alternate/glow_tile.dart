@@ -70,8 +70,8 @@ class GlowTile extends StatelessWidget {
                     label ?? "Test",
                     style: TextStyle(
                       color: Colors.white,
-                      fontSize: 12.sp,
-                      fontWeight: FontWeight.w500,
+                      fontSize: 13.sp,
+                      fontWeight: FontWeight.w600,
                     ),
                   ),
                 ),
