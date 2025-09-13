@@ -70,11 +70,11 @@ class _EducationScreenState extends State<EducationScreen> {
                       Text('Education', style: AppDesign.largeTitle),
                       const SizedBox(height: 2),
                       Text(
-                        'My academic journey',
+                        'Click on the list icon to learn more',
                         style: AppDesign.body.copyWith(
                           color: Colors.black87,
                           fontWeight: FontWeight.w400,
-                          fontSize: 20.sp,
+                          fontSize: 18.sp,
                         ),
                       ),
                     ],

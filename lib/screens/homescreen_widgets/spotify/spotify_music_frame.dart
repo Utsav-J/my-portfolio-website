@@ -129,8 +129,8 @@ class _SpotifyMusicFrameState extends State<SpotifyMusicFrame> {
     // Non-web fallback message
     return Center(
       child: Text(
-        'Spotify embed is available on this web builds',
-        style: TextStyle(color: Colors.black54, fontSize: 14.sp),
+        'Spotify embed is unavailable on this web build',
+        style: TextStyle(color: Colors.white, fontSize: 14.sp),
         textAlign: TextAlign.center,
       ),
     );

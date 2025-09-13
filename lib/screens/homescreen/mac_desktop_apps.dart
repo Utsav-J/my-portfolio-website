@@ -12,6 +12,7 @@ import 'package:portfolio/screens/homescreen_widgets/utsav_memoji.dart';
 import 'package:portfolio/screens/homescreen_widgets/spotify/spotify_music_frame.dart';
 import 'package:portfolio/screens/homescreen_widgets/calendar_widget.dart';
 import 'package:portfolio/screens/snake/snake_game.dart';
+import 'package:portfolio/screens/appscreen/info_screen.dart';
 
 class MacDesktopApps extends StatefulWidget {
   const MacDesktopApps({super.key});
@@ -52,7 +53,7 @@ class _MacDesktopAppsState extends State<MacDesktopApps> {
       _openApp(
         PortfolioApp(
           title: 'Experience',
-          icon: CupertinoIcons.briefcase,
+          icon: CupertinoIcons.info_circle_fill,
           color: const Color(0xFF007AFF),
           onTap: () {},
           height: 760.h,
@@ -329,8 +330,8 @@ class _MacDesktopAppsState extends State<MacDesktopApps> {
             icon: CupertinoIcons.hammer,
             color: const Color(0xFFFF9500),
             onTap: () {},
-            height: 800.h,
-            width: 900.w,
+            height: 900.h,
+            width: 1000.w,
           ),
         ),
       ),
@@ -366,15 +367,17 @@ class _MacDesktopAppsState extends State<MacDesktopApps> {
         ),
       ),
       PortfolioApp(
-        title: 'Gallery',
+        title: 'How To\'s',
         icon: CupertinoIcons.photo_on_rectangle,
         color: const Color(0xFF4ECDC4),
         onTap: () => _openApp(
           PortfolioApp(
-            title: 'Gallery',
+            title: 'How To\'s',
             icon: CupertinoIcons.photo_on_rectangle,
             color: const Color(0xFF4ECDC4),
             onTap: () {},
+            height: 800.h,
+            width: 1000.w,
           ),
         ),
       ),
@@ -533,6 +536,11 @@ class _MacDesktopAppsState extends State<MacDesktopApps> {
 
     if (app.title == 'Help Utsav catch all of tech') {
       return const SnakeGame();
+    }
+
+    // Special case for How To's app
+    if (app.title == 'How To\'s') {
+      return const InfoScreen();
     }
 
     return Padding(

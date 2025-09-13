@@ -83,17 +83,17 @@ class _ProjectsScreenState extends State<ProjectsScreen> {
                         style: AppDesign.largeTitle.copyWith(
                           color: Colors.black,
                           fontWeight: FontWeight.w700,
-                          fontSize: 28,
+                          fontSize: 32.sp,
                           height: 1.0,
                         ),
                       ),
-                      const SizedBox(height: 4),
+                      SizedBox(height: 4.h),
                       Text(
-                        'My development work',
+                        'Click on image to learn more about the project',
                         style: AppDesign.body.copyWith(
                           color: Colors.black87,
                           fontWeight: FontWeight.w400,
-                          fontSize: 14,
+                          fontSize: 16.sp,
                         ),
                       ),
                     ],
@@ -377,12 +377,12 @@ class _ProjectsScreenState extends State<ProjectsScreen> {
                     style: AppDesign.title2.copyWith(
                       color: AppDesign.systemBlue,
                       fontWeight: FontWeight.w600,
-                      fontSize: 16,
+                      fontSize: 17.sp,
                     ),
                   ),
                 ],
               ),
-              const SizedBox(height: 16),
+              SizedBox(height: 16.h),
 
               // Description content
               if (project.description.isNotEmpty) ...[
@@ -391,7 +391,7 @@ class _ProjectsScreenState extends State<ProjectsScreen> {
                     itemCount: project.description.length,
                     itemBuilder: (context, index) {
                       return Padding(
-                        padding: const EdgeInsets.only(bottom: 12),
+                        padding: EdgeInsets.only(bottom: 8.h),
                         child: Row(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
@@ -400,7 +400,7 @@ class _ProjectsScreenState extends State<ProjectsScreen> {
                               style: AppDesign.body.copyWith(
                                 color: AppDesign.systemBlue,
                                 fontWeight: FontWeight.w600,
-                                fontSize: 16,
+                                fontSize: 16.sp,
                               ),
                             ),
                             Expanded(
