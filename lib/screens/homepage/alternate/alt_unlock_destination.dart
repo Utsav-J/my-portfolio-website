@@ -87,7 +87,7 @@ class _AltUnlockDestinationState extends State<AltUnlockDestination> {
                           Text(
                             "Download My CV",
                             style: AppDesign.largeTitle.copyWith(
-                              fontSize: 16.sp,
+                              fontSize: 14.sp,
                               color: Colors.white,
                             ),
                           ),

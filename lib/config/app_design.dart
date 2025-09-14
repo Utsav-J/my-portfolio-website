@@ -22,7 +22,7 @@ class AppDesign {
 
   /// Title 2 text style
   static TextStyle title2 = GoogleFonts.quicksand(
-    fontSize: 22.sp,
+    fontSize: 18.sp,
     fontWeight: FontWeight.w400,
     // letterSpacing: 0.35,
     height: 1.18,
@@ -30,7 +30,7 @@ class AppDesign {
 
   /// Title 3 text style
   static TextStyle title3 = GoogleFonts.quicksand(
-    fontSize: 20.sp,
+    fontSize: 18.sp,
     fontWeight: FontWeight.w400,
     // letterSpacing: 0.38,
     height: 1.20,
@@ -38,7 +38,7 @@ class AppDesign {
 
   /// Headline text style
   static TextStyle headline = GoogleFonts.quicksand(
-    fontSize: 18.sp,
+    fontSize: 16.sp,
     fontWeight: FontWeight.w600,
     // letterSpacing: -0.41.sp,
     height: 1.29.h,
@@ -54,7 +54,7 @@ class AppDesign {
 
   /// Callout text style
   static TextStyle callout = GoogleFonts.quicksand(
-    fontSize: 16.sp,
+    fontSize: 14.sp,
     fontWeight: FontWeight.w400,
     // letterSpacing: -0.32,
     height: 1.31,
@@ -96,11 +96,11 @@ class AppDesign {
 
   /// Menu bar text style
   static TextStyle menuBarText({Color color = Colors.white}) => headline
-      .copyWith(color: color, fontSize: 16.sp, fontWeight: FontWeight.w600);
+      .copyWith(color: color, fontSize: 14.sp, fontWeight: FontWeight.w600);
 
   /// Menu bar time text style
   static TextStyle menuBarTime({Color color = Colors.white}) => caption1
-      .copyWith(color: color, fontSize: 16.sp, fontWeight: FontWeight.w500);
+      .copyWith(color: color, fontSize: 14.sp, fontWeight: FontWeight.w500);
 
   /// App title text style
   static TextStyle appTitle({Color color = Colors.white}) => caption1.copyWith(
@@ -120,7 +120,7 @@ class AppDesign {
   /// Popup body text style
   static TextStyle popupBody({Color color = Colors.white}) => body.copyWith(
     color: color.withValues(alpha: 0.8),
-    fontSize: 16.sp,
+    fontSize: 14.sp,
     height: 1.4,
   );
 

@@ -133,7 +133,7 @@ class _SlideToUnlockState extends State<SlideToUnlock> {
                   'slide to unlock',
                   style: TextStyle(
                     color: Colors.white,
-                    fontSize: 16.sp,
+                    fontSize: 14.sp,
                     fontWeight: FontWeight.w500,
                     letterSpacing: 0.5,
                   ),
@@ -177,7 +177,7 @@ class _SlideToUnlockState extends State<SlideToUnlock> {
                   radius: 30.r,
                   child: Icon(
                     Icons.arrow_forward_ios,
-                    size: 16.sp,
+                    size: 14.sp,
                     color: Colors.black,
                   ),
                 ),
@@ -218,7 +218,7 @@ class Notification extends StatelessWidget {
                 'Reminder',
                 style: TextStyle(
                   color: Colors.white,
-                  fontSize: 16.sp,
+                  fontSize: 14.sp,
                   fontWeight: FontWeight.w600,
                 ),
               ),
@@ -272,7 +272,7 @@ class DateTimeDisplay extends StatelessWidget {
           formattedDate,
           style: TextStyle(
             color: Colors.white70,
-            fontSize: 20.sp,
+            fontSize: 18.sp,
             fontWeight: FontWeight.w400,
             letterSpacing: 0.3,
           ),

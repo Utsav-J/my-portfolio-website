@@ -72,7 +72,7 @@ class _ProjectsScreenState extends State<ProjectsScreen> {
                   'Projects',
                   style: AppDesign.largeTitle.copyWith(
                     color: Colors.white,
-                    fontSize: 32.sp,
+                    fontSize: 30.sp,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
@@ -94,7 +94,7 @@ class _ProjectsScreenState extends State<ProjectsScreen> {
                   height: 40.w,
                   borderRadius: BorderRadius.circular(20.r),
                   border: Border.all(color: Colors.white30, width: 1.sp),
-                  child: Icon(Icons.close, color: Colors.white, size: 20.sp),
+                  child: Icon(Icons.close, color: Colors.white, size: 18.sp),
                 ),
               ),
             ),
@@ -132,13 +132,13 @@ class _ProjectsScreenState extends State<ProjectsScreen> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Icon(Icons.error_outline, color: Colors.red[400], size: 32.sp),
+            Icon(Icons.error_outline, color: Colors.red[400], size: 30.sp),
             SizedBox(height: 8.h),
             Text(
               'Error loading projects',
               style: AppDesign.title1.copyWith(
                 color: Colors.white,
-                fontSize: 16.sp,
+                fontSize: 14.sp,
               ),
             ),
           ],
@@ -151,13 +151,13 @@ class _ProjectsScreenState extends State<ProjectsScreen> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Icon(Icons.code_outlined, color: Colors.grey[400], size: 32.sp),
+            Icon(Icons.code_outlined, color: Colors.grey[400], size: 30.sp),
             SizedBox(height: 8.h),
             Text(
               'No projects found',
               style: AppDesign.title1.copyWith(
                 color: Colors.white,
-                fontSize: 16.sp,
+                fontSize: 14.sp,
               ),
             ),
           ],
@@ -276,7 +276,7 @@ class _ProjectsScreenState extends State<ProjectsScreen> {
                         style: AppDesign.title1.copyWith(
                           color: Colors.white,
                           fontWeight: FontWeight.w700,
-                          fontSize: 16.sp,
+                          fontSize: 14.sp,
                         ),
                         maxLines: 2,
                         overflow: TextOverflow.ellipsis,

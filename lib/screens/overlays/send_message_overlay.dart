@@ -468,7 +468,7 @@ class _SendMessageOverlayState extends State<SendMessageOverlay>
                     hintText: 'Type',
                     hintStyle: AppDesign.body.copyWith(
                       color: Colors.white.withValues(alpha: 0.5),
-                      fontSize: 16.sp,
+                      fontSize: 14.sp,
                     ),
                   ),
                   dropdownColor: AppDesign.darkSecondaryBackground,
@@ -479,7 +479,7 @@ class _SendMessageOverlayState extends State<SendMessageOverlay>
                   icon: Icon(
                     Icons.keyboard_arrow_down,
                     color: Colors.white.withValues(alpha: 0.8),
-                    size: 18.sp,
+                    size: 16.sp,
                   ),
                   items: _contactTypes.map((contactType) {
                     return DropdownMenuItem<String>(

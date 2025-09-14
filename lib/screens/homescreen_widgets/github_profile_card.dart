@@ -37,7 +37,7 @@ class GithubProfileCard extends StatelessWidget {
                       Icon(
                         BoxIcons.bx_git_commit,
                         color: Colors.white54,
-                        size: 20.sp,
+                        size: 18.sp,
                       ),
                       SizedBox(width: 4.w),
                       Text(
@@ -45,7 +45,7 @@ class GithubProfileCard extends StatelessWidget {
                         overflow: TextOverflow.fade,
                         style: TextStyle(
                           color: Colors.white60,
-                          fontSize: 18.sp,
+                          fontSize: 16.sp,
                           fontWeight: FontWeight.w800,
                         ),
                       ),
@@ -57,7 +57,7 @@ class GithubProfileCard extends StatelessWidget {
                       Icon(
                         CupertinoIcons.tray,
                         color: Colors.white54,
-                        size: 16.sp,
+                        size: 14.sp,
                       ),
                       SizedBox(width: 4.w),
                       Text(
@@ -65,7 +65,7 @@ class GithubProfileCard extends StatelessWidget {
                         overflow: TextOverflow.fade,
                         style: TextStyle(
                           color: Colors.white60,
-                          fontSize: 18.sp,
+                          fontSize: 16.sp,
                           fontWeight: FontWeight.w800,
                         ),
                       ),

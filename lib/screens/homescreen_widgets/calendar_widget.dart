@@ -78,7 +78,7 @@ class CalendarWidget extends StatelessWidget {
                             textAlign: TextAlign.center,
                             style: TextStyle(
                               color: const Color.fromARGB(255, 255, 100, 100),
-                              fontSize: 16.sp,
+                              fontSize: 14.sp,
                               fontWeight: FontWeight.w500,
                             ),
                           ),
@@ -137,7 +137,7 @@ class CalendarWidget extends StatelessWidget {
                 color: isToday
                     ? Colors.white
                     : const Color.fromARGB(255, 186, 186, 188),
-                fontSize: 16.sp,
+                fontSize: 14.sp,
                 fontWeight: isToday ? FontWeight.w600 : FontWeight.w400,
               ),
             ),

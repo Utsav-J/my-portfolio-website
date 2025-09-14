@@ -42,7 +42,7 @@ class _NotesState extends State<Notes> {
         padding: EdgeInsets.all(20.0.w),
         child: Text(
           'No notes found',
-          style: TextStyle(color: Colors.white70, fontSize: 16.sp),
+          style: TextStyle(color: Colors.white70, fontSize: 14.sp),
         ),
       );
     }
@@ -117,7 +117,7 @@ class _NotesState extends State<Notes> {
                               option,
                               style: GoogleFonts.newsreader(
                                 color: Colors.white,
-                                fontSize: 22.sp,
+                                fontSize: 18.sp,
                               ),
                             ),
                           ),
@@ -130,7 +130,7 @@ class _NotesState extends State<Notes> {
                   overflow: TextOverflow.fade,
                   style: GoogleFonts.newsreader(
                     color: Colors.white,
-                    fontSize: 20.sp,
+                    fontSize: 18.sp,
                   ),
                 ),
                 const SizedBox(),

@@ -399,7 +399,7 @@ class _MacMenuBarState extends State<MacMenuBar> {
                       child: Icon(
                         Bootstrap.github,
                         color: Colors.white,
-                        size: 20.sp,
+                        size: 18.sp,
                       ),
                     ),
                   ),
@@ -420,7 +420,7 @@ class _MacMenuBarState extends State<MacMenuBar> {
                       child: Icon(
                         CupertinoIcons.wifi,
                         color: Colors.white,
-                        size: 20.sp,
+                        size: 18.sp,
                       ),
                     ),
                   ),
@@ -441,7 +441,7 @@ class _MacMenuBarState extends State<MacMenuBar> {
                       child: Icon(
                         CupertinoIcons.battery_full,
                         color: Colors.white,
-                        size: 20.sp,
+                        size: 18.sp,
                       ),
                     ),
                   ),

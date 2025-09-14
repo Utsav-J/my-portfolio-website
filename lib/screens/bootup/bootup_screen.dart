@@ -117,7 +117,7 @@ class _BootupScreenState extends State<BootupScreen>
                             Text(
                               'Booting Up...',
                               style: TextStyle(
-                                fontSize: 38.sp,
+                                fontSize: 26.sp,
                                 color: Colors.white.withValues(alpha: 0.7),
                                 fontWeight: FontWeight.w300,
                               ),

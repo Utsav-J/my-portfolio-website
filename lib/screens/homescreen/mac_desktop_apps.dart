@@ -32,7 +32,7 @@ class _MacDesktopAppsState extends State<MacDesktopApps> {
   @override
   void initState() {
     super.initState();
-    // Initialize with a default screen size
+    // // Initialize with a default screen size
     _lastScreenSize = const Size(1920, 1080);
 
     // Open default windows (About Me and Experience) after first frame
@@ -46,8 +46,8 @@ class _MacDesktopAppsState extends State<MacDesktopApps> {
           icon: CupertinoIcons.person_circle,
           color: const Color(0xFF34C759),
           onTap: () {},
-          height: 1000.h,
-          width: 1050.w,
+          height: 0.65,
+          width: 0.45,
         ),
       );
 
@@ -57,8 +57,8 @@ class _MacDesktopAppsState extends State<MacDesktopApps> {
           icon: CupertinoIcons.info_circle_fill,
           color: const Color(0xFF007AFF),
           onTap: () {},
-          height: 760.h,
-          width: 900.w,
+          height: 0.5,
+          width: 0.4,
         ),
       );
     });
@@ -93,27 +93,28 @@ class _MacDesktopAppsState extends State<MacDesktopApps> {
 
   // Calculate smart initial position that avoids overlapping with existing windows
   Offset _calculateSmartInitialPosition(PortfolioApp app) {
+    final screenSize = MediaQuery.of(context).size;
     // never change this offset position
     if (app.title == 'About Me') {
-      return Offset(60.w, 60.h);
+      return Offset(0.031 * screenSize.width, 0.056 * screenSize.height);
     }
     // never change this offset position
     if (app.title == "Experience") {
-      return Offset(1100.w, 50.h);
+      return Offset(0.573 * screenSize.width, 0.046 * screenSize.height);
     }
     // never change this offset position
     if (app.title == "Education") {
-      return Offset(500.w, 120.h);
+      return Offset(0.26 * screenSize.width, 0.111 * screenSize.height);
     }
     // never change this offset position
     if (app.title == "Projects") {
-      return Offset(200.w, 200.h);
+      return Offset(0.104 * screenSize.width, 0.185 * screenSize.height);
     }
     // const menuBarHeight = 30.0;
-    final baseX = 80.0.w;
-    final baseY = 80.0.h; // Below menu bar
-    final spacingX = 40.0.w;
-    final spacingY = 30.0.h;
+    final baseX = 0.042 * screenSize.width;
+    final baseY = 0.074 * screenSize.height; // Below menu bar
+    final spacingX = 0.021 * screenSize.width;
+    final spacingY = 0.028 * screenSize.height;
 
     // Start with base position
     double x = baseX + (openWindows.length * spacingX);
@@ -127,10 +128,10 @@ class _MacDesktopAppsState extends State<MacDesktopApps> {
 
       final existingPos = windowPositions[title]!;
       final existingApp = openWindows.firstWhere((w) => w.title == title);
-      final existingWidth = (existingApp.width ?? 400).w;
-      final existingHeight = (existingApp.height ?? 300).h;
-      final appWidth = (app.width ?? 400).w;
-      final appHeight = (app.height ?? 300).h;
+      final existingWidth = (existingApp.width ?? 0.4) * screenSize.width;
+      final existingHeight = (existingApp.height ?? 0.3) * screenSize.height;
+      final appWidth = (app.width ?? 0.4) * screenSize.width;
+      final appHeight = (app.height ?? 0.3) * screenSize.height;
 
       // Check if windows overlap
       if (x < existingPos.dx + existingWidth &&
@@ -146,14 +147,14 @@ class _MacDesktopAppsState extends State<MacDesktopApps> {
     // Ensure position is within screen bounds (basic check)
     final screenWidth = _lastScreenSize?.width ?? 1920.0;
     final screenHeight = _lastScreenSize?.height ?? 1080.0;
-    final dockHeight = 60.0.h;
-    final dockBottomPadding = 20.0.h;
+    final dockHeight = 0.056 * screenHeight;
+    final dockBottomPadding = 0.019 * screenHeight;
 
-    if (x + (app.width ?? 400).w > screenWidth) {
+    if (x + (app.width ?? 0.4) * screenSize.width > screenWidth) {
       x = baseX;
     }
 
-    if (y + (app.height ?? 300).h >
+    if (y + (app.height ?? 0.3) * screenSize.height >
         screenHeight - dockHeight - dockBottomPadding) {
       y = baseY;
     }
@@ -230,8 +231,8 @@ class _MacDesktopAppsState extends State<MacDesktopApps> {
 
         final currentPos = windowPositions[title]!;
         final app = openWindows.firstWhere((w) => w.title == title);
-        final appWidth = (app.width ?? 400).w;
-        final appHeight = (app.height ?? 300).h;
+        final appWidth = (app.width ?? 0.4) * newSize.width;
+        final appHeight = (app.height ?? 0.3) * newSize.height;
 
         // Check if window is outside new screen bounds
         bool needsReposition = false;
@@ -251,13 +252,17 @@ class _MacDesktopAppsState extends State<MacDesktopApps> {
         }
 
         // Top boundary (menu bar)
-        if (newY < 30.h) {
-          newY = 30.h;
+        if (newY < 0.028 * newSize.height) {
+          newY = 0.028 * newSize.height;
           needsReposition = true;
         }
 
         // Bottom boundary (dock area)
-        final bottomBoundary = newSize.height - 60.h - 20.h - appHeight;
+        final bottomBoundary =
+            newSize.height -
+            0.056 * newSize.height -
+            0.019 * newSize.height -
+            appHeight;
         if (newY > bottomBoundary) {
           newY = bottomBoundary;
           needsReposition = true;
@@ -286,8 +291,8 @@ class _MacDesktopAppsState extends State<MacDesktopApps> {
             icon: CupertinoIcons.person_circle,
             color: const Color(0xFF34C759),
             onTap: () {},
-            height: 1000.h,
-            width: 1150.w,
+            height: 0.65,
+            width: 0.45,
           ),
         ),
       ),
@@ -301,8 +306,8 @@ class _MacDesktopAppsState extends State<MacDesktopApps> {
             icon: CupertinoIcons.briefcase,
             color: const Color(0xFF007AFF),
             onTap: () {},
-            height: 760.h,
-            width: 900.w,
+            height: 0.5,
+            width: 0.4,
           ),
         ),
       ),
@@ -316,8 +321,8 @@ class _MacDesktopAppsState extends State<MacDesktopApps> {
             icon: CupertinoIcons.checkmark_seal,
             color: const Color(0xFF0A84FF),
             onTap: () {},
-            height: 650.h,
-            width: 900.w,
+            height: 0.52,
+            width: 0.42,
           ),
         ),
       ),
@@ -331,8 +336,8 @@ class _MacDesktopAppsState extends State<MacDesktopApps> {
             icon: CupertinoIcons.hammer,
             color: const Color(0xFFFF9500),
             onTap: () {},
-            height: 900.h,
-            width: 1000.w,
+            height: 0.52,
+            width: 0.42,
           ),
         ),
       ),
@@ -346,8 +351,8 @@ class _MacDesktopAppsState extends State<MacDesktopApps> {
             icon: CupertinoIcons.book,
             color: const Color(0xFFAF52DE),
             onTap: () {},
-            height: 650.h,
-            width: 800.w,
+            height: 0.56,
+            width: 0.42,
           ),
         ),
       ),
@@ -362,8 +367,8 @@ class _MacDesktopAppsState extends State<MacDesktopApps> {
             icon: CupertinoIcons.book,
             color: const Color(0xFFAF52DE),
             onTap: () {},
-            height: 760.h,
-            width: 760.h,
+            height: 0.6,
+            width: 0.3,
           ),
         ),
       ),
@@ -377,8 +382,8 @@ class _MacDesktopAppsState extends State<MacDesktopApps> {
             icon: CupertinoIcons.photo_on_rectangle,
             color: const Color(0xFF4ECDC4),
             onTap: () {},
-            height: 800.h,
-            width: 1000.w,
+            height: 0.74,
+            width: 0.52,
           ),
         ),
       ),
@@ -388,7 +393,7 @@ class _MacDesktopAppsState extends State<MacDesktopApps> {
       children: [
         // Desktop Apps Grid
         Padding(
-          padding: EdgeInsets.all(40.w),
+          padding: EdgeInsets.all(0.021 * MediaQuery.of(context).size.width),
           child: SingleChildScrollView(
             child: Builder(
               builder: (context) {
@@ -546,34 +551,34 @@ class _MacDesktopAppsState extends State<MacDesktopApps> {
     }
 
     return Padding(
-      padding: EdgeInsets.all(20.w),
+      padding: EdgeInsets.all(0.01 * MediaQuery.of(context).size.width),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
             children: [
-              Icon(app.icon, color: app.color, size: 32.sp),
-              SizedBox(width: 12.w),
+              Icon(app.icon, color: app.color, size: 30.sp),
+              SizedBox(width: 0.006 * MediaQuery.of(context).size.width),
               Text(
                 app.title,
                 style: TextStyle(
-                  fontSize: 24.sp,
+                  fontSize: 22.sp,
                   fontWeight: FontWeight.bold,
                   color: const Color(0xFF2C2C2C),
                 ),
               ),
             ],
           ),
-          SizedBox(height: 20.h),
+          SizedBox(height: 0.019 * MediaQuery.of(context).size.height),
           Text(
             'Welcome to ${app.title}!',
             style: TextStyle(
-              fontSize: 18.sp,
+              fontSize: 16.sp,
               fontWeight: FontWeight.w600,
               color: const Color(0xFF2C2C2C),
             ),
           ),
-          SizedBox(height: 12.h),
+          SizedBox(height: 0.011 * MediaQuery.of(context).size.height),
           Text(
             'This is a sample content area for the ${app.title} application. '
             'You can add your actual content here including text, images, '
@@ -584,18 +589,18 @@ class _MacDesktopAppsState extends State<MacDesktopApps> {
               height: 1.5,
             ),
           ),
-          SizedBox(height: 20.h),
+          SizedBox(height: 0.019 * MediaQuery.of(context).size.height),
           Container(
-            padding: EdgeInsets.all(16.w),
+            padding: EdgeInsets.all(0.008 * MediaQuery.of(context).size.width),
             decoration: BoxDecoration(
               color: app.color.withValues(alpha: 0.1),
-              borderRadius: BorderRadius.circular(8),
+              borderRadius: BorderRadius.circular(8.r),
               border: Border.all(color: app.color.withValues(alpha: 0.3)),
             ),
             child: Row(
               children: [
-                Icon(app.icon, color: app.color, size: 20.sp),
-                SizedBox(width: 8.w),
+                Icon(app.icon, color: app.color, size: 18.sp),
+                SizedBox(width: 0.004 * MediaQuery.of(context).size.width),
                 Text(
                   'Sample ${app.title} Content',
                   style: TextStyle(

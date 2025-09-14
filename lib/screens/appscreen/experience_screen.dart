@@ -88,7 +88,7 @@ class _ExperienceScreenState extends State<ExperienceScreen> {
                         style: AppDesign.body.copyWith(
                           color: Colors.black87,
                           fontWeight: FontWeight.w400,
-                          fontSize: 16.sp,
+                          fontSize: 14.sp,
                         ),
                       ),
                     ],
@@ -100,7 +100,7 @@ class _ExperienceScreenState extends State<ExperienceScreen> {
                   style: AppDesign.title1.copyWith(
                     color: AppDesign.systemBlue,
                     fontWeight: FontWeight.w400,
-                    fontSize: 16.sp,
+                    fontSize: 14.sp,
                   ),
                 ),
               ],
@@ -263,7 +263,7 @@ class _ExperienceScreenState extends State<ExperienceScreen> {
                         style: AppDesign.title1.copyWith(
                           color: Colors.black,
                           fontWeight: FontWeight.w700,
-                          fontSize: 18.sp,
+                          fontSize: 16.sp,
                         ),
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
@@ -341,7 +341,7 @@ class _ExperienceScreenState extends State<ExperienceScreen> {
                           item,
                           style: AppDesign.body.copyWith(
                             color: Colors.black87,
-                            fontSize: 15.sp,
+                            fontSize: 14.sp,
                           ),
                         ),
                       ),

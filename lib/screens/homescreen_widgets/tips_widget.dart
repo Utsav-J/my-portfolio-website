@@ -31,14 +31,14 @@ class TipsWidget extends StatelessWidget {
               child: Text(
                 'Tips',
                 style: TextStyle(
-                  fontSize: 24.sp,
+                  fontSize: 22.sp,
                   fontWeight: FontWeight.bold,
                   color: Colors.white,
                   letterSpacing: 1.2,
                 ),
               ),
             ),
-            SizedBox(height: 20.h),
+            SizedBox(height: 10.h),
 
             // Tips
             Expanded(
@@ -52,28 +52,14 @@ class TipsWidget extends StatelessWidget {
 
                     SizedBox(height: 16.h),
 
-                    // Second Tip
-                    _buildTipCard(
-                      'There\'s a lot of clever easter eggs hidden, be on the watch 👀',
-                    ),
-
-                    SizedBox(height: 16.h),
-
                     // Additional Tips
                     _buildTipCard(
-                      'Try dragging windows around to organize your workspace',
+                      'Enable `Hardware Acceleration` for a smoother experience',
                     ),
-
+                    // Second Tip
                     SizedBox(height: 16.h),
-
                     _buildTipCard(
-                      'Click on different app icons to explore various sections of the portfolio',
-                    ),
-
-                    SizedBox(height: 16.h),
-
-                    _buildTipCard(
-                      'Look for interactive elements like the snake game and live GitHub stats',
+                      'There\'s a lot of clever easter eggs hidden, be on the watch 👀',
                     ),
                   ],
                 ),
@@ -100,13 +86,13 @@ class TipsWidget extends StatelessWidget {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Icon(CupertinoIcons.lightbulb_fill, color: Colors.amber, size: 16.sp),
+          Icon(CupertinoIcons.lightbulb_fill, color: Colors.amber, size: 14.sp),
           SizedBox(width: 12.w),
           Expanded(
             child: Text(
               tip,
               style: TextStyle(
-                fontSize: 16.sp,
+                fontSize: 14.sp,
                 color: Colors.white,
                 // height: 1.4,
                 fontWeight: FontWeight.w500,

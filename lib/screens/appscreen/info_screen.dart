@@ -17,14 +17,14 @@ class InfoScreen extends StatelessWidget {
             children: [
               Icon(
                 CupertinoIcons.info_circle_fill,
-                size: 24.sp,
+                size: 22.sp,
                 color: const Color(0xFF4ECDC4),
               ),
               SizedBox(width: 12.w),
               Text(
                 'How to Navigate the Website',
                 style: TextStyle(
-                  fontSize: 24.sp,
+                  fontSize: 22.sp,
                   fontWeight: FontWeight.bold,
                   color: const Color(0xFF2C2C2C),
                 ),
@@ -161,14 +161,14 @@ class InfoScreen extends StatelessWidget {
                   color: const Color(0xFF4ECDC4).withValues(alpha: 0.1),
                   borderRadius: BorderRadius.circular(8.r),
                 ),
-                child: Icon(icon, color: const Color(0xFF4ECDC4), size: 20.sp),
+                child: Icon(icon, color: const Color(0xFF4ECDC4), size: 18.sp),
               ),
               SizedBox(width: 12.w),
               Expanded(
                 child: Text(
                   title,
                   style: TextStyle(
-                    fontSize: 18.sp,
+                    fontSize: 16.sp,
                     fontWeight: FontWeight.w600,
                     color: const Color(0xFF2C2C2C),
                   ),
@@ -180,7 +180,7 @@ class InfoScreen extends StatelessWidget {
           Text(
             description,
             style: TextStyle(
-              fontSize: 16.sp,
+              fontSize: 14.sp,
               color: const Color(0xFF6C757D),
               height: 1.4,
             ),

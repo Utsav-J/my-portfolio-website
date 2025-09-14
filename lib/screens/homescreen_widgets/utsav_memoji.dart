@@ -40,7 +40,7 @@ class UtsavMemoji extends StatelessWidget {
                   style: AppDesign.caption1.copyWith(
                     color: Colors.white,
                     fontWeight: FontWeight.w300,
-                    fontSize: 18.sp,
+                    fontSize: 16.sp,
                     shadows: [
                       Shadow(
                         offset: Offset(1, 1), // slight right & down

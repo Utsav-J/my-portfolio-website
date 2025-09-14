@@ -68,13 +68,14 @@ class _AppScreenState extends State<AppScreen> {
     }
 
     final screenSize = mediaQuery.size;
-    final windowWidth = (widget.windowWidth ?? 400).w;
-    final windowHeight = (widget.windowHeight ?? 300).h;
+    final windowWidth = (widget.windowWidth ?? 0.4) * screenSize.width;
+    final windowHeight = (widget.windowHeight ?? 0.3) * screenSize.height;
 
     // Define boundaries
-    final menuBarHeight = 30.0.h; // Menu bar height
-    final dockHeight = 60.0.h; // Dock height
-    final dockBottomPadding = 20.0.h; // Bottom padding for dock
+    final menuBarHeight = 0.03 * screenSize.height; // Menu bar height
+    final dockHeight = 0.06 * screenSize.height; // Dock height
+    final dockBottomPadding =
+        0.02 * screenSize.height; // Bottom padding for dock
 
     // Apply constraints
     double constrainedX = position.dx;
@@ -119,13 +120,14 @@ class _AppScreenState extends State<AppScreen> {
     }
 
     final screenSize = mediaQuery.size;
-    final windowWidth = (widget.windowWidth ?? 400).w;
-    final windowHeight = (widget.windowHeight ?? 300).h;
+    final windowWidth = (widget.windowWidth ?? 0.4) * screenSize.width;
+    final windowHeight = (widget.windowHeight ?? 0.3) * screenSize.height;
 
     // Define boundaries
-    final menuBarHeight = 30.0.h; // Menu bar height
-    final dockHeight = 60.0.h; // Dock height
-    final dockBottomPadding = 20.0.h; // Bottom padding for dock
+    final menuBarHeight = 0.03 * screenSize.height; // Menu bar height
+    final dockHeight = 0.06 * screenSize.height; // Dock height
+    final dockBottomPadding =
+        0.02 * screenSize.height; // Bottom padding for dock
 
     // Calculate new position
     Offset newPosition = position + details.delta;
@@ -173,10 +175,12 @@ class _AppScreenState extends State<AppScreen> {
       child: GestureDetector(
         onTap: widget.onBringToFront, // Bring window to front when tapped
         child: Container(
-          width: (widget.windowWidth ?? 600).w,
-          height: (widget.windowHeight ?? 400).h,
+          width:
+              (widget.windowWidth ?? 0.6) * MediaQuery.of(context).size.width,
+          height:
+              (widget.windowHeight ?? 0.4) * MediaQuery.of(context).size.height,
           decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(10),
+            borderRadius: BorderRadius.circular(10.r),
             boxShadow: [
               BoxShadow(
                 color: Colors.black.withValues(alpha: isDragging ? 0.3 : 0.2),
@@ -195,7 +199,7 @@ class _AppScreenState extends State<AppScreen> {
                   onPanUpdate: _onPanUpdate,
                   onPanEnd: _onPanEnd,
                   child: Container(
-                    height: 40,
+                    height: 0.04 * MediaQuery.of(context).size.height,
                     decoration: BoxDecoration(
                       color: const Color(0xFF2C2C2C),
                       borderRadius: BorderRadius.only(
@@ -207,11 +211,13 @@ class _AppScreenState extends State<AppScreen> {
                       children: [
                         // Left Side - Window Controls
                         Padding(
-                          padding: EdgeInsets.only(left: 12.w),
+                          padding: EdgeInsets.only(
+                            left: 0.008 * MediaQuery.of(context).size.width,
+                          ),
                           child: GestureDetector(
                             onTap: widget.onClose ?? () {},
                             child: CircleAvatar(
-                              radius: 14.r,
+                              radius: 12.r,
                               backgroundColor: Color.fromARGB(
                                 255,
                                 104,
@@ -222,7 +228,7 @@ class _AppScreenState extends State<AppScreen> {
                               child: Icon(
                                 CupertinoIcons.multiply,
                                 color: Colors.white,
-                                size: 16.sp,
+                                size: 14.sp,
                               ),
                             ),
                           ),
@@ -232,8 +238,8 @@ class _AppScreenState extends State<AppScreen> {
                         Expanded(
                           child: Center(
                             child: Container(
-                              width: 300.w,
-                              height: 30.h,
+                              width: 0.3 * MediaQuery.of(context).size.width,
+                              height: 0.03 * MediaQuery.of(context).size.height,
                               decoration: BoxDecoration(
                                 color: Colors.white,
                                 borderRadius: BorderRadius.circular(16.r),
@@ -243,7 +249,9 @@ class _AppScreenState extends State<AppScreen> {
                                   Expanded(
                                     child: Padding(
                                       padding: EdgeInsets.symmetric(
-                                        horizontal: 12.w,
+                                        horizontal:
+                                            0.012 *
+                                            MediaQuery.of(context).size.width,
                                       ),
                                       child: Text(
                                         widget.title,
@@ -258,11 +266,15 @@ class _AppScreenState extends State<AppScreen> {
                                   ),
                                   // Search Icon
                                   Padding(
-                                    padding: const EdgeInsets.only(right: 8),
+                                    padding: EdgeInsets.only(
+                                      right:
+                                          0.008 *
+                                          MediaQuery.of(context).size.width,
+                                    ),
                                     child: Icon(
                                       CupertinoIcons.search,
                                       color: const Color(0xFF2C2C2C),
-                                      size: 16.sp,
+                                      size: 14.sp,
                                     ),
                                   ),
                                 ],
@@ -273,21 +285,26 @@ class _AppScreenState extends State<AppScreen> {
 
                         // Right Side - Menu Options
                         Padding(
-                          padding: const EdgeInsets.only(right: 12),
+                          padding: EdgeInsets.only(
+                            right: 0.012 * MediaQuery.of(context).size.width,
+                          ),
                           child: Row(
                             children: [
                               // Plus Icon
                               Icon(
                                 CupertinoIcons.add,
                                 color: Colors.white.withValues(alpha: 0.8),
-                                size: 16,
+                                size: 14.sp,
                               ),
-                              const SizedBox(width: 12),
+                              SizedBox(
+                                width:
+                                    0.012 * MediaQuery.of(context).size.width,
+                              ),
                               // Three Dots Menu
                               Icon(
                                 CupertinoIcons.ellipsis,
                                 color: Colors.white.withValues(alpha: 0.8),
-                                size: 16,
+                                size: 14.sp,
                               ),
                             ],
                           ),

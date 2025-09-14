@@ -74,7 +74,7 @@ class _EducationScreenState extends State<EducationScreen> {
                         style: AppDesign.body.copyWith(
                           color: Colors.black87,
                           fontWeight: FontWeight.w400,
-                          fontSize: 18.sp,
+                          fontSize: 16.sp,
                         ),
                       ),
                     ],
@@ -341,7 +341,7 @@ class _EducationScreenState extends State<EducationScreen> {
                               child: Icon(
                                 Icons.close_fullscreen_rounded,
                                 color: Colors.grey[600],
-                                size: 18.sp,
+                                size: 16.sp,
                               ),
                             ),
                           ),
@@ -357,7 +357,7 @@ class _EducationScreenState extends State<EducationScreen> {
                           style: AppDesign.title2.copyWith(
                             color: Colors.black,
                             fontWeight: FontWeight.w700,
-                            fontSize: 18.sp,
+                            fontSize: 16.sp,
                           ),
                           maxLines: 2,
                           overflow: TextOverflow.ellipsis,
@@ -368,7 +368,7 @@ class _EducationScreenState extends State<EducationScreen> {
                           style: AppDesign.headline.copyWith(
                             color: AppDesign.systemBlue,
                             fontWeight: FontWeight.w600,
-                            fontSize: 16.sp,
+                            fontSize: 14.sp,
                           ),
                           maxLines: 2,
                           overflow: TextOverflow.ellipsis,
@@ -437,7 +437,7 @@ class _EducationScreenState extends State<EducationScreen> {
                                 child: Icon(
                                   Icons.list_alt_rounded,
                                   color: Colors.grey[600],
-                                  size: 20.sp,
+                                  size: 18.sp,
                                 ),
                               ),
                             ),

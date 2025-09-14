@@ -41,10 +41,10 @@ class _LocationWeatherWidgetState extends State<LocationWeatherWidget> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 400.w, // 2x the width of individual squares
-      height: 280.h, // Same height as individual squares
+      width: double.infinity, // Use available width
+      height: double.infinity, // Use available height
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(16),
+        borderRadius: BorderRadius.circular(16.r),
         gradient: const LinearGradient(
           begin: Alignment.topCenter,
           end: Alignment.bottomCenter,
@@ -144,7 +144,7 @@ class _LocationWeatherWidgetState extends State<LocationWeatherWidget> {
           final condition = current["condition"];
 
           return Padding(
-            padding: EdgeInsets.all(10.w),
+            padding: EdgeInsets.all(8.w),
             child: SingleChildScrollView(
               physics: const BouncingScrollPhysics(),
               child: Column(
@@ -159,7 +159,7 @@ class _LocationWeatherWidgetState extends State<LocationWeatherWidget> {
                         location["name"] ?? "Unknown",
                         style: TextStyle(
                           color: Colors.white,
-                          fontSize: 16.sp,
+                          fontSize: 14.sp,
                           fontWeight: FontWeight.w600,
                         ),
                       ),
@@ -174,25 +174,25 @@ class _LocationWeatherWidgetState extends State<LocationWeatherWidget> {
                         child: Icon(
                           _getWeatherIcon(condition["code"] ?? 1000),
                           color: Colors.white,
-                          size: 16.sp,
+                          size: 14.sp,
                         ),
                       ),
                     ],
                   ),
 
-                  SizedBox(height: 12.h),
+                  SizedBox(height: 8.h),
 
                   // Main temperature
                   Text(
                     "${(current["temp_c"] ?? 0).round()}°C",
                     style: TextStyle(
                       color: Colors.white,
-                      fontSize: 36.sp,
+                      fontSize: 28.sp,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
 
-                  SizedBox(height: 12.h),
+                  SizedBox(height: 8.h),
 
                   _buildWeatherDetailGrid(current),
                 ],
@@ -220,12 +220,15 @@ class _LocationWeatherWidgetState extends State<LocationWeatherWidget> {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             Expanded(
+              flex: 2,
               child: Center(
                 child: Text(
                   current["condition"]["text"] ?? "Unknown",
+                  overflow: TextOverflow.ellipsis,
+                  maxLines: 1,
                   style: TextStyle(
                     color: Colors.white,
-                    fontSize: 16.sp,
+                    fontSize: 12.sp,
                     fontWeight: FontWeight.w800,
                   ),
                   textAlign: TextAlign.center,
@@ -233,6 +236,7 @@ class _LocationWeatherWidgetState extends State<LocationWeatherWidget> {
               ),
             ),
             Expanded(
+              flex: 1,
               child: Center(
                 child: _buildWeatherDetailRow(
                   Icons.thermostat,
@@ -243,7 +247,7 @@ class _LocationWeatherWidgetState extends State<LocationWeatherWidget> {
             ),
           ],
         ),
-        SizedBox(height: 12.h),
+        SizedBox(height: 8.h),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
@@ -280,14 +284,18 @@ class _LocationWeatherWidgetState extends State<LocationWeatherWidget> {
           mainAxisAlignment: MainAxisAlignment.center,
           mainAxisSize: MainAxisSize.min,
           children: [
-            Icon(icon, color: Colors.white, size: 16.sp),
-            SizedBox(width: 4.w),
-            Text(
-              title,
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 14.sp,
-                fontWeight: FontWeight.w400,
+            Icon(icon, color: Colors.white, size: 12.sp),
+            SizedBox(width: 2.w),
+            Flexible(
+              child: Text(
+                title,
+                overflow: TextOverflow.ellipsis,
+                maxLines: 1,
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 10.sp,
+                  fontWeight: FontWeight.w400,
+                ),
               ),
             ),
           ],
@@ -301,7 +309,7 @@ class _LocationWeatherWidgetState extends State<LocationWeatherWidget> {
               : "°C"}",
           style: TextStyle(
             color: Colors.white,
-            fontSize: 14.sp,
+            fontSize: 12.sp,
             fontWeight: FontWeight.bold,
           ),
         ),

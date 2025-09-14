@@ -103,7 +103,7 @@ class _WelcomeScreenState extends State<WelcomeScreen>
                             'hi, i\'m',
                             style: AppDesign.body.copyWith(
                               color: Colors.white,
-                              fontSize: 24.sp,
+                              fontSize: 22.sp,
                               fontWeight: FontWeight.w400,
                               letterSpacing: 0.5,
                             ),
@@ -155,7 +155,7 @@ class _WelcomeScreenState extends State<WelcomeScreen>
                                   _transitionTexts[_currentTextIndex],
                                   style: AppDesign.body.copyWith(
                                     color: Colors.white,
-                                    fontSize: 18.sp,
+                                    fontSize: 16.sp,
                                     shadows: [
                                       // light black
                                       Shadow(
@@ -215,7 +215,7 @@ class _WelcomeScreenState extends State<WelcomeScreen>
                   'gen-ai developer ',
                   style: AppDesign.title2.copyWith(
                     color: Colors.white70,
-                    fontSize: 20.sp,
+                    fontSize: 18.sp,
                     fontWeight: FontWeight.w600,
                     letterSpacing: 0.3,
                   ),
@@ -224,7 +224,7 @@ class _WelcomeScreenState extends State<WelcomeScreen>
                   'musician',
                   style: AppDesign.title2.copyWith(
                     color: Colors.white60,
-                    fontSize: 20.sp,
+                    fontSize: 18.sp,
                     fontWeight: FontWeight.w600,
                     letterSpacing: 0.3,
                   ),
@@ -259,7 +259,7 @@ class _WelcomeScreenState extends State<WelcomeScreen>
                   height: 40.w,
                   borderRadius: BorderRadius.circular(20.r),
                   border: Border.all(color: Colors.white30, width: 1.sp),
-                  child: Icon(Icons.close, color: Colors.white, size: 20.sp),
+                  child: Icon(Icons.close, color: Colors.white, size: 18.sp),
                 ),
               ),
             ),

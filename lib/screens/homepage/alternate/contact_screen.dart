@@ -102,7 +102,7 @@ class _ContactScreenState extends State<ContactScreen> {
         SnackBar(
           content: Row(
             children: [
-              Icon(Icons.warning_outlined, color: Colors.white, size: 20.sp),
+              Icon(Icons.warning_outlined, color: Colors.white, size: 18.sp),
               SizedBox(width: 12.w),
               Expanded(
                 child: Text(
@@ -142,7 +142,7 @@ class _ContactScreenState extends State<ContactScreen> {
         SnackBar(
           content: Row(
             children: [
-              Icon(Icons.check_circle, color: Colors.white, size: 20.sp),
+              Icon(Icons.check_circle, color: Colors.white, size: 18.sp),
               SizedBox(width: 12.w),
               Expanded(
                 child: Text(
@@ -173,7 +173,7 @@ class _ContactScreenState extends State<ContactScreen> {
         SnackBar(
           content: Row(
             children: [
-              Icon(Icons.error_outline, color: Colors.white, size: 20.sp),
+              Icon(Icons.error_outline, color: Colors.white, size: 18.sp),
               SizedBox(width: 12.w),
               Expanded(
                 child: Text(
@@ -242,7 +242,7 @@ class _ContactScreenState extends State<ContactScreen> {
                       'Send a Message!',
                       style: AppDesign.title1.copyWith(
                         color: Colors.white,
-                        fontSize: 24.sp,
+                        fontSize: 22.sp,
                         fontWeight: FontWeight.w700,
                       ),
                     ),
@@ -307,7 +307,7 @@ class _ContactScreenState extends State<ContactScreen> {
                                 icon: Icon(
                                   Icons.keyboard_arrow_down,
                                   color: Colors.white.withValues(alpha: 0.8),
-                                  size: 18.sp,
+                                  size: 16.sp,
                                 ),
                                 items: _contactTypes
                                     .map(
@@ -508,7 +508,7 @@ class _ContactScreenState extends State<ContactScreen> {
                   height: 40.w,
                   borderRadius: BorderRadius.circular(20.r),
                   border: Border.all(color: Colors.white30, width: 1.sp),
-                  child: Icon(Icons.close, color: Colors.white, size: 20.sp),
+                  child: Icon(Icons.close, color: Colors.white, size: 18.sp),
                 ),
               ),
             ),

@@ -163,7 +163,7 @@ class _AboutMeScreenState extends State<AboutMeScreen>
                       style: AppDesign.largeTitle.copyWith(
                         color: Colors.black,
                         fontWeight: FontWeight.w700,
-                        fontSize: 32.sp,
+                        fontSize: 30.sp,
                       ),
                     ),
                     SizedBox(height: 20.h),
@@ -191,7 +191,7 @@ class _AboutMeScreenState extends State<AboutMeScreen>
                             style: AppDesign.headline.copyWith(
                               color: Colors.black,
                               fontWeight: FontWeight.w600,
-                              fontSize: 18.sp,
+                              fontSize: 16.sp,
                             ),
                           ),
                         );
@@ -230,7 +230,7 @@ class _AboutMeScreenState extends State<AboutMeScreen>
                       style: AppDesign.title1.copyWith(
                         color: Colors.black87,
                         fontWeight: FontWeight.w300,
-                        fontSize: 22.sp,
+                        fontSize: 15.sp,
                       ),
                     ),
                     SizedBox(height: 28.h),
@@ -259,22 +259,25 @@ class _AboutMeScreenState extends State<AboutMeScreen>
                         ),
                       ],
                     ),
-                    SizedBox(height: 38.h),
-                    SingleChildScrollView(
-                      child: _isLoadingSummary
-                          ? Center(
-                              child: CircularProgressIndicator(
-                                color: Colors.black,
-                                strokeWidth: 1.h,
+                    SizedBox(height: 24.h),
+                    Expanded(
+                      child: SingleChildScrollView(
+                        physics: const BouncingScrollPhysics(),
+                        child: _isLoadingSummary
+                            ? Center(
+                                child: CircularProgressIndicator(
+                                  color: Colors.black,
+                                  strokeWidth: 1.h,
+                                ),
+                              )
+                            : Text(
+                                _aboutMeSummary!,
+                                style: AppDesign.body.copyWith(
+                                  color: Colors.black87,
+                                  fontSize: 16.sp,
+                                ),
                               ),
-                            )
-                          : Text(
-                              _aboutMeSummary!,
-                              style: AppDesign.body.copyWith(
-                                color: Colors.black87,
-                                fontSize: 20.sp,
-                              ),
-                            ),
+                      ),
                     ),
                   ],
                 ),
@@ -308,7 +311,7 @@ class _AboutMeScreenState extends State<AboutMeScreen>
             onTap();
           },
           child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 10.h),
+            padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 10.h),
             child: Row(
               children: [
                 brandIcon,
@@ -317,7 +320,7 @@ class _AboutMeScreenState extends State<AboutMeScreen>
                   text,
                   style: AppDesign.buttonText(
                     color: textColor,
-                  ).copyWith(fontSize: 18.sp, fontWeight: FontWeight.w600),
+                  ).copyWith(fontSize: 16.sp, fontWeight: FontWeight.w600),
                 ),
               ],
             ),

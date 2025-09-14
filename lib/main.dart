@@ -15,8 +15,10 @@ class Portfolio extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double screenHeight = MediaQuery.of(context).size.height;
+    double screenWidth = MediaQuery.of(context).size.width;
     return ScreenUtilInit(
-      designSize: const Size(1920, 1080),
+      designSize: Size(screenWidth, screenHeight),
       minTextAdapt: true,
       splitScreenMode: true,
       builder: (context, child) {

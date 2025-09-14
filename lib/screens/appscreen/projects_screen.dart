@@ -83,7 +83,7 @@ class _ProjectsScreenState extends State<ProjectsScreen> {
                         style: AppDesign.largeTitle.copyWith(
                           color: Colors.black,
                           fontWeight: FontWeight.w700,
-                          fontSize: 32.sp,
+                          fontSize: 30.sp,
                           height: 1.0,
                         ),
                       ),
@@ -93,7 +93,7 @@ class _ProjectsScreenState extends State<ProjectsScreen> {
                         style: AppDesign.body.copyWith(
                           color: Colors.black87,
                           fontWeight: FontWeight.w400,
-                          fontSize: 16.sp,
+                          fontSize: 14.sp,
                         ),
                       ),
                     ],
@@ -400,7 +400,7 @@ class _ProjectsScreenState extends State<ProjectsScreen> {
                               style: AppDesign.body.copyWith(
                                 color: AppDesign.systemBlue,
                                 fontWeight: FontWeight.w600,
-                                fontSize: 16.sp,
+                                fontSize: 14.sp,
                               ),
                             ),
                             Expanded(

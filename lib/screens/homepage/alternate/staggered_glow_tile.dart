@@ -110,7 +110,7 @@ class _StaggeredGlowTileState extends State<StaggeredGlowTile> {
                         Icon(
                           Icons.error_outline,
                           color: Colors.white70,
-                          size: 24.sp,
+                          size: 22.sp,
                         ),
                         SizedBox(height: 8.h),
                         Text(
@@ -140,7 +140,7 @@ class _StaggeredGlowTileState extends State<StaggeredGlowTile> {
                         child: Icon(
                           Icons.broken_image,
                           color: Colors.white70,
-                          size: 24.sp,
+                          size: 22.sp,
                         ),
                       ),
                     );
@@ -156,7 +156,7 @@ class _StaggeredGlowTileState extends State<StaggeredGlowTile> {
                     child: Icon(
                       Icons.image,
                       color: Colors.white70,
-                      size: 24.sp,
+                      size: 22.sp,
                     ),
                   ),
                 ),

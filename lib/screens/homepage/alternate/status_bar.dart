@@ -25,9 +25,9 @@ class StatusBar extends StatelessWidget {
             const Spacer(),
             Row(
               children: [
-                Icon(CupertinoIcons.wifi, size: 20.sp),
+                Icon(CupertinoIcons.wifi, size: 18.sp),
                 SizedBox(width: 8.w),
-                Icon(CupertinoIcons.battery_charging, size: 20.sp),
+                Icon(CupertinoIcons.battery_charging, size: 18.sp),
               ],
             ),
           ],

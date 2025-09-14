@@ -107,7 +107,7 @@ class _WeatherSquareState extends State<WeatherSquare> {
                             location["name"] ?? "Unknown",
                             style: TextStyle(
                               color: Colors.white,
-                              fontSize: 18.sp,
+                              fontSize: 16.sp,
                               fontWeight: FontWeight.w600,
                             ),
                           ),
@@ -115,7 +115,7 @@ class _WeatherSquareState extends State<WeatherSquare> {
                           Icon(
                             Icons.keyboard_arrow_up,
                             color: Colors.white,
-                            size: 16.sp,
+                            size: 14.sp,
                           ),
                         ],
                       ),
@@ -133,7 +133,7 @@ class _WeatherSquareState extends State<WeatherSquare> {
                             child: Icon(
                               _getWeatherIcon(condition["code"] ?? 1000),
                               color: Colors.white,
-                              size: 20.sp,
+                              size: 18.sp,
                             ),
                           ),
                           SizedBox(height: 4.h),
@@ -190,7 +190,7 @@ class _WeatherSquareState extends State<WeatherSquare> {
                     condition["text"] ?? "Unknown",
                     style: TextStyle(
                       color: Colors.white,
-                      fontSize: 16.sp,
+                      fontSize: 14.sp,
                       fontWeight: FontWeight.w500,
                     ),
                   ),
