@@ -374,12 +374,12 @@ class _MacDesktopAppsState extends State<MacDesktopApps> {
       ),
       PortfolioApp(
         title: 'How To\'s',
-        icon: CupertinoIcons.photo_on_rectangle,
+        icon: CupertinoIcons.info,
         color: const Color(0xFF4ECDC4),
         onTap: () => _openApp(
           PortfolioApp(
             title: 'How To\'s',
-            icon: CupertinoIcons.photo_on_rectangle,
+            icon: CupertinoIcons.info,
             color: const Color(0xFF4ECDC4),
             onTap: () {},
             height: 0.74,
