@@ -92,12 +92,12 @@ class _NotesState extends State<Notes> {
                 MouseRegion(
                   cursor: SystemMouseCursors.click,
                   child: PopupMenuButton<String>(
-                    color: Colors.amber,
+                    color: Colors.orangeAccent,
                     elevation: 5,
                     menuPadding: EdgeInsets.all(5.w),
-                    borderRadius: BorderRadius.circular(12),
+                    borderRadius: BorderRadius.circular(24.r),
                     icon: Icon(
-                      CupertinoIcons.ellipsis_vertical_circle_fill,
+                      CupertinoIcons.arrowtriangle_down_circle,
                       size: 28.sp,
                     ),
                     onSelected: (String newTitle) {
@@ -117,6 +117,7 @@ class _NotesState extends State<Notes> {
                               option,
                               style: GoogleFonts.newsreader(
                                 color: Colors.white,
+                                fontWeight: FontWeight.w400,
                                 fontSize: 18.sp,
                               ),
                             ),

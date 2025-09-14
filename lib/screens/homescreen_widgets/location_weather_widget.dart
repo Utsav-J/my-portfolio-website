@@ -213,14 +213,13 @@ class _LocationWeatherWidgetState extends State<LocationWeatherWidget> {
 
   Widget _buildWeatherDetailGrid(dynamic current) {
     return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
+      mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             Expanded(
-              flex: 2,
               child: Center(
                 child: Text(
                   current["condition"]["text"] ?? "Unknown",
@@ -236,7 +235,6 @@ class _LocationWeatherWidgetState extends State<LocationWeatherWidget> {
               ),
             ),
             Expanded(
-              flex: 1,
               child: Center(
                 child: _buildWeatherDetailRow(
                   Icons.thermostat,

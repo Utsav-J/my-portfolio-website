@@ -27,9 +27,10 @@ class NoteItem extends StatelessWidget {
             alignment: Alignment.centerLeft,
             child: Text(
               title,
-              style: GoogleFonts.shantellSans(
+              style: GoogleFonts.pangolin(
                 color: Colors.white,
-                fontSize: 16.sp,
+                fontWeight: FontWeight.w500,
+                fontSize: 18.sp,
               ),
             ),
           ),
@@ -37,10 +38,7 @@ class NoteItem extends StatelessWidget {
             alignment: Alignment.bottomRight,
             child: Text(
               content,
-              style: GoogleFonts.shantellSans(
-                color: Colors.white,
-                fontSize: 16.sp,
-              ),
+              style: GoogleFonts.felipa(color: Colors.white, fontSize: 18.sp),
             ),
           ),
         ],
@@ -70,7 +68,11 @@ class ThoughtNoteItem extends StatelessWidget {
         alignment: Alignment.center,
         child: Text(
           content,
-          style: GoogleFonts.shantellSans(color: Colors.white, fontSize: 16.sp),
+          style: GoogleFonts.pangolin(
+            color: Colors.white,
+            fontWeight: FontWeight.w500,
+            fontSize: 18.sp,
+          ),
         ),
       ),
     );

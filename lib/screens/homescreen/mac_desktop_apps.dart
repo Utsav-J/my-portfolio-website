@@ -6,7 +6,7 @@ import 'package:portfolio/screens/appscreen/app_screen.dart';
 import 'package:portfolio/screens/homescreen/mac_app_icon.dart';
 import 'package:portfolio/models/models.dart';
 import 'package:portfolio/screens/homescreen_widgets/github_profile_card.dart';
-import 'package:portfolio/screens/homescreen_widgets/location_weather/location_weather_widget.dart';
+import 'package:portfolio/screens/homescreen_widgets/location_weather_widget.dart';
 import 'package:portfolio/screens/homescreen_widgets/notes/notes_widget.dart';
 import 'package:portfolio/screens/homescreen_widgets/tips_widget.dart';
 import 'package:portfolio/screens/homescreen_widgets/utsav_memoji.dart';
